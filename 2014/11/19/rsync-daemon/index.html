@@ -1,0 +1,670 @@
+<!doctype html>
+<html class="theme-next use-motion theme-next-mist">
+<head>
+  
+
+<meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+  <link rel="stylesheet" type="text/css" href="/vendors/fancybox/source/jquery.fancybox.css?v=2.1.5"/>
+
+
+
+
+<link rel="stylesheet" type="text/css" href="/css/main.css?v=0.4.5.1"/>
+
+
+    <meta name="description" content="编码计算、架构技术、服务器技术、云计算技术、挖掘机技术...." />
+
+
+
+  <meta name="keywords" content="Linux,rsync,教程,目录同步," />
+
+
+
+
+
+  <link rel="shorticon icon" type="image/x-icon" href="/favicon.ico?v=0.4.5.1" />
+
+
+<meta name="description" content="##场景服务器 A 192.168.1.1服务器 B 192.168.1.2要将 A 服务器的 /data/logs 目录同步到 B 服务器的 /home/logs 下
+##执行环境操作系统： centos 6.2
+##配置我们将使用 rsync 的 daemon 方式来完成任务登录到 A 服务器,执行 vim /etc/rsyncd.conf添加
+uid = root
+gid = root
+ma">
+<meta property="og:type" content="article">
+<meta property="og:title" content="利用 rsync 在服务器间同步目录">
+<meta property="og:url" content="http://www.dahouduan.com/2014/11/19/rsync-daemon/index.html">
+<meta property="og:site_name" content="大后端">
+<meta property="og:description" content="##场景服务器 A 192.168.1.1服务器 B 192.168.1.2要将 A 服务器的 /data/logs 目录同步到 B 服务器的 /home/logs 下
+##执行环境操作系统： centos 6.2
+##配置我们将使用 rsync 的 daemon 方式来完成任务登录到 A 服务器,执行 vim /etc/rsyncd.conf添加
+uid = root
+gid = root
+ma">
+<meta property="og:updated_time" content="2014-11-28T04:20:59.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="利用 rsync 在服务器间同步目录">
+<meta name="twitter:description" content="##场景服务器 A 192.168.1.1服务器 B 192.168.1.2要将 A 服务器的 /data/logs 目录同步到 B 服务器的 /home/logs 下
+##执行环境操作系统： centos 6.2
+##配置我们将使用 rsync 的 daemon 方式来完成任务登录到 A 服务器,执行 vim /etc/rsyncd.conf添加
+uid = root
+gid = root
+ma">
+
+
+<script type="text/javascript" id="hexo.configuration">
+  var CONFIG = {
+    scheme: 'Mist',
+    sidebar: 'post'
+  };
+</script>
+
+  <title> 利用 rsync 在服务器间同步目录 | 大后端 </title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  <!--[if lte IE 8]>
+  <div style=' clear: both; height: 59px; padding:0 0 0 15px; position: relative;margin:0 auto;'>
+    <a href="http://windows.microsoft.com/en-US/internet-explorer/products/ie/home?ocid=ie6_countdown_bannercode">
+      <img src="http://7u2nvr.com1.z0.glb.clouddn.com/picouterie.jpg" border="0" height="42" width="820"
+           alt="You are using an outdated browser. For a faster, safer browsing experience, upgrade for free today or use other browser ,like chrome firefox safari."
+           style='margin-left:auto;margin-right:auto;display: block;'/>
+    </a>
+  </div>
+<![endif]-->
+  
+
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "//hm.baidu.com/hm.js?74a54215aac26eec91b8c5fe54a20033";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+  <div class="container one-column page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><h1 class="site-meta">
+  <span class="logo-line-before"><i></i></span>
+  <a href="/" class="brand" rel="start">
+      <span class="logo">
+        <i class="icon-next-logo"></i>
+      </span>
+      <span class="site-title">大后端</span>
+  </a>
+  <span class="logo-line-after"><i></i></span>
+</h1>
+
+<div class="site-nav-toggle">
+  <button>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+  </button>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu ">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            <i class="menu-item-icon icon-next-home"></i> <br />
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            <i class="menu-item-icon icon-next-archives"></i> <br />
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            <i class="menu-item-icon icon-next-tags"></i> <br />
+            标签
+          </a>
+        </li>
+      
+
+      
+      
+    </ul>
+  
+
+  
+</nav>
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div id="content" class="content"> 
+
+  <div id="posts" class="posts-expand">
+    
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <header class="post-header">
+
+      
+      
+        <h1 class="post-title" itemprop="name headline">
+          
+          
+            
+              利用 rsync 在服务器间同步目录
+            
+          
+        </h1>
+      
+
+      <div class="post-meta">
+        <span class="post-time">
+          发表于
+          <time itemprop="dateCreated" datetime="2014-11-19T18:15:30+08:00" content="2014-11-19">
+            2014-11-19
+          </time>
+        </span>
+
+        
+
+        
+          
+            <span class="post-comments-count">
+              &nbsp; | &nbsp;
+              <a href="/2014/11/19/rsync-daemon/#comments" itemprop="discussionUrl">
+                <span class="post-comments-count ds-thread-count" data-thread-key="2014/11/19/rsync-daemon/" itemprop="commentsCount"></span>
+              </a>
+            </span>
+          
+        
+      </div>
+    </header>
+
+    <div class="post-body">
+
+      
+      
+
+      
+        <span itemprop="articleBody"><p>##场景<br>服务器 A 192.168.1.1<br>服务器 B 192.168.1.2<br>要将 A 服务器的 /data/logs 目录同步到 B 服务器的 /home/logs 下</p>
+<p>##执行环境<br>操作系统： centos 6.2</p>
+<p>##配置<br>我们将使用 rsync 的 daemon 方式来完成任务<br>登录到 A 服务器,执行 <code>vim /etc/rsyncd.conf</code><br>添加</p>
+<pre><code>uid = root
+gid = root
+max connections = 4
+pid file = /var/run/rsyncd.pid
+<span class="operator"><span class="keyword">lock</span> <span class="keyword">file</span> = /<span class="keyword">var</span>/run/rsync.<span class="keyword">lock</span>
+<span class="keyword">log</span> <span class="keyword">file</span> = /<span class="keyword">var</span>/<span class="keyword">log</span>/rsyncd.<span class="keyword">log</span>
+
+[<span class="keyword">logs</span>]
+<span class="keyword">path</span> = /<span class="keyword">data</span>/<span class="keyword">logs</span>
+<span class="keyword">ignore</span> <span class="keyword">errors</span>
+<span class="keyword">read</span> <span class="keyword">only</span> = <span class="literal">true</span>
+<span class="keyword">list</span> = <span class="literal">true</span>
+auth <span class="keyword">users</span> = <span class="keyword">backup</span>
+secrets <span class="keyword">file</span> = /etc/rsyncd.pwd</span>
+</code></pre><p>保存文件，执行<code>vim /etc/rsyncd.pwd</code> ，添加</p>
+<pre><code><span class="label">backup:</span>dahouduan.com
+</code></pre><p>保存退出，执行 <code>chmod 600 /etc/rsyncd.pwd</code><br>启动 rsync 服务 执行 <code>rsync --daemon</code><br>登录 B 服务器 ，执行 <code>vim /etc/rsyncd.pwd</code>  ，添加</p>
+<pre><code><span class="tag">dahouduan</span><span class="class">.com</span>
+</code></pre><p>保存退出，执行 <code>chmod 600 /etc/rsyncd.pwd</code><br>好了，配置已经完成了，现在 A 服务器为服务端 B 服务器为客户端，现在就可以在 B 服务器上执行同步操作了</p>
+<h2 id="配置说明">配置说明</h2><p>uid = root     #设置执行rsync的本地用户<br>gid = root     #设置执行rsync的本地组<br>max connections = 4     #最大同时连接数<br>pid file = /var/run/rsyncd.pid     #指定rsync服务进程的pid file<br>lock file = /var/run/rsync.lock     #指定rsync服务端锁定文件log file = /var/log/rsyncd.log     #指定rsync的log输出路径</p>
+<p>[logs]     #模块设定，可设置多个模块<br>path = /data/logs     #同步文件的真实路径<br>ignore errors<br>read only = true     #是否只读<br>list = true<br>auth users = backup  #身份验证用户。这不是系统用户，而是rsync服务自定的<br>secrets file = /etc/rsyncd.pwd     #当前模块的密码文件</p>
+<h2 id="开始同步">开始同步</h2><p>登录 B 服务器，执行</p>
+<pre><code>rsync -avzP --password-file=/etc/rsyncd.pwd backup@<span class="number">192.168</span><span class="number">.1</span><span class="number">.1</span>::logs  /home/logs
+</code></pre><p>so easy！</p>
+<h2 id="注意">注意</h2><p>1.如果 /home/下 logs 目录不存在将会创建，如果已经存在了， 会将 A 机器上的 /data/logs 目录下的内容同步到 B 机器上的 /home/logs/ 下<br>2.假如 A 机器上有一个文件 /home/logs/1.txt , 在第二次执行同步时没有修改，则不会同步<br>3.假如 B 机器上有一个文件 /home/logs/2.txt , A 上没有，同步时不会被删除<br>4.如果 B 机器上有一个文件 /home/logs/1.txt 被修改了，同步时会被 A 上对应的文件覆盖</p>
+<h2 id="扩展">扩展</h2><p>如果要同步别的目录，只需要修改 A 服务器上的 <code>/etc/rsyncd.conf</code> 将 logs 部分修改或者复制一份，改成你想同步的目录就可以了，</p>
+<h2 id="One_more_thing">One more thing</h2><p>下面是 rsync 的语法说明：<br>rsync [-avrlptgoD] [-e ssh] [user@host:/dir] [/local/path]<br>-v ：观察模式，可以列出更多的信息；<br>-q ：与 -v  相反，安静模式，输出的信息比较少；<br>-r ：递归复制！可以针对『目录』来处理！很重要！<br>-u ：仅更新 (update)，不会覆盖目标的新档案；<br>-l ：复制连结文件的属性，而非连结的目标源文件内容；<br>-p ：复制时，连同属性 (permission) 也保存不变！<br>-g ：保存源文件的拥有群组；<br>-o ：保存源文件的拥有人；<br>-D ：保存源文件的装置属性 (device)<br>-t ：保存源文件的时间参数；<br>-I ：忽略更新时间 (mtime) 的属性，档案比对上会比较快速；<br>-z ：加上压缩的参数！<br>-e ：使用的信道协议，例如使用 ssh 通道，则 -e ssh<br>-a ：相当于 -rlptgoD ，所以这个 -a 是最常用的参数了！</p>
+</span>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/Linux/" rel="tag">#Linux</a>
+          
+            <a href="/tags/rsync/" rel="tag">#rsync</a>
+          
+            <a href="/tags/教程/" rel="tag">#教程</a>
+          
+            <a href="/tags/目录同步/" rel="tag">#目录同步</a>
+          
+        </div>
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2014/11/21/install-php-5-5-19/" rel="prev">编译安装 php-5.5.19</a>
+            
+          </div>
+
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2014/11/14/use-nginx-to-generate-thumbnail/" rel="next">利用 nginx 自动生成缩略图</a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+ </div>
+
+        
+
+        
+          <div class="comments" id="comments">
+            
+              <div class="ds-thread" data-thread-key="2014/11/19/rsync-daemon/"
+                   data-title="利用 rsync 在服务器间同步目录" data-url="http://www.dahouduan.com/2014/11/19/rsync-daemon/">
+              </div>
+            
+          </div>
+        
+      </div>
+
+      
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" src="https://avatars1.githubusercontent.com/u/32269?v=3&s=460" alt="John Doe" itemprop="image"/>
+          <p class="site-author-name" itemprop="name">John Doe</p>
+        </div>
+        <p class="site-description motion-element" itemprop="description">编码计算、架构技术、服务器技术、云计算技术、挖掘机技术....</p>
+        <nav class="site-state motion-element">
+          <div class="site-state-item site-state-posts">
+            <a href="/archives">
+              <span class="site-state-item-count">50</span>
+              <span class="site-state-item-name">日志</span>
+            </a>
+          </div>
+
+          <div class="site-state-item site-state-categories">
+            
+              <span class="site-state-item-count">0</span>
+              <span class="site-state-item-name">分类</span>
+              
+          </div>
+
+          <div class="site-state-item site-state-tags">
+            <a href="/tags">
+              <span class="site-state-item-count">81</span>
+              <span class="site-state-item-name">标签</span>
+              </a>
+          </div>
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/your-user-name" target="_blank">github</a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+
+        <div class="links-of-author motion-element">
+          
+        </div>
+
+      </section>
+
+      
+        <section class="post-toc-wrap sidebar-panel-active">
+          <div class="post-toc-indicator-top post-toc-indicator"></div>
+          <div class="post-toc">
+            
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#配置说明"><span class="nav-number">1.</span> <span class="nav-text">配置说明</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#开始同步"><span class="nav-number">2.</span> <span class="nav-text">开始同步</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#注意"><span class="nav-number">3.</span> <span class="nav-text">注意</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#扩展"><span class="nav-number">4.</span> <span class="nav-text">扩展</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#One_more_thing"><span class="nav-number">5.</span> <span class="nav-text">One more thing</span></a></li></ol></div>
+            
+          </div>
+          <div class="post-toc-indicator-bottom post-toc-indicator"></div>
+        </section>
+      
+
+    </div>
+  </aside>
+
+
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner"> <div class="copyright" >
+  
+  &copy; &nbsp; 
+  <span itemprop="copyrightYear">2015</span>
+  <span class="with-love">
+    <i class="icon-next-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">John Doe</span>
+</div>
+
+<div class="powered-by">
+  由 <a class="theme-link" href="http://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Mist
+  </a>
+</div>
+
+
+ </div>
+    </footer>
+
+    <div class="back-to-top"></div>
+  </div>
+
+  <script type="text/javascript" src="/vendors/jquery/index.js?v=2.1.3"></script>
+
+  
+  
+  
+    
+
+  
+    
+  
+
+  <script type="text/javascript">
+    var duoshuoQuery = {short_name:"dahouduan"};
+    (function() {
+      var ds = document.createElement('script');
+      ds.type = 'text/javascript';ds.async = true;
+      ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+      ds.charset = 'UTF-8';
+      (document.getElementsByTagName('head')[0]
+      || document.getElementsByTagName('body')[0]).appendChild(ds);
+    })();
+  </script>
+    
+     
+  	<script src="/js/ua-parser.min.js"></script>
+  	<script src="/js/hook-duoshuo.js"></script>
+  
+
+    
+  
+  
+  <script type="text/javascript" src="/vendors/fancybox/source/jquery.fancybox.pack.js"></script>
+  <script type="text/javascript" src="/js/fancy-box.js?v=0.4.5.1"></script>
+
+
+  <script type="text/javascript" src="/js/helpers.js?v=0.4.5.1"></script>
+  
+
+  <script type="text/javascript" src="/vendors/velocity/velocity.min.js"></script>
+  <script type="text/javascript" src="/vendors/velocity/velocity.ui.min.js"></script>
+
+  <script type="text/javascript" src="/js/motion_global.js?v=0.4.5.1" id="motion.global"></script>
+
+
+
+
+  <script type="text/javascript" src="/js/nav-toggle.js?v=0.4.5.1"></script>
+  <script type="text/javascript" src="/vendors/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  
+<script type="text/javascript" src="/js/bootstrap.scrollspy.js?v=0.4.5.1" id="bootstrap.scrollspy.custom"></script>
+
+
+<script type="text/javascript" id="sidebar.toc.highlight">
+  $(document).ready(function () {
+    var tocSelector = '.post-toc';
+    var $tocSelector = $(tocSelector);
+    var activeCurrentSelector = '.active-current';
+
+    $tocSelector
+      .on('activate.bs.scrollspy', function () {
+        var $currentActiveElement = $(tocSelector + ' .active').last();
+
+        removeCurrentActiveClass();
+        $currentActiveElement.addClass('active-current');
+
+        $tocSelector[0].scrollTop = $currentActiveElement.position().top;
+      })
+      .on('clear.bs.scrollspy', function () {
+        removeCurrentActiveClass();
+      });
+
+    function removeCurrentActiveClass () {
+      $(tocSelector + ' ' + activeCurrentSelector)
+        .removeClass(activeCurrentSelector.substring(1));
+    }
+
+    function processTOC () {
+      getTOCMaxHeight();
+      toggleTOCOverflowIndicators();
+    }
+
+    function getTOCMaxHeight () {
+      var height = $('.sidebar').height() -
+                   $tocSelector.position().top -
+                   $('.post-toc-indicator-bottom').height();
+
+      $tocSelector.css('height', height);
+
+      return height;
+    }
+
+    function toggleTOCOverflowIndicators () {
+      tocOverflowIndicator(
+        '.post-toc-indicator-top',
+        $tocSelector.scrollTop() > 0 ? 'show' : 'hide'
+      );
+
+      tocOverflowIndicator(
+        '.post-toc-indicator-bottom',
+        $tocSelector.scrollTop() >= $tocSelector.find('ol').height() - $tocSelector.height() ? 'hide' : 'show'
+      )
+    }
+
+    $(document).on('sidebar.motion.complete', function () {
+      processTOC();
+    });
+
+    $('body').scrollspy({ target: tocSelector });
+    $(window).on('resize', function () {
+      if ( $('.sidebar').hasClass('sidebar-active') ) {
+        processTOC();
+      }
+    });
+
+    onScroll($tocSelector);
+
+    function onScroll (element) {
+      element.on('mousewheel DOMMouseScroll', function (event) {
+          var oe = event.originalEvent;
+          var delta = oe.wheelDelta || -oe.detail;
+
+          this.scrollTop += ( delta < 0 ? 1 : -1 ) * 30;
+          event.preventDefault();
+
+          toggleTOCOverflowIndicators();
+      });
+    }
+
+    function tocOverflowIndicator (indicator, action) {
+      var $indicator = $(indicator);
+      var opacity = action === 'show' ? 0.4 : 0;
+      $indicator.velocity ?
+        $indicator.velocity('stop').velocity({
+          opacity: opacity
+        }, { duration: 100 }) :
+        $indicator.stop().animate({
+          opacity: opacity
+        }, 100);
+    }
+
+  });
+</script>
+
+<script type="text/javascript" id="sidebar.nav">
+  $(document).ready(function () {
+    var html = $('html');
+    var TAB_ANIMATE_DURATION = 200;
+    var hasVelocity = $.isFunction(html.velocity);
+
+    $('.sidebar-nav li').on('click', function () {
+      var item = $(this);
+      var activeTabClassName = 'sidebar-nav-active';
+      var activePanelClassName = 'sidebar-panel-active';
+      if (item.hasClass(activeTabClassName)) {
+        return;
+      }
+
+      var currentTarget = $('.' + activePanelClassName);
+      var target = $('.' + item.data('target'));
+
+      hasVelocity ?
+        currentTarget.velocity('transition.slideUpOut', TAB_ANIMATE_DURATION, function () {
+          target
+            .velocity('stop')
+            .velocity('transition.slideDownIn', TAB_ANIMATE_DURATION)
+            .addClass(activePanelClassName);
+        }) :
+        currentTarget.animate({ opacity: 0 }, TAB_ANIMATE_DURATION, function () {
+          currentTarget.hide();
+          target
+            .stop()
+            .css({'opacity': 0, 'display': 'block'})
+            .animate({ opacity: 1 }, TAB_ANIMATE_DURATION, function () {
+              currentTarget.removeClass(activePanelClassName);
+              target.addClass(activePanelClassName);
+            });
+        });
+
+      item.siblings().removeClass(activeTabClassName);
+      item.addClass(activeTabClassName);
+    });
+
+    $('.post-toc a').on('click', function (e) {
+      e.preventDefault();
+      var targetSelector = escapeSelector(this.getAttribute('href'));
+      var offset = $(targetSelector).offset().top;
+      hasVelocity ?
+        html.velocity('stop').velocity('scroll', {
+          offset: offset  + 'px',
+          mobileHA: false
+        }) :
+        $('html, body').stop().animate({
+          scrollTop: offset
+        }, 500);
+    });
+
+    // Expand sidebar on post detail page by default, when post has a toc.
+    var $tocContent = $('.post-toc-content');
+    if (isDesktop() && CONFIG.sidebar === 'post') {
+      if ($tocContent.length > 0 && $tocContent.html().trim().length > 0) {
+        displaySidebar();
+      }
+    }
+  });
+</script>
+
+
+
+  <script type="text/javascript">
+    $(document).ready(function () {
+      if (CONFIG.sidebar === 'always') {
+        displaySidebar();
+      }
+      if (isMobile()) {
+        FastClick.attach(document.body);
+      }
+    });
+  </script>
+
+  
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/lazyload.js"></script>
+  <script type="text/javascript">
+    $(function () {
+      $("#posts").find('img').lazyload({
+        placeholder: "/images/loading.gif",
+        effect: "fadeIn"
+      });
+    });
+  </script>
+</body>
+</html>

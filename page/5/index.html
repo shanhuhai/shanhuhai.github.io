@@ -1,0 +1,1267 @@
+<!doctype html>
+<html class="theme-next use-motion theme-next-mist">
+<head>
+  
+
+<meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+  <link rel="stylesheet" type="text/css" href="/vendors/fancybox/source/jquery.fancybox.css?v=2.1.5"/>
+
+
+
+
+<link rel="stylesheet" type="text/css" href="/css/main.css?v=0.4.5.1"/>
+
+
+    <meta name="description" content="编码计算、架构技术、服务器技术、云计算技术、挖掘机技术...." />
+
+
+
+  <meta name="keywords" content="Hexo,next" />
+
+
+
+
+
+  <link rel="shorticon icon" type="image/x-icon" href="/favicon.ico?v=0.4.5.1" />
+
+
+<meta name="description" content="编码计算、架构技术、服务器技术、云计算技术、挖掘机技术....">
+<meta property="og:type" content="website">
+<meta property="og:title" content="大后端">
+<meta property="og:url" content="http://www.dahouduan.com/page/5/index.html">
+<meta property="og:site_name" content="大后端">
+<meta property="og:description" content="编码计算、架构技术、服务器技术、云计算技术、挖掘机技术....">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="大后端">
+<meta name="twitter:description" content="编码计算、架构技术、服务器技术、云计算技术、挖掘机技术....">
+
+
+<script type="text/javascript" id="hexo.configuration">
+  var CONFIG = {
+    scheme: 'Mist',
+    sidebar: 'post'
+  };
+</script>
+
+  <title> 大后端 </title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  <!--[if lte IE 8]>
+  <div style=' clear: both; height: 59px; padding:0 0 0 15px; position: relative;margin:0 auto;'>
+    <a href="http://windows.microsoft.com/en-US/internet-explorer/products/ie/home?ocid=ie6_countdown_bannercode">
+      <img src="http://7u2nvr.com1.z0.glb.clouddn.com/picouterie.jpg" border="0" height="42" width="820"
+           alt="You are using an outdated browser. For a faster, safer browsing experience, upgrade for free today or use other browser ,like chrome firefox safari."
+           style='margin-left:auto;margin-right:auto;display: block;'/>
+    </a>
+  </div>
+<![endif]-->
+  
+
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "//hm.baidu.com/hm.js?74a54215aac26eec91b8c5fe54a20033";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+  <div class="container one-column 
+   page-home 
+">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><h1 class="site-meta">
+  <span class="logo-line-before"><i></i></span>
+  <a href="/" class="brand" rel="start">
+      <span class="logo">
+        <i class="icon-next-logo"></i>
+      </span>
+      <span class="site-title">大后端</span>
+  </a>
+  <span class="logo-line-after"><i></i></span>
+</h1>
+
+<div class="site-nav-toggle">
+  <button>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+  </button>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu ">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            <i class="menu-item-icon icon-next-home"></i> <br />
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            <i class="menu-item-icon icon-next-archives"></i> <br />
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            <i class="menu-item-icon icon-next-tags"></i> <br />
+            标签
+          </a>
+        </li>
+      
+
+      
+      
+    </ul>
+  
+
+  
+</nav>
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div id="content" class="content"> 
+  <section id="posts" class="posts-expand">
+    
+      
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <header class="post-header">
+
+      
+      
+        <h1 class="post-title" itemprop="name headline">
+          
+          
+            
+              <a class="post-title-link" href="/2014/12/06/nginx-ip-access-and-autoindex/" itemprop="url">
+                nginx 设置通过 ip 访问并打开目录浏览
+              </a>
+            
+          
+        </h1>
+      
+
+      <div class="post-meta">
+        <span class="post-time">
+          发表于
+          <time itemprop="dateCreated" datetime="2014-12-06T11:11:18+08:00" content="2014-12-06">
+            2014-12-06
+          </time>
+        </span>
+
+        
+
+        
+          
+            <span class="post-comments-count">
+              &nbsp; | &nbsp;
+              <a href="/2014/12/06/nginx-ip-access-and-autoindex/#comments" itemprop="discussionUrl">
+                <span class="post-comments-count ds-thread-count" data-thread-key="2014/12/06/nginx-ip-access-and-autoindex/" itemprop="commentsCount"></span>
+              </a>
+            </span>
+          
+        
+      </div>
+    </header>
+
+    <div class="post-body">
+
+      
+      
+
+      
+        
+          <span itemprop="articleBody"><p>在你的 nginx.conf 中添加，下面代码：</p>
+<pre><code><span class="title">server</span>
+{
+    <span class="title">listen</span> <span class="number">80</span> default;
+    <span class="title">charset</span> utf-<span class="number">8</span>;
+    <span class="title">autoindex</span> <span class="built_in">on</span>;
+    <span class="title">root</span> /data/share ;
+    <span class="title">autoindex_exact_size</span> <span class="built_in">off</span>;
+    <span class="title">autoindex_localtime</span> <span class="built_in">on</span>;
+}
+</code></pre></span>
+        
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <header class="post-header">
+
+      
+      
+        <h1 class="post-title" itemprop="name headline">
+          
+          
+            
+              <a class="post-title-link" href="/2014/12/06/mysql-add-user/" itemprop="url">
+                mysql 命令行下添加用户
+              </a>
+            
+          
+        </h1>
+      
+
+      <div class="post-meta">
+        <span class="post-time">
+          发表于
+          <time itemprop="dateCreated" datetime="2014-12-06T11:05:13+08:00" content="2014-12-06">
+            2014-12-06
+          </time>
+        </span>
+
+        
+
+        
+          
+            <span class="post-comments-count">
+              &nbsp; | &nbsp;
+              <a href="/2014/12/06/mysql-add-user/#comments" itemprop="discussionUrl">
+                <span class="post-comments-count ds-thread-count" data-thread-key="2014/12/06/mysql-add-user/" itemprop="commentsCount"></span>
+              </a>
+            </span>
+          
+        
+      </div>
+    </header>
+
+    <div class="post-body">
+
+      
+      
+
+      
+        
+          <span itemprop="articleBody"><p>创建本地用户 test1 密码 123456 ：</p>
+<pre><code><span class="operator"><span class="keyword">CREATE</span> <span class="keyword">USER</span> <span class="string">'test1'</span>@<span class="string">'localhost'</span> <span class="keyword">IDENTIFIED</span> <span class="keyword">BY</span> <span class="string">'132456'</span>;</span>
+</code></pre><p>创建任意主机可登录的用户 test2 密码 123456 ：</p>
+<pre><code><span class="operator"><span class="keyword">CREATE</span> <span class="keyword">USER</span> <span class="string">'test2'</span>@<span class="string">'%'</span> <span class="keyword">IDENTIFIED</span> <span class="keyword">BY</span> <span class="string">'123456'</span>;</span>
+</code></pre><p>授权用户 test1 所用权限（相当于root）：</p>
+<pre><code><span class="operator"><span class="keyword">GRANT</span> ALL <span class="keyword">ON</span> *.* <span class="keyword">TO</span> <span class="string">'tset1'</span>@<span class="string">'%'</span>;</span>
+</code></pre><p><em>如果出现类似：Access denied for user ‘root’@’localhost’ while attempting to grant privileges. 的错误<br>则执行 <code>mysql_upgrade</code> 然后重新授权</em></p>
+<p>查看权限 ：</p>
+<pre><code><span class="operator">SELECT * <span class="keyword">FROM</span> mysql.<span class="keyword">user</span> <span class="keyword">WHERE</span> <span class="keyword">User</span>=<span class="string">'test1'</span> <span class="keyword">and</span> Host=<span class="string">'%'</span>\<span class="keyword">G</span></span>
+</code></pre><p>刷新权限 ：</p>
+<pre><code><span class="operator"><span class="keyword">flush</span> <span class="keyword">privileges</span>;</span>
+</code></pre><p>修改用户密码：</p>
+<pre><code><span class="operator"><span class="keyword">set</span> <span class="keyword">password</span> <span class="keyword">for</span> test1@<span class="string">"localhost"</span>=<span class="keyword">password</span>(<span class="string">'123456'</span>);</span>
+<span class="operator"><span class="keyword">flush</span> <span class="keyword">privileges</span>;</span>
+</code></pre></span>
+        
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <header class="post-header">
+
+      
+      
+        <h1 class="post-title" itemprop="name headline">
+          
+          
+            
+              <a class="post-title-link" href="/2014/12/05/linux-set-static-ip/" itemprop="url">
+                Linux 修改网络连接为静态 IP 方式
+              </a>
+            
+          
+        </h1>
+      
+
+      <div class="post-meta">
+        <span class="post-time">
+          发表于
+          <time itemprop="dateCreated" datetime="2014-12-05T11:22:32+08:00" content="2014-12-05">
+            2014-12-05
+          </time>
+        </span>
+
+        
+
+        
+          
+            <span class="post-comments-count">
+              &nbsp; | &nbsp;
+              <a href="/2014/12/05/linux-set-static-ip/#comments" itemprop="discussionUrl">
+                <span class="post-comments-count ds-thread-count" data-thread-key="2014/12/05/linux-set-static-ip/" itemprop="commentsCount"></span>
+              </a>
+            </span>
+          
+        
+      </div>
+    </header>
+
+    <div class="post-body">
+
+      
+      
+
+      
+        
+          <span itemprop="articleBody"><h1 id="Linux_修改网络连接为静态_IP_方式">Linux 修改网络连接为静态 IP 方式</h1><h2 id="环境">环境</h2><p>操作系统： centos 6.3</p>
+<h2 id="修改为静态_ip">修改为静态 ip</h2><p>打开网络配置文件<br><code>vi /etc/sysconfig/network-scripts/ifcfg-eth0</code><br>默认内容为</p>
+<pre><code><span class="setting">DEVICE=<span class="value"><span class="string">"eth0"</span></span></span>
+<span class="setting">BOOTPROTO=<span class="value"><span class="string">"dhcp"</span></span></span>
+<span class="setting">HWADDR=<span class="value"><span class="string">"00:1F:D0:42:DD:3D"</span></span></span>
+<span class="setting">NM_CONTROLLED=<span class="value"><span class="string">"yes"</span></span></span>
+<span class="setting">ONBOOT=<span class="value"><span class="string">"no"</span></span></span>
+<span class="setting">TYPE=<span class="value"><span class="string">"Ethernet"</span></span></span>
+<span class="setting">UUID=<span class="value"><span class="string">"76394187-92f9-4489-9656-075f1ee460c9"</span></span></span>
+</code></pre><p>  我们修改为(有注释的条目为添加或修改的配置)：</p>
+<pre><code>DEVICE=<span class="string">"eth0"</span>
+BOOTPROTO=<span class="string">"static"</span> <span class="comment">//网络链接方式，改为 static 静态 ip</span>
+HWADDR=<span class="string">"00:1F:D0:42:DD:3D"</span>
+NM_CONTROLLED=<span class="string">"yes"</span>
+ONBOOT=<span class="string">"yes"</span> <span class="comment">//开机启动网络连接</span>
+TYPE=<span class="string">"Ethernet"</span>
+UUID=<span class="string">"76394187-92f9-4489-9656-075f1ee460c9"</span>
+
+DNS1=<span class="number">192.168</span><span class="number">.1</span><span class="number">.1</span> <span class="comment">// DNS 地址</span>
+IPADDR=<span class="number">192.168</span><span class="number">.1</span><span class="number">.250</span> <span class="comment">//本机静态 ip 地址</span>
+NETMASK=<span class="number">255.255</span><span class="number">.255</span><span class="number">.0</span> <span class="comment">// 子网掩码</span>
+GATEWAY=<span class="number">192.168</span><span class="number">.1</span><span class="number">.1</span> <span class="comment">// 默认网络地址</span>
+</code></pre><p>保存<br>重启网络连接:<br><code>service network restart</code></p>
+<h2 id="测试">测试</h2><p><code>ping www.dahouduan.com</code></p>
+<p>如果能 ping 通表示网络设置成功了，如果 ping 不通，确认下你的 ip 和 网关 等是不是正确的值.</p>
+</span>
+        
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <header class="post-header">
+
+      
+      
+        <h1 class="post-title" itemprop="name headline">
+          
+          
+            
+              <a class="post-title-link" href="/2014/11/30/kindediter-cross-domian-upload/" itemprop="url">
+                KindEditor 实现跨域上传最简单方法
+              </a>
+            
+          
+        </h1>
+      
+
+      <div class="post-meta">
+        <span class="post-time">
+          发表于
+          <time itemprop="dateCreated" datetime="2014-11-30T11:51:03+08:00" content="2014-11-30">
+            2014-11-30
+          </time>
+        </span>
+
+        
+
+        
+          
+            <span class="post-comments-count">
+              &nbsp; | &nbsp;
+              <a href="/2014/11/30/kindediter-cross-domian-upload/#comments" itemprop="discussionUrl">
+                <span class="post-comments-count ds-thread-count" data-thread-key="2014/11/30/kindediter-cross-domian-upload/" itemprop="commentsCount"></span>
+              </a>
+            </span>
+          
+        
+      </div>
+    </header>
+
+    <div class="post-body">
+
+      
+      
+
+      
+        
+          <span itemprop="articleBody"><h2 id="场景">场景</h2><p>在 a.com 下上传文件到 b.com<br>上传地址为 <code>http://b.com/upload.php</code></p>
+<h2 id="步骤">步骤</h2><p>首先在 a.com 根目录 下添加一个文件 redirect.html,添加内容</p>
+<pre><code><span class="tag">&lt;<span class="title">html</span>&gt;</span>
+<span class="tag">&lt;<span class="title">head</span>&gt;</span>
+    <span class="tag">&lt;<span class="title">meta</span> <span class="attribute">http-equiv</span>=<span class="value">"Content-Type"</span> <span class="attribute">content</span>=<span class="value">"text/html; charset=UTF-8"</span>&gt;</span>
+    <span class="tag">&lt;<span class="title">title</span>&gt;</span>redirect<span class="tag">&lt;/<span class="title">title</span>&gt;</span>
+    <span class="tag">&lt;<span class="title">script</span> <span class="attribute">type</span>=<span class="value">"text/javascript"</span>&gt;</span><span class="javascript">
+        <span class="comment">//获取url参数</span>
+        <span class="function"><span class="keyword">function</span> <span class="title">getParameter</span>(<span class="params">val</span>) </span>{
+            <span class="keyword">var</span> uri = <span class="built_in">window</span>.location.search;
+            <span class="keyword">var</span> re = <span class="keyword">new</span> <span class="built_in">RegExp</span>(<span class="string">""</span> + val + <span class="string">"=([^&amp;?]*)"</span>, <span class="string">"ig"</span>);
+            <span class="keyword">return</span> ((uri.match(re)) ? (uri.match(re)[<span class="number">0</span>].substr(val.length + <span class="number">1</span>)) : <span class="literal">null</span>);
+        }
+        <span class="keyword">var</span> upload_callback = <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>{
+            <span class="keyword">var</span> data=getParameter(<span class="string">"s"</span>);
+            <span class="keyword">var</span> location_hash=location.hash;
+            <span class="keyword">if</span>(location_hash!=<span class="literal">null</span> &amp;&amp; location_hash!=<span class="string">""</span> &amp;&amp; location_hash){
+                <span class="keyword">var</span> data = location.hash ? location.hash.substring(<span class="number">1</span>) : <span class="string">''</span>;
+                data = <span class="built_in">decodeURIComponent</span>(data);
+                <span class="built_in">document</span>.getElementsByTagName(<span class="string">"body"</span>)[<span class="number">0</span>].innerHTML = <span class="string">'&lt;pre&gt;'</span> + data  + <span class="string">'&lt;/pre&gt;'</span>;
+            }<span class="keyword">else</span>{
+                data = <span class="built_in">decodeURIComponent</span>(data);
+                <span class="built_in">document</span>.getElementsByTagName(<span class="string">"body"</span>)[<span class="number">0</span>].innerHTML = <span class="string">'&lt;pre&gt;'</span> + data  + <span class="string">'&lt;/pre&gt;'</span>;
+            }
+        };
+    </span><span class="tag">&lt;/<span class="title">script</span>&gt;</span>
+<span class="tag">&lt;/<span class="title">head</span>&gt;</span>
+<span class="tag">&lt;<span class="title">body</span> <span class="attribute">onload</span>=<span class="value">"upload_callback();"</span>&gt;</span>
+<span class="tag">&lt;/<span class="title">body</span>&gt;</span>
+<span class="tag">&lt;/<span class="title">html</span>&gt;</span>
+</code></pre><p>修改 b.com 下的 upload.php 当文件上传处理完毕后跳转（302 Redirect）到 <code>http://a.com/redirect.html</code>,参考 php 代码：</p>
+<pre><code><span class="variable">$data</span> = <span class="keyword">array</span>(<span class="string">'error'</span>=&gt;<span class="number">0</span>,<span class="string">'url'</span>=&gt;<span class="string">'http://upload.b.com/xx.jpg'</span>);
+<span class="variable">$url</span> = <span class="string">'http://a.com/redirect.html?s='</span>.json_encode(<span class="variable">$data</span>);
+header(<span class="string">"Location: "</span>.<span class="variable">$url</span>);
+</code></pre><p>这样就完成了</p>
+<h2 id="原理">原理</h2><p>跨域上传都是通过创建 iframe 实现的，上传操作都是在 iframe 里完成的，这样当文件上传后，如果没有 redirect 跳转到 a.com 下，iframe 是无法访问到主窗口的，所以我们在 a.com 下 创建了一个 redrect.html 并将上传结果作为参数返回到 <code>http://a.com/redirect.html</code> 上，在 redirect.html 下通过 url 上的参数 获取到数据，放入到一个 pre 标签中，这样 kindeditor 就可以获取到返回的数据了</p>
+<h2 id="附件">附件</h2><p>后面再补吧</p>
+</span>
+        
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <header class="post-header">
+
+      
+      
+        <h1 class="post-title" itemprop="name headline">
+          
+          
+            
+              <a class="post-title-link" href="/2014/11/21/install-php-5-5-19/" itemprop="url">
+                编译安装 php-5.5.19
+              </a>
+            
+          
+        </h1>
+      
+
+      <div class="post-meta">
+        <span class="post-time">
+          发表于
+          <time itemprop="dateCreated" datetime="2014-11-21T18:50:18+08:00" content="2014-11-21">
+            2014-11-21
+          </time>
+        </span>
+
+        
+
+        
+          
+            <span class="post-comments-count">
+              &nbsp; | &nbsp;
+              <a href="/2014/11/21/install-php-5-5-19/#comments" itemprop="discussionUrl">
+                <span class="post-comments-count ds-thread-count" data-thread-key="2014/11/21/install-php-5-5-19/" itemprop="commentsCount"></span>
+              </a>
+            </span>
+          
+        
+      </div>
+    </header>
+
+    <div class="post-body">
+
+      
+      
+
+      
+        
+          <span itemprop="articleBody"><p>##导语<br>大家编译安装 php 的时候经常会遇到各种各样的问题，<strong>大部分时候是 php 的依赖库没有预先装好，如果依赖库装好了，你基本已经成功一大半了</strong>，另外如果要启动 php-fpm 的话，最好创建 www 的用户组和用户，然后用 www 来启动 php-fpm ，一般 nginx 也会使用 www 用户来启动，并且让 www 的用户没有 shell 的执行权限，这样即使被黑客侵入了你的网站，也不能轻易就拿到你的 root 权限，比较安全点。<br>下面就开始编译之旅，下面的命令都在 shell 下运行。</p>
+<h2 id="环境">环境</h2><p>操作系统： centos 6.5<br>php版本： php-5.5.19 (5.6也可以)</p>
+<h2 id="创建用户">创建用户</h2><p>既然这个 www 用户如此重要 ，那就先创建 www 用户吧。</p>
+<pre><code>groupadd www
+useradd -<span class="keyword">g</span> www -s /sbin/nologin -<span class="keyword">M</span> www
+</code></pre><h2 id="安装依赖">安装依赖</h2><pre><code><span class="label">yum</span> -y install gcc <span class="keyword">bison </span><span class="keyword">bison-devel </span>zlib-devel libmcrypt-devel mcrypt mhash-devel openssl-devel libxml2-devel libcurl-devel <span class="keyword">bzip2-devel </span>readline-devel libedit-devel gd-devel pcre-devel
+</code></pre><p>好吧，只要执行了这条命令，后面就会少了很多烦恼</p>
+<h2 id="编译安装">编译安装</h2><pre><code>cd ~
+mkdir download &amp;&amp; cd download
+wget http:<span class="comment">//jp1.php.net/get/php-5.5.19.tar.gz/from/this/mirror</span>
+tar xvzf php-<span class="number">5.5</span><span class="number">.19</span>.tar.gz
+cd php-<span class="number">5.5</span><span class="number">.19</span>
+</code></pre><p>开始编译</p>
+<pre><code>./configure \
+-<span class="ruby">-prefix=<span class="regexp">/usr/local</span><span class="regexp">/php \
+</span></span>-<span class="ruby"><span class="regexp">-with-config-file-path=/usr</span><span class="regexp">/local/php</span><span class="regexp">/etc \
+</span></span>-<span class="ruby"><span class="regexp">-enable-inline-optimization \
+</span></span>-<span class="ruby"><span class="regexp">-disable-debug \
+</span></span>-<span class="ruby"><span class="regexp">-disable-rpath \
+</span></span>-<span class="ruby"><span class="regexp">-enable-shared \
+</span></span>-<span class="ruby"><span class="regexp">-enable-opcache \
+</span></span>-<span class="ruby"><span class="regexp">-enable-fpm \
+</span></span>-<span class="ruby"><span class="regexp">-with-fpm-user=www \
+</span></span>-<span class="ruby"><span class="regexp">-with-fpm-group=www \
+</span></span>-<span class="ruby"><span class="regexp">-with-mysql=mysqlnd \
+</span></span>-<span class="ruby"><span class="regexp">-with-mysqli=mysqlnd \
+</span></span>-<span class="ruby"><span class="regexp">-with-pdo-mysql=mysqlnd \
+</span></span>-<span class="ruby"><span class="regexp">-with-gettext \
+</span></span>-<span class="ruby"><span class="regexp">-enable-mbstring \
+</span></span>-<span class="ruby"><span class="regexp">-with-iconv \
+</span></span>-<span class="ruby"><span class="regexp">-with-mcrypt \
+</span></span>-<span class="ruby"><span class="regexp">-with-mhash \
+</span></span>-<span class="ruby"><span class="regexp">-with-openssl \
+</span></span>-<span class="ruby"><span class="regexp">-enable-bcmath \
+</span></span>-<span class="ruby"><span class="regexp">-enable-soap \
+</span></span>-<span class="ruby"><span class="regexp">-with-libxml-dir \
+</span></span>-<span class="ruby"><span class="regexp">-enable-pcntl \
+</span></span>-<span class="ruby"><span class="regexp">-enable-shmop \
+</span></span>-<span class="ruby"><span class="regexp">-enable-sysvmsg \
+</span></span>-<span class="ruby"><span class="regexp">-enable-sysvsem \
+</span></span>-<span class="ruby"><span class="regexp">-enable-sysvshm \
+</span></span>-<span class="ruby"><span class="regexp">-enable-sockets \
+</span></span>-<span class="ruby"><span class="regexp">-with-curl \
+</span></span>-<span class="ruby"><span class="regexp">-with-zlib \
+</span></span>-<span class="ruby"><span class="regexp">-enable-zip \
+</span></span>-<span class="ruby"><span class="regexp">-with-bz2 \
+</span></span>-<span class="ruby"><span class="regexp">-with-readline \
+</span></span>-<span class="ruby"><span class="regexp">-with-gd \
+</span></span>-<span class="ruby"><span class="regexp">-disable-fileinfo</span></span>
+</code></pre><p>嗯，一条过。( 有问题？ 在下面留言吧 )<br>继续：</p>
+<pre><code><span class="built_in">make</span> &amp;&amp; <span class="built_in">make</span> install
+</code></pre><p>装完了<br>再做一些配置的工作：</p>
+<pre><code>cp php<span class="class">.ini-development</span> /usr/local/php/etc/php<span class="class">.ini</span>
+cp /usr/local/php/etc/php-fpm<span class="class">.conf</span><span class="class">.default</span> /usr/local/php/etc/php-fpm<span class="class">.conf</span>
+cp sapi/fpm/init<span class="class">.d</span><span class="class">.php-fpm</span> /etc/init.d/php-fpm
+chmod <span class="number">600</span> /etc/init.d/php-fpm
+</code></pre><p>启动：<br>    /etc/init.d/php-fpm start</p>
+<p>完工。要装别的扩展就自己折腾吧，很简单，我已经装到手软了。</p>
+<h2 id="PS">PS</h2><p><strong>为什么没装 php 5.6？</strong><br>装了，测试了几天，发现 phpredis 这个扩展会有内存泄露的问题 比如下面的代码</p>
+<pre><code> <span class="variable">$redis</span>-&gt;hMset(<span class="string">'key'</span>, <span class="keyword">array</span>(
+        <span class="string">'order_id'</span> =&gt; <span class="string">'190470'</span>,
+        <span class="string">'restaurant_id'</span> =&gt; <span class="string">'317'</span>,
+        <span class="string">'sequence'</span> =&gt; <span class="string">'353'</span>,
+        <span class="string">'user_id'</span> =&gt; <span class="keyword">NULL</span>,
+        <span class="string">'create_time'</span> =&gt; <span class="string">'2014-11-20 14:04:49'</span>,
+        <span class="string">'amount'</span> =&gt; <span class="string">'24.00'</span>
+    )
+);
+</code></pre><p>具体看 <a href="https://github.com/nicolasff/phpredis/issues/524" target="_blank" rel="external">https://github.com/nicolasff/phpredis/issues/524</a></p>
+<p><strong>在哪里下载 php 安装包?</strong><br>php 官网<br><a href="http://php.net/get/php-5.5.19.tar.gz/from/a/mirror" target="_blank" rel="external">http://php.net/get/php-5.5.19.tar.gz/from/a/mirror</a><br>日本的镜像最快了。。尼玛</p>
+</span>
+        
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <header class="post-header">
+
+      
+      
+        <h1 class="post-title" itemprop="name headline">
+          
+          
+            
+              <a class="post-title-link" href="/2014/11/19/rsync-daemon/" itemprop="url">
+                利用 rsync 在服务器间同步目录
+              </a>
+            
+          
+        </h1>
+      
+
+      <div class="post-meta">
+        <span class="post-time">
+          发表于
+          <time itemprop="dateCreated" datetime="2014-11-19T18:15:30+08:00" content="2014-11-19">
+            2014-11-19
+          </time>
+        </span>
+
+        
+
+        
+          
+            <span class="post-comments-count">
+              &nbsp; | &nbsp;
+              <a href="/2014/11/19/rsync-daemon/#comments" itemprop="discussionUrl">
+                <span class="post-comments-count ds-thread-count" data-thread-key="2014/11/19/rsync-daemon/" itemprop="commentsCount"></span>
+              </a>
+            </span>
+          
+        
+      </div>
+    </header>
+
+    <div class="post-body">
+
+      
+      
+
+      
+        
+          <span itemprop="articleBody"><p>##场景<br>服务器 A 192.168.1.1<br>服务器 B 192.168.1.2<br>要将 A 服务器的 /data/logs 目录同步到 B 服务器的 /home/logs 下</p>
+<p>##执行环境<br>操作系统： centos 6.2</p>
+<p>##配置<br>我们将使用 rsync 的 daemon 方式来完成任务<br>登录到 A 服务器,执行 <code>vim /etc/rsyncd.conf</code><br>添加</p>
+<pre><code>uid = root
+gid = root
+max connections = 4
+pid file = /var/run/rsyncd.pid
+<span class="operator"><span class="keyword">lock</span> <span class="keyword">file</span> = /<span class="keyword">var</span>/run/rsync.<span class="keyword">lock</span>
+<span class="keyword">log</span> <span class="keyword">file</span> = /<span class="keyword">var</span>/<span class="keyword">log</span>/rsyncd.<span class="keyword">log</span>
+
+[<span class="keyword">logs</span>]
+<span class="keyword">path</span> = /<span class="keyword">data</span>/<span class="keyword">logs</span>
+<span class="keyword">ignore</span> <span class="keyword">errors</span>
+<span class="keyword">read</span> <span class="keyword">only</span> = <span class="literal">true</span>
+<span class="keyword">list</span> = <span class="literal">true</span>
+auth <span class="keyword">users</span> = <span class="keyword">backup</span>
+secrets <span class="keyword">file</span> = /etc/rsyncd.pwd</span>
+</code></pre><p>保存文件，执行<code>vim /etc/rsyncd.pwd</code> ，添加</p>
+<pre><code><span class="label">backup:</span>dahouduan.com
+</code></pre><p>保存退出，执行 <code>chmod 600 /etc/rsyncd.pwd</code><br>启动 rsync 服务 执行 <code>rsync --daemon</code><br>登录 B 服务器 ，执行 <code>vim /etc/rsyncd.pwd</code>  ，添加</p>
+<pre><code><span class="tag">dahouduan</span><span class="class">.com</span>
+</code></pre><p>保存退出，执行 <code>chmod 600 /etc/rsyncd.pwd</code><br>好了，配置已经完成了，现在 A 服务器为服务端 B 服务器为客户端，现在就可以在 B 服务器上执行同步操作了</p>
+<h2 id="配置说明">配置说明</h2><p>uid = root     #设置执行rsync的本地用户<br>gid = root     #设置执行rsync的本地组<br>max connections = 4     #最大同时连接数<br>pid file = /var/run/rsyncd.pid     #指定rsync服务进程的pid file<br>lock file = /var/run/rsync.lock     #指定rsync服务端锁定文件log file = /var/log/rsyncd.log     #指定rsync的log输出路径</p>
+<p>[logs]     #模块设定，可设置多个模块<br>path = /data/logs     #同步文件的真实路径<br>ignore errors<br>read only = true     #是否只读<br>list = true<br>auth users = backup  #身份验证用户。这不是系统用户，而是rsync服务自定的<br>secrets file = /etc/rsyncd.pwd     #当前模块的密码文件</p>
+<h2 id="开始同步">开始同步</h2><p>登录 B 服务器，执行</p>
+<pre><code>rsync -avzP --password-file=/etc/rsyncd.pwd backup@<span class="number">192.168</span><span class="number">.1</span><span class="number">.1</span>::logs  /home/logs
+</code></pre><p>so easy！</p>
+<h2 id="注意">注意</h2><p>1.如果 /home/下 logs 目录不存在将会创建，如果已经存在了， 会将 A 机器上的 /data/logs 目录下的内容同步到 B 机器上的 /home/logs/ 下<br>2.假如 A 机器上有一个文件 /home/logs/1.txt , 在第二次执行同步时没有修改，则不会同步<br>3.假如 B 机器上有一个文件 /home/logs/2.txt , A 上没有，同步时不会被删除<br>4.如果 B 机器上有一个文件 /home/logs/1.txt 被修改了，同步时会被 A 上对应的文件覆盖</p>
+<h2 id="扩展">扩展</h2><p>如果要同步别的目录，只需要修改 A 服务器上的 <code>/etc/rsyncd.conf</code> 将 logs 部分修改或者复制一份，改成你想同步的目录就可以了，</p>
+<h2 id="One_more_thing">One more thing</h2><p>下面是 rsync 的语法说明：<br>rsync [-avrlptgoD] [-e ssh] [user@host:/dir] [/local/path]<br>-v ：观察模式，可以列出更多的信息；<br>-q ：与 -v  相反，安静模式，输出的信息比较少；<br>-r ：递归复制！可以针对『目录』来处理！很重要！<br>-u ：仅更新 (update)，不会覆盖目标的新档案；<br>-l ：复制连结文件的属性，而非连结的目标源文件内容；<br>-p ：复制时，连同属性 (permission) 也保存不变！<br>-g ：保存源文件的拥有群组；<br>-o ：保存源文件的拥有人；<br>-D ：保存源文件的装置属性 (device)<br>-t ：保存源文件的时间参数；<br>-I ：忽略更新时间 (mtime) 的属性，档案比对上会比较快速；<br>-z ：加上压缩的参数！<br>-e ：使用的信道协议，例如使用 ssh 通道，则 -e ssh<br>-a ：相当于 -rlptgoD ，所以这个 -a 是最常用的参数了！</p>
+</span>
+        
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <header class="post-header">
+
+      
+      
+        <h1 class="post-title" itemprop="name headline">
+          
+          
+            
+              <a class="post-title-link" href="/2014/11/14/use-nginx-to-generate-thumbnail/" itemprop="url">
+                利用 nginx 自动生成缩略图
+              </a>
+            
+          
+        </h1>
+      
+
+      <div class="post-meta">
+        <span class="post-time">
+          发表于
+          <time itemprop="dateCreated" datetime="2014-11-14T16:35:17+08:00" content="2014-11-14">
+            2014-11-14
+          </time>
+        </span>
+
+        
+
+        
+          
+            <span class="post-comments-count">
+              &nbsp; | &nbsp;
+              <a href="/2014/11/14/use-nginx-to-generate-thumbnail/#comments" itemprop="discussionUrl">
+                <span class="post-comments-count ds-thread-count" data-thread-key="2014/11/14/use-nginx-to-generate-thumbnail/" itemprop="commentsCount"></span>
+              </a>
+            </span>
+          
+        
+      </div>
+    </header>
+
+    <div class="post-body">
+
+      
+      
+
+      
+        
+          <span itemprop="articleBody"><p>##导语<br>如今的软件行业面向的终端越来越多，传统的 PC，现在正大火的移动端，还有正在逐步互联网化的电视、冰箱、可穿戴设备等，为了让公司的软件能兼容不同的终端，前端的同学们正在面临越来越多的挑战。</p>
+<p>为了适配不同的设备，同学们不得不把一图片做好几个版本，其实这个事可以让运维来干，那就是在 nginx 上加一个模块,将要生成的图片的参数传入url来自动生成想要的图片，虽然可能不是那么完美，但是对于前端要求不太高的公司来说，还是省了不少事，下面就是配置方法。</p>
+<p>##部署</p>
+<h3 id="环境要求">环境要求</h3><p>操作系统: Centos 6.2<br>nginx: &gt; 0.7.54</p>
+<h3 id="安装方法">安装方法</h3><p>首先在服务器上要安装 gd-devel 包:</p>
+<pre><code>yum -y <span class="keyword">install</span> gd-devel
+</code></pre><p>在你原来的编译命令后加上 –with-http_image_filter_module 例如:</p>
+<pre><code><span class="string">.</span><span class="comment">/configure</span> <span class="literal">-</span><span class="literal">-</span><span class="comment">user=www</span> <span class="literal">-</span><span class="literal">-</span><span class="comment">group=www</span> <span class="literal">-</span><span class="literal">-</span><span class="comment">prefix=/usr/local/nginx</span> <span class="literal">-</span><span class="literal">-</span><span class="comment">with</span><span class="literal">-</span><span class="comment">http_stub_status_module</span> <span class="literal">-</span><span class="literal">-</span><span class="comment">without</span><span class="literal">-</span><span class="comment">http</span><span class="literal">-</span><span class="comment">cache</span> <span class="literal">-</span><span class="literal">-</span><span class="comment">with</span><span class="literal">-</span><span class="comment">http_ssl_module</span> <span class="literal">-</span><span class="literal">-</span><span class="comment">with</span><span class="literal">-</span><span class="comment">http_image_filter_module</span>
+</code></pre><p>然后重新编译安装，然后重启 niginx 就可以了，运行:</p>
+<pre><code>sbin/nginx -V
+</code></pre><p>查看返回的结果中有了 –with-http_image_filter_module 表明安装成功了。</p>
+<h3 id="配置方法">配置方法</h3><p>这里给出一个简单的例子来，演示使用方法：<br>在你的域名的配置文件中添加</p>
+<pre><code>location ~* /(.+)\.(jpg|gif|png)!(\d+)<span class="number">_</span>(\d+)$ {
+        set <span class="variable">$h</span> <span class="variable">$3</span>;
+        set <span class="variable">$w</span> <span class="variable">$4</span>;
+        if (<span class="variable">$h</span> = <span class="string">"0"</span>) {
+            rewrite /(.+)<span class="number">_</span>(\d+)<span class="number">_</span>(\d+)\.(jpg|gif|png)$ /<span class="variable">$1</span>.<span class="variable">$2</span> last;
+        }
+        if (<span class="variable">$w</span> = <span class="string">"0"</span>) {
+            rewrite /(.+)<span class="number">_</span>(\d+)<span class="number">_</span>(\d+)\.(jpg|gif|png)$ /<span class="variable">$1</span>.<span class="variable">$2</span> last;
+        }
+
+        #根据给定的长宽生成缩略图
+        image_filter resize <span class="variable">$h</span> <span class="variable">$w</span>;
+        #原图最大<span class="number">2</span>M，要裁剪的图片超过<span class="number">2</span>M返回<span class="number">415</span>错误，需要调节参数image_filter_buffer
+        image_filter_buffer <span class="number">2</span>M;
+
+        try_files /<span class="variable">$1</span>.<span class="variable">$2</span>  /notfound.jpg ;
+}
+</code></pre><p>通过 sbin/nginx -s reload  重载你的nginx配置</p>
+<h3 id="使用方法">使用方法</h3><p>通过在图片地址后加 <code>!缩略图宽_缩略图高</code>，就可以访问到你想要的任意尺寸的缩略图了<br>例如图片地址为：<code>http://xxx.cn/image/20141014/543cc6ff93d55.jpg</code><br>修改为：<code>http://xxx.cn/image/20141014/543cc6ff93d55.jpg!100_200</code><br>将会返回 100*200 的缩略图</p>
+<h3 id="延伸">延伸</h3><p>利用 nginx 的 image_filter 模块不仅仅能生成缩略图，你可以通过修改配置来实现其他的功能，比如图片旋转、图片裁剪、图片透明化等等，Nb 的功能是靠勤劳的双手创造的<br>关于 image_filter 的更多 参见：<br><a href="http://nginx.org/cn/docs/http/ngx_http_image_filter_module.html" target="_blank" rel="external">http://nginx.org/cn/docs/http/ngx_http_image_filter_module.html</a></p>
+</span>
+        
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <header class="post-header">
+
+      
+      
+        <h1 class="post-title" itemprop="name headline">
+          
+          
+            
+              <a class="post-title-link" href="/2014/11/14/Linux-batch-replacement-of-file-content/" itemprop="url">
+                Linux 批量替换文件内容
+              </a>
+            
+          
+        </h1>
+      
+
+      <div class="post-meta">
+        <span class="post-time">
+          发表于
+          <time itemprop="dateCreated" datetime="2014-11-14T15:02:28+08:00" content="2014-11-14">
+            2014-11-14
+          </time>
+        </span>
+
+        
+
+        
+          
+            <span class="post-comments-count">
+              &nbsp; | &nbsp;
+              <a href="/2014/11/14/Linux-batch-replacement-of-file-content/#comments" itemprop="discussionUrl">
+                <span class="post-comments-count ds-thread-count" data-thread-key="2014/11/14/Linux-batch-replacement-of-file-content/" itemprop="commentsCount"></span>
+              </a>
+            </span>
+          
+        
+      </div>
+    </header>
+
+    <div class="post-body">
+
+      
+      
+
+      
+        
+          <span itemprop="articleBody"><pre><code>sed -<span class="tag">i</span> <span class="string">"s/原字符串/新字符串/g"</span> $( grep 原字符串 -rl 目标目录 )
+</code></pre></span>
+        
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <header class="post-header">
+
+      
+      
+        <h1 class="post-title" itemprop="name headline">
+          
+          
+            
+              <a class="post-title-link" href="/2014/11/04/first-bowser-dedicated-to-developers/" itemprop="url">
+                第一款致力于开发者的浏览器
+              </a>
+            
+          
+        </h1>
+      
+
+      <div class="post-meta">
+        <span class="post-time">
+          发表于
+          <time itemprop="dateCreated" datetime="2014-11-04T10:50:10+08:00" content="2014-11-04">
+            2014-11-04
+          </time>
+        </span>
+
+        
+
+        
+          
+            <span class="post-comments-count">
+              &nbsp; | &nbsp;
+              <a href="/2014/11/04/first-bowser-dedicated-to-developers/#comments" itemprop="discussionUrl">
+                <span class="post-comments-count ds-thread-count" data-thread-key="2014/11/04/first-bowser-dedicated-to-developers/" itemprop="commentsCount"></span>
+              </a>
+            </span>
+          
+        
+      </div>
+    </header>
+
+    <div class="post-body">
+
+      
+      
+
+      
+        
+          <span itemprop="articleBody"><p>在 Mozilla 我们知道开发者是 web 的基石，这就是为什么我们积极的推动标准，并且开发牛x的工具来使创建优美的网页内容和应用变的更加的容易.</p>
+<p>当我们做 web 开发时，开发者往往会使用一大堆的不同工具，但是它们经常在一起不能很好的工作. 这意味着你最终得在不同的工具，平台和浏览器之间切换，这样会减慢你的开发速度，并且让你效率很低。</p>
+<p>因此我们决定释放我们的开发者工具组到整个浏览器中看看它是怎样让我们的生活变的更容易的。<br>(So we decided to unleash our developer tools team on the entire browser to see how we could make your lives easier.）</p>
+<p>现在我们让我们来先睹为快这款针对开发者定制的浏览器：<br>(We’re now ready to give you a sneak peek of the first browser dedicated you as a developer:)</p>
+<p>我们把开发者的利益放在首要位置重新设计了浏览器。<br>(We’ve redesigned the browser by looking at it through a completely new filter to put developers’ interests first.)</p>
+<p>它是开发者为开发者构建的所以你可以调试整个网络，它允许你更容易的创建很好的 web 体验，它也整合了一些新的工具像 <a href="https://hacks.mozilla.org/2014/06/webide-lands-in-nightly/" target="_blank" rel="external">WebIDE</a> 和 <a href="https://hacks.mozilla.org/2014/09/firefox-tools-adapter" target="_blank" rel="external">Firefox Tools Adapter</a>.</p>
+<p>不久我们会给你带来包含更多功能做为一个开发者开发独立的 web 应得的工具包.<br>(Soon, we’re going to bring you more, a lot more, in a package that you deserve as a builder for an independent Web.)</p>
+<p>请分享这个关键词（<a href="https://twitter.com/search?q=%23fx10&amp;src=typd" target="_blank" rel="external">#Fx10</a>）或者注册 <a href="https://hacks.mozilla.org/newsletter/" target="_blank" rel="external">Hacks newsletter here</a>,这样在浏览器发布后会第一时间邮件通知你。<br>(Get ready to spread the word (#Fx10) or sign up for our Hacks newsletter here to be emailed as soon as the browser is available.)</p>
+<p>我们已经迫不及待的要把它分享给你在 11 月 10 号<br>(We can’t wait to share it with you on November 10th.)</p>
+<p><em>原文地址: <a href="https://blog.mozilla.org/blog/2014/11/03/the-first-browser-dedicated-to-developers-is-coming-2/" target="_blank" rel="external">https://blog.mozilla.org/blog/2014/11/03/the-first-browser-dedicated-to-developers-is-coming-2/</a></em></p>
+</span>
+        
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <header class="post-header">
+
+      
+      
+        <h1 class="post-title" itemprop="name headline">
+          
+          
+            
+              <a class="post-title-link" href="/2014/10/31/First-blood/" itemprop="url">
+                First-blood
+              </a>
+            
+          
+        </h1>
+      
+
+      <div class="post-meta">
+        <span class="post-time">
+          发表于
+          <time itemprop="dateCreated" datetime="2014-10-31T15:22:03+08:00" content="2014-10-31">
+            2014-10-31
+          </time>
+        </span>
+
+        
+
+        
+          
+            <span class="post-comments-count">
+              &nbsp; | &nbsp;
+              <a href="/2014/10/31/First-blood/#comments" itemprop="discussionUrl">
+                <span class="post-comments-count ds-thread-count" data-thread-key="2014/10/31/First-blood/" itemprop="commentsCount"></span>
+              </a>
+            </span>
+          
+        
+      </div>
+    </header>
+
+    <div class="post-body">
+
+      
+      
+
+      
+        
+          <span itemprop="description">你好</span>
+          <div class="post-more-link text-center">
+            <a class="btn" href="/2014/10/31/First-blood/">
+              阅读全文 &raquo;
+            </a>
+          </div>
+        
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+  </section>
+
+  
+  <nav class="pagination">
+    <a class="extend prev" rel="prev" href="/page/4/">&laquo;</a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/4/">4</a><span class="page-number current">5</span>
+  </nav>
+
+ </div>
+
+        
+
+        
+      </div>
+
+      
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      <section class="site-overview">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" src="https://avatars1.githubusercontent.com/u/32269?v=3&s=460" alt="John Doe" itemprop="image"/>
+          <p class="site-author-name" itemprop="name">John Doe</p>
+        </div>
+        <p class="site-description motion-element" itemprop="description">编码计算、架构技术、服务器技术、云计算技术、挖掘机技术....</p>
+        <nav class="site-state motion-element">
+          <div class="site-state-item site-state-posts">
+            <a href="/archives">
+              <span class="site-state-item-count">50</span>
+              <span class="site-state-item-name">日志</span>
+            </a>
+          </div>
+
+          <div class="site-state-item site-state-categories">
+            
+              <span class="site-state-item-count">0</span>
+              <span class="site-state-item-name">分类</span>
+              
+          </div>
+
+          <div class="site-state-item site-state-tags">
+            <a href="/tags">
+              <span class="site-state-item-count">81</span>
+              <span class="site-state-item-name">标签</span>
+              </a>
+          </div>
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/your-user-name" target="_blank">github</a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+
+        <div class="links-of-author motion-element">
+          
+        </div>
+
+      </section>
+
+      
+
+    </div>
+  </aside>
+
+
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner"> <div class="copyright" >
+  
+  &copy; &nbsp; 
+  <span itemprop="copyrightYear">2015</span>
+  <span class="with-love">
+    <i class="icon-next-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">John Doe</span>
+</div>
+
+<div class="powered-by">
+  由 <a class="theme-link" href="http://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Mist
+  </a>
+</div>
+
+
+ </div>
+    </footer>
+
+    <div class="back-to-top"></div>
+  </div>
+
+  <script type="text/javascript" src="/vendors/jquery/index.js?v=2.1.3"></script>
+
+  
+  
+  
+    
+
+  
+    
+  
+
+  <script type="text/javascript">
+    var duoshuoQuery = {short_name:"dahouduan"};
+    (function() {
+      var ds = document.createElement('script');
+      ds.type = 'text/javascript';ds.async = true;
+      ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+      ds.charset = 'UTF-8';
+      (document.getElementsByTagName('head')[0]
+      || document.getElementsByTagName('body')[0]).appendChild(ds);
+    })();
+  </script>
+    
+     
+  	<script src="/js/ua-parser.min.js"></script>
+  	<script src="/js/hook-duoshuo.js"></script>
+  
+
+    
+  
+  
+  <script type="text/javascript" src="/vendors/fancybox/source/jquery.fancybox.pack.js"></script>
+  <script type="text/javascript" src="/js/fancy-box.js?v=0.4.5.1"></script>
+
+
+  <script type="text/javascript" src="/js/helpers.js?v=0.4.5.1"></script>
+  
+
+  <script type="text/javascript" src="/vendors/velocity/velocity.min.js"></script>
+  <script type="text/javascript" src="/vendors/velocity/velocity.ui.min.js"></script>
+
+  <script type="text/javascript" src="/js/motion_global.js?v=0.4.5.1" id="motion.global"></script>
+
+
+
+
+  <script type="text/javascript" src="/js/nav-toggle.js?v=0.4.5.1"></script>
+  <script type="text/javascript" src="/vendors/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+
+  <script type="text/javascript">
+    $(document).ready(function () {
+      if (CONFIG.sidebar === 'always') {
+        displaySidebar();
+      }
+      if (isMobile()) {
+        FastClick.attach(document.body);
+      }
+    });
+  </script>
+
+  
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/lazyload.js"></script>
+  <script type="text/javascript">
+    $(function () {
+      $("#posts").find('img').lazyload({
+        placeholder: "/images/loading.gif",
+        effect: "fadeIn"
+      });
+    });
+  </script>
+</body>
+</html>
