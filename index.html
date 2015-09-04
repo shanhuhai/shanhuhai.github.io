@@ -166,6 +166,75 @@
           
           
             
+              <a class="post-title-link" href="/2015/09/04/golang-user-defined-error/" itemprop="url">
+                Golang 自定义错误
+              </a>
+            
+          
+        </h1>
+      
+
+      <div class="post-meta">
+        <span class="post-time">
+          发表于
+          <time itemprop="dateCreated" datetime="2015-09-04T12:51:47+08:00" content="2015-09-04">
+            2015-09-04
+          </time>
+        </span>
+
+        
+
+        
+          
+            <span class="post-comments-count">
+              &nbsp; | &nbsp;
+              <a href="/2015/09/04/golang-user-defined-error/#comments" itemprop="discussionUrl">
+                <span class="post-comments-count ds-thread-count" data-thread-key="2015/09/04/golang-user-defined-error/" itemprop="commentsCount"></span>
+              </a>
+            </span>
+          
+        
+      </div>
+    </header>
+
+    <div class="post-body">
+
+      
+      
+
+      
+        
+          <span itemprop="articleBody"><p>由于 golang 中接口的特殊性，所有实现了 Error() 方法的对象都可以，被赋值给 error 类型的变量，<br>所以实现起来就很简单，下面直接给出代码了, 这是我自己写的一个简单的demo</p>
+<figure class="highlight applescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line">package main</span><br><span class="line">import (</span><br><span class="line">    <span class="string">"fmt"</span></span><br><span class="line">    <span class="string">"strings"</span></span><br><span class="line">)</span><br><span class="line"></span><br><span class="line">type NameError struct &#123;</span><br><span class="line">    <span class="property">name</span> <span class="type">string</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">func (e *NameError) Error() <span class="type">string</span> &#123;</span><br><span class="line"><span class="command">    return</span> e.<span class="property">name</span> + <span class="string">" is  not valid"</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">func NameToUpper(<span class="property">name</span> <span class="type">string</span>) (<span class="type">string</span>, <span class="keyword">error</span>) &#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> <span class="property">name</span> != <span class="string">"shanhuhai"</span> &#123;</span><br><span class="line"><span class="command">        return</span>  <span class="string">""</span>, &amp;NameError&#123;<span class="property">name</span>&#125;</span><br><span class="line">    &#125;</span><br><span class="line"><span class="command">    return</span> strings.ToUpper(<span class="property">name</span>), nil;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">func main() &#123;</span><br><span class="line">    <span class="property">name</span> := <span class="string">"shanhuhai"</span></span><br><span class="line">    <span class="keyword">if</span> upper , err := NameToUpper(<span class="property">name</span>); err != nil &#123;</span><br><span class="line">        fmt.Println(err)</span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">        fmt.Println(<span class="property">name</span> + <span class="string">"'s upper case is "</span> + upper )</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></span>
+        
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <header class="post-header">
+
+      
+      
+        <h1 class="post-title" itemprop="name headline">
+          
+          
+            
               <a class="post-title-link" href="/2015/07/17/docker-1-7-install-on-centos-7/" itemprop="url">
                 Centos 7 安装 docker 1.7
               </a>
@@ -864,117 +933,11 @@ cat <span class="number">1.</span>txt | tee -a <span class="number">3.</span>txt
 
 
     
-      
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      
-      
-        <h1 class="post-title" itemprop="name headline">
-          
-          
-            
-              <a class="post-title-link" href="/2015/06/17/docker-essentials/" itemprop="url">
-                docker 使用精要
-              </a>
-            
-          
-        </h1>
-      
-
-      <div class="post-meta">
-        <span class="post-time">
-          发表于
-          <time itemprop="dateCreated" datetime="2015-06-17T17:15:18+08:00" content="2015-06-17">
-            2015-06-17
-          </time>
-        </span>
-
-        
-
-        
-          
-            <span class="post-comments-count">
-              &nbsp; | &nbsp;
-              <a href="/2015/06/17/docker-essentials/#comments" itemprop="discussionUrl">
-                <span class="post-comments-count ds-thread-count" data-thread-key="2015/06/17/docker-essentials/" itemprop="commentsCount"></span>
-              </a>
-            </span>
-          
-        
-      </div>
-    </header>
-
-    <div class="post-body">
-
-      
-      
-
-      
-        
-          <span itemprop="articleBody"><p>##容器管理<br>检查容器启动日志</p>
-<pre><code>docker logs 容器<span class="property">id</span>/容器名称
-</code></pre><p>启动一个已经被终止的容器</p>
-<pre><code>docker <span class="operator"><span class="keyword">start</span> 容器<span class="keyword">id</span>/容器名称</span>
-</code></pre><p>以交互方式启动一个已经被终止的容器</p>
-<pre><code>docker <span class="operator"><span class="keyword">start</span> -<span class="keyword">i</span> 容器<span class="keyword">id</span>/容器名称</span>
-</code></pre><p>终止容器</p>
-<pre><code>docker <span class="operator"><span class="keyword">stop</span> 容器<span class="keyword">id</span>/容器名称</span>
-</code></pre><p>重启容器</p>
-<pre><code>docker restart 容器<span class="property">id</span>/容器名称
-</code></pre><p>导出容器</p>
-<pre><code>docker <span class="keyword">export</span> <span class="number">7691</span>a814370e &gt; ubuntu.tar
-</code></pre><p>导入容器为镜像</p>
-<pre><code>cat ubuntu.tar | sudo docker <span class="keyword">import</span> - test/<span class="string">ubuntu:</span>v1<span class="number">.0</span>
-</code></pre><p>用户既可以使用 docker load 来导入镜像存储文件到本地镜像库，也可以使用 docker import 来导入一个容器快照到本地镜像库。这两者的区别在于容器快照文件将丢弃所有的历史记录和元数据信息（即仅保存容器当时的快照状态），而镜像存储文件将保存完整记录，体积也要大。此外，从容器快照文件导入时可以重新指定标签等元数据信息。</p>
-<p>##数据共享<br>创建一个数据卷</p>
-<pre><code>docker <span class="command">run</span> -ti -v /webapp <span class="comment">--name data ubuntu /bin/bash</span>
-</code></pre><p>在主机和容器间共享数据，即将主机的某个目录来作为容器的数据卷</p>
-<pre><code>docker run -ti -v <span class="regexp">/root/</span><span class="string">data:</span><span class="regexp">/opt/</span>data ubuntu <span class="regexp">/bin/</span>bash
-</code></pre><p>ps 目录必须用绝对路径</p>
-<p>在多个容器间共享数据</p>
-<pre><code>docker <span class="command">run</span> -ti -v /dbdata <span class="comment">--name dbdata training/postgres </span>
-
-docker <span class="command">run</span> -ti <span class="comment">--volumes-from dbdata --name db1 training/postgres /bin/bash</span>
-docker <span class="command">run</span> -ti <span class="comment">--volumes-from dbdata --name db2 training/postgres /bin/bash</span>
-docker <span class="command">run</span> -ti <span class="comment">--volumes-from db1 --name db3 training/postgres /bin/bash  #从已经挂载了数据卷的容器来挂载数据卷</span>
-</code></pre><p>##其他技巧</p>
-<p>使用镜像执行命令时，不创建容器</p>
-<pre><code>docker <span class="built_in">run</span> b15 /bin/echo <span class="string">'Hello world'</span>  --rm=<span class="literal">true</span>
-</code></pre><p>删除所有容器</p>
-<pre><code>docker rm <span class="escape">`d</span>ocker ps -<span class="literal">a</span> -q<span class="escape">` </span>
-</code></pre><p>通过容器创建镜像</p>
-<pre><code>docker <span class="operator"><span class="keyword">commit</span> -<span class="keyword">m</span> <span class="string">"Added json gem"</span> -a <span class="string">"Docker Newbee"</span> <span class="number">0</span>b26 ouruser/sinatra:v2</span>
-</code></pre><p>-m “” 修改备注<br>-a “” 作者信息<br>0b26  容器的id<br>ouruser/sinatra:v2  仓库名：tag</p>
-<p>导出镜像</p>
-<pre><code><span class="tag">docker</span> <span class="tag">save</span> <span class="tag">-o</span> <span class="tag">ubuntu_14</span><span class="class">.04</span><span class="class">.tar</span> <span class="rule"><span class="attribute">ubuntu</span>:<span class="value"><span class="number">14.04</span></span></span>
-</code></pre><p>导入镜像</p>
-<pre><code><span class="tag">docker</span> <span class="tag">load</span> &lt; <span class="tag">ubuntu_14</span><span class="class">.04</span><span class="class">.tar</span>
-</code></pre></span>
-        
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
   </section>
 
   
   <nav class="pagination">
-    <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><span class="space">&hellip;</span><a class="page-number" href="/page/5/">5</a><a class="extend next" rel="next" href="/page/2/">&raquo;</a>
+    <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><span class="space">&hellip;</span><a class="page-number" href="/page/6/">6</a><a class="extend next" rel="next" href="/page/2/">&raquo;</a>
   </nav>
 
  </div>
@@ -1008,7 +971,7 @@ docker <span class="command">run</span> -ti <span class="comment">--volumes-from
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/archives">
-              <span class="site-state-item-count">50</span>
+              <span class="site-state-item-count">51</span>
               <span class="site-state-item-name">日志</span>
             </a>
           </div>
@@ -1022,7 +985,7 @@ docker <span class="command">run</span> -ti <span class="comment">--volumes-from
 
           <div class="site-state-item site-state-tags">
             <a href="/tags">
-              <span class="site-state-item-count">81</span>
+              <span class="site-state-item-count">83</span>
               <span class="site-state-item-name">标签</span>
               </a>
           </div>

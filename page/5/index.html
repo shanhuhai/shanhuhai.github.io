@@ -166,6 +166,90 @@
           
           
             
+              <a class="post-title-link" href="/2014/12/10/php-python-shell-stdin/" itemprop="url">
+                php/pyhon/shell 获取 stdin 输入
+              </a>
+            
+          
+        </h1>
+      
+
+      <div class="post-meta">
+        <span class="post-time">
+          发表于
+          <time itemprop="dateCreated" datetime="2014-12-10T13:23:40+08:00" content="2014-12-10">
+            2014-12-10
+          </time>
+        </span>
+
+        
+
+        
+          
+            <span class="post-comments-count">
+              &nbsp; | &nbsp;
+              <a href="/2014/12/10/php-python-shell-stdin/#comments" itemprop="discussionUrl">
+                <span class="post-comments-count ds-thread-count" data-thread-key="2014/12/10/php-python-shell-stdin/" itemprop="commentsCount"></span>
+              </a>
+            </span>
+          
+        
+      </div>
+    </header>
+
+    <div class="post-body">
+
+      
+      
+
+      
+        
+          <span itemprop="articleBody"><p>##php 获取 stdin<br>创建 stdin.php 文件，输入下面内容：</p>
+<pre><code><span class="shebang">#!/usr/bin/php</span>
+&lt;?php
+<span class="keyword">while</span>($f = fgets(STDIN)){
+    echo <span class="string">"line: $f"</span>;
+}
+</code></pre><p>在命令行下运行</p>
+<pre><code>cat <span class="built_in">stdin</span>.php | ./<span class="built_in">stdin</span>.php
+</code></pre><p>##shell 获取 stdin</p>
+<pre><code><span class="shebang">#!/bin/bash</span>
+<span class="built_in">read</span> line
+<span class="built_in">echo</span> <span class="variable">$line</span>
+</code></pre><p>##python 获取 stdin</p>
+<pre><code><span class="shebang">#!/usr/bin/python</span>
+<span class="keyword">import</span> sys
+print sys.stdin.readline()
+</code></pre></span>
+        
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <header class="post-header">
+
+      
+      
+        <h1 class="post-title" itemprop="name headline">
+          
+          
+            
               <a class="post-title-link" href="/2014/12/06/nginx-ip-access-and-autoindex/" itemprop="url">
                 nginx 设置通过 ip 访问并打开目录浏览
               </a>
@@ -996,84 +1080,11 @@ secrets <span class="keyword">file</span> = /etc/rsyncd.pwd</span>
 
 
     
-      
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      
-      
-        <h1 class="post-title" itemprop="name headline">
-          
-          
-            
-              <a class="post-title-link" href="/2014/10/31/First-blood/" itemprop="url">
-                First-blood
-              </a>
-            
-          
-        </h1>
-      
-
-      <div class="post-meta">
-        <span class="post-time">
-          发表于
-          <time itemprop="dateCreated" datetime="2014-10-31T15:22:03+08:00" content="2014-10-31">
-            2014-10-31
-          </time>
-        </span>
-
-        
-
-        
-          
-            <span class="post-comments-count">
-              &nbsp; | &nbsp;
-              <a href="/2014/10/31/First-blood/#comments" itemprop="discussionUrl">
-                <span class="post-comments-count ds-thread-count" data-thread-key="2014/10/31/First-blood/" itemprop="commentsCount"></span>
-              </a>
-            </span>
-          
-        
-      </div>
-    </header>
-
-    <div class="post-body">
-
-      
-      
-
-      
-        
-          <span itemprop="description">你好</span>
-          <div class="post-more-link text-center">
-            <a class="btn" href="/2014/10/31/First-blood/">
-              阅读全文 &raquo;
-            </a>
-          </div>
-        
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
   </section>
 
   
   <nav class="pagination">
-    <a class="extend prev" rel="prev" href="/page/4/">&laquo;</a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/4/">4</a><span class="page-number current">5</span>
+    <a class="extend prev" rel="prev" href="/page/4/">&laquo;</a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/4/">4</a><span class="page-number current">5</span><a class="page-number" href="/page/6/">6</a><a class="extend next" rel="next" href="/page/6/">&raquo;</a>
   </nav>
 
  </div>
@@ -1107,7 +1118,7 @@ secrets <span class="keyword">file</span> = /etc/rsyncd.pwd</span>
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/archives">
-              <span class="site-state-item-count">50</span>
+              <span class="site-state-item-count">51</span>
               <span class="site-state-item-name">日志</span>
             </a>
           </div>
@@ -1121,7 +1132,7 @@ secrets <span class="keyword">file</span> = /etc/rsyncd.pwd</span>
 
           <div class="site-state-item site-state-tags">
             <a href="/tags">
-              <span class="site-state-item-count">81</span>
+              <span class="site-state-item-count">83</span>
               <span class="site-state-item-name">标签</span>
               </a>
           </div>

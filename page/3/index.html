@@ -166,6 +166,152 @@
           
           
             
+              <a class="post-title-link" href="/2015/02/05/c-quick-sort/" itemprop="url">
+                C 语言快速排序算法
+              </a>
+            
+          
+        </h1>
+      
+
+      <div class="post-meta">
+        <span class="post-time">
+          发表于
+          <time itemprop="dateCreated" datetime="2015-02-05T23:30:26+08:00" content="2015-02-05">
+            2015-02-05
+          </time>
+        </span>
+
+        
+
+        
+          
+            <span class="post-comments-count">
+              &nbsp; | &nbsp;
+              <a href="/2015/02/05/c-quick-sort/#comments" itemprop="discussionUrl">
+                <span class="post-comments-count ds-thread-count" data-thread-key="2015/02/05/c-quick-sort/" itemprop="commentsCount"></span>
+              </a>
+            </span>
+          
+        
+      </div>
+    </header>
+
+    <div class="post-body">
+
+      
+      
+
+      
+        
+          <span itemprop="articleBody"><p>快速排序法的c语言实现，下面的代码包含了正序与逆序的实现，<br>代码如下:</p>
+<pre><code><span class="preprocessor">#<span class="keyword">include</span> <span class="string">&lt;stdio.h&gt;</span></span>
+<span class="function"><span class="keyword">int</span> <span class="title">print_array</span><span class="params">(<span class="keyword">int</span> <span class="built_in">array</span>[])</span></span>{
+    <span class="keyword">int</span> i;    
+    <span class="keyword">for</span>(i = <span class="number">0</span>; i &lt; <span class="number">10</span>; i++){
+        <span class="built_in">printf</span>(<span class="string">"%4d"</span>, <span class="built_in">array</span>[i]);
+    }
+    <span class="keyword">return</span> <span class="number">0</span>;
+}
+
+<span class="function"><span class="keyword">int</span> <span class="title">quick_sort</span><span class="params">(<span class="keyword">int</span> s[], <span class="keyword">int</span> left, <span class="keyword">int</span> right)</span></span>{
+    <span class="keyword">if</span>(left &lt; right) {
+        <span class="keyword">int</span> i = left;
+        <span class="keyword">int</span> j = right;
+        <span class="keyword">int</span> x = s[left];
+
+        <span class="keyword">while</span>(i &lt; j) {
+            <span class="keyword">while</span>(i &lt; j &amp;&amp; s[j] &gt;= x) 
+                j--;
+            <span class="keyword">if</span>(i &lt; j) {
+                s[i] = s[j];
+                i++;
+            }
+            <span class="keyword">while</span>(i &lt; j &amp;&amp; s[i] &lt; x) 
+                i++;
+            <span class="keyword">if</span>(i &lt; j) {
+                s[j] = s[i];
+                j--;
+            }
+        }
+        s[i] = x;
+        quick_sort(s, left, i - <span class="number">1</span>);
+        quick_sort(s, i + <span class="number">1</span>, right);
+    }
+    <span class="keyword">return</span> <span class="number">0</span>;
+}
+
+<span class="function"><span class="keyword">int</span> <span class="title">quick_sort_reverse</span><span class="params">(<span class="keyword">int</span> s[], <span class="keyword">int</span> left, <span class="keyword">int</span> right)</span></span>{
+    <span class="keyword">if</span>(left &lt; right) {
+        <span class="keyword">int</span> i = left;
+        <span class="keyword">int</span> j = right;
+        <span class="keyword">int</span> x = s[left];
+
+        <span class="keyword">while</span>(i &lt; j) {
+            <span class="keyword">while</span>(i &lt; j &amp;&amp; s[j] &lt;= x) 
+                j--;
+            <span class="keyword">if</span>(i &lt; j) {
+                s[i] = s[j];
+                i++;
+            }
+            <span class="keyword">while</span>(i &lt; j &amp;&amp; s[i] &gt; x) 
+                i++;
+            <span class="keyword">if</span>(i &lt; j) {
+                s[j] = s[i];
+                j--;
+            }
+        }
+        s[i] = x;
+        quick_sort_reverse(s, left, i - <span class="number">1</span>);
+        quick_sort_reverse(s, i + <span class="number">1</span>, right);
+    }
+    <span class="keyword">return</span> <span class="number">0</span>;
+}
+
+
+<span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span> </span>{
+    <span class="keyword">int</span> <span class="built_in">array</span>[<span class="number">10</span>] = {<span class="number">49</span>, <span class="number">38</span>, <span class="number">65</span>, <span class="number">97</span>, <span class="number">48</span>, <span class="number">13</span>, <span class="number">27</span>, <span class="number">11</span>, <span class="number">56</span>, <span class="number">45</span>};
+    <span class="keyword">int</span> maxlen = <span class="keyword">sizeof</span>(<span class="built_in">array</span>)/<span class="keyword">sizeof</span>(<span class="keyword">int</span>);
+
+    print_array(<span class="built_in">array</span>);
+    <span class="built_in">printf</span>(<span class="string">"\n"</span>);
+    quick_sort(<span class="built_in">array</span>, <span class="number">0</span>, maxlen - <span class="number">1</span>);
+    print_array(<span class="built_in">array</span>);
+    <span class="built_in">printf</span>(<span class="string">"\n"</span>);
+    quick_sort_reverse(<span class="built_in">array</span>, <span class="number">0</span>, maxlen - <span class="number">1</span>);
+    print_array(<span class="built_in">array</span>);
+    <span class="keyword">return</span> <span class="number">0</span>;
+}
+</code></pre></span>
+        
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <header class="post-header">
+
+      
+      
+        <h1 class="post-title" itemprop="name headline">
+          
+          
+            
               <a class="post-title-link" href="/2015/01/23/how-to-do-something-in-comfort/" itemprop="url">
                 如何舒适的做一件事情
               </a>
@@ -940,94 +1086,11 @@ rpm --<span class="keyword">import</span> <span class="regexp">/etc/</span>pki<s
 
 
     
-      
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      
-      
-        <h1 class="post-title" itemprop="name headline">
-          
-          
-            
-              <a class="post-title-link" href="/2014/12/25/linux-edit-PS1/" itemprop="url">
-                linux 修改提示符并显示当前路径
-              </a>
-            
-          
-        </h1>
-      
-
-      <div class="post-meta">
-        <span class="post-time">
-          发表于
-          <time itemprop="dateCreated" datetime="2014-12-25T10:37:43+08:00" content="2014-12-25">
-            2014-12-25
-          </time>
-        </span>
-
-        
-
-        
-          
-            <span class="post-comments-count">
-              &nbsp; | &nbsp;
-              <a href="/2014/12/25/linux-edit-PS1/#comments" itemprop="discussionUrl">
-                <span class="post-comments-count ds-thread-count" data-thread-key="2014/12/25/linux-edit-PS1/" itemprop="commentsCount"></span>
-              </a>
-            </span>
-          
-        
-      </div>
-    </header>
-
-    <div class="post-body">
-
-      
-      
-
-      
-        
-          <span itemprop="articleBody"><p>环境: centos<br>修改 linux 下的提示符 ，须通过修改变量 PS1 来实现，在你的终端下执行</p>
-<pre><code>PS1='<span class="special">[</span><span class="command">\u</span>@<span class="command">\h</span> <span class="command">\w</span> <span class="command">\A</span> <span class="special">#</span><span class="command">\#</span><span class="special">]</span><span class="command">\$</span>'
-</code></pre><p>这样提示符马上就变了，字符串中各个字符的含义如下：</p>
-<pre><code><span class="string">\H</span> ：完整的主机名称。例如：我的机器名称为：fc4.linux，则这个名称就是fc4.linux
-<span class="string">\h</span> ：仅取主机的第一个名字，如上例，则为fc4，.linux则被省略
-<span class="string">\t</span> ：显示时间为<span class="number">24</span>小时格式，如：HH：MM：SS
-<span class="string">\T</span> ：显示时间为<span class="number">12</span>小时格式
-<span class="string">\A</span> ：显示时间为<span class="number">24</span>小时格式：HH：MM
-<span class="string">\u</span> ：当前用户的账号名称
-<span class="string">\v</span> ：BASH的版本信息
-<span class="string">\w</span> ：完整的工作目录名称。家目录会以 ~代替
-<span class="string">\W</span> ：利用basename取得工作目录名称，所以只会列出最后一个目录
-<span class="string">\#</span> ：下达的第几个命令
-<span class="string">\$</span> ：提示字符，如果是root时，提示符为：<span class="comment"># ，普通用户则为：$</span>
-</code></pre><p>如果要让它每次开机就生效，把上面的代码放到 ~/.bash_profile 中就行了</p>
-</span>
-        
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
   </section>
 
   
   <nav class="pagination">
-    <a class="extend prev" rel="prev" href="/page/2/">&laquo;</a><a class="page-number" href="/">1</a><a class="page-number" href="/page/2/">2</a><span class="page-number current">3</span><a class="page-number" href="/page/4/">4</a><a class="page-number" href="/page/5/">5</a><a class="extend next" rel="next" href="/page/4/">&raquo;</a>
+    <a class="extend prev" rel="prev" href="/page/2/">&laquo;</a><a class="page-number" href="/">1</a><a class="page-number" href="/page/2/">2</a><span class="page-number current">3</span><a class="page-number" href="/page/4/">4</a><span class="space">&hellip;</span><a class="page-number" href="/page/6/">6</a><a class="extend next" rel="next" href="/page/4/">&raquo;</a>
   </nav>
 
  </div>
@@ -1061,7 +1124,7 @@ rpm --<span class="keyword">import</span> <span class="regexp">/etc/</span>pki<s
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/archives">
-              <span class="site-state-item-count">50</span>
+              <span class="site-state-item-count">51</span>
               <span class="site-state-item-name">日志</span>
             </a>
           </div>
@@ -1075,7 +1138,7 @@ rpm --<span class="keyword">import</span> <span class="regexp">/etc/</span>pki<s
 
           <div class="site-state-item site-state-tags">
             <a href="/tags">
-              <span class="site-state-item-count">81</span>
+              <span class="site-state-item-count">83</span>
               <span class="site-state-item-name">标签</span>
               </a>
           </div>

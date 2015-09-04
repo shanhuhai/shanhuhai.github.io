@@ -166,6 +166,112 @@
           
           
             
+              <a class="post-title-link" href="/2015/06/17/docker-essentials/" itemprop="url">
+                docker 使用精要
+              </a>
+            
+          
+        </h1>
+      
+
+      <div class="post-meta">
+        <span class="post-time">
+          发表于
+          <time itemprop="dateCreated" datetime="2015-06-17T17:15:18+08:00" content="2015-06-17">
+            2015-06-17
+          </time>
+        </span>
+
+        
+
+        
+          
+            <span class="post-comments-count">
+              &nbsp; | &nbsp;
+              <a href="/2015/06/17/docker-essentials/#comments" itemprop="discussionUrl">
+                <span class="post-comments-count ds-thread-count" data-thread-key="2015/06/17/docker-essentials/" itemprop="commentsCount"></span>
+              </a>
+            </span>
+          
+        
+      </div>
+    </header>
+
+    <div class="post-body">
+
+      
+      
+
+      
+        
+          <span itemprop="articleBody"><p>##容器管理<br>检查容器启动日志</p>
+<pre><code>docker logs 容器<span class="property">id</span>/容器名称
+</code></pre><p>启动一个已经被终止的容器</p>
+<pre><code>docker <span class="operator"><span class="keyword">start</span> 容器<span class="keyword">id</span>/容器名称</span>
+</code></pre><p>以交互方式启动一个已经被终止的容器</p>
+<pre><code>docker <span class="operator"><span class="keyword">start</span> -<span class="keyword">i</span> 容器<span class="keyword">id</span>/容器名称</span>
+</code></pre><p>终止容器</p>
+<pre><code>docker <span class="operator"><span class="keyword">stop</span> 容器<span class="keyword">id</span>/容器名称</span>
+</code></pre><p>重启容器</p>
+<pre><code>docker restart 容器<span class="property">id</span>/容器名称
+</code></pre><p>导出容器</p>
+<pre><code>docker <span class="keyword">export</span> <span class="number">7691</span>a814370e &gt; ubuntu.tar
+</code></pre><p>导入容器为镜像</p>
+<pre><code>cat ubuntu.tar | sudo docker <span class="keyword">import</span> - test/<span class="string">ubuntu:</span>v1<span class="number">.0</span>
+</code></pre><p>用户既可以使用 docker load 来导入镜像存储文件到本地镜像库，也可以使用 docker import 来导入一个容器快照到本地镜像库。这两者的区别在于容器快照文件将丢弃所有的历史记录和元数据信息（即仅保存容器当时的快照状态），而镜像存储文件将保存完整记录，体积也要大。此外，从容器快照文件导入时可以重新指定标签等元数据信息。</p>
+<p>##数据共享<br>创建一个数据卷</p>
+<pre><code>docker <span class="command">run</span> -ti -v /webapp <span class="comment">--name data ubuntu /bin/bash</span>
+</code></pre><p>在主机和容器间共享数据，即将主机的某个目录来作为容器的数据卷</p>
+<pre><code>docker run -ti -v <span class="regexp">/root/</span><span class="string">data:</span><span class="regexp">/opt/</span>data ubuntu <span class="regexp">/bin/</span>bash
+</code></pre><p>ps 目录必须用绝对路径</p>
+<p>在多个容器间共享数据</p>
+<pre><code>docker <span class="command">run</span> -ti -v /dbdata <span class="comment">--name dbdata training/postgres </span>
+
+docker <span class="command">run</span> -ti <span class="comment">--volumes-from dbdata --name db1 training/postgres /bin/bash</span>
+docker <span class="command">run</span> -ti <span class="comment">--volumes-from dbdata --name db2 training/postgres /bin/bash</span>
+docker <span class="command">run</span> -ti <span class="comment">--volumes-from db1 --name db3 training/postgres /bin/bash  #从已经挂载了数据卷的容器来挂载数据卷</span>
+</code></pre><p>##其他技巧</p>
+<p>使用镜像执行命令时，不创建容器</p>
+<pre><code>docker <span class="built_in">run</span> b15 /bin/echo <span class="string">'Hello world'</span>  --rm=<span class="literal">true</span>
+</code></pre><p>删除所有容器</p>
+<pre><code>docker rm <span class="escape">`d</span>ocker ps -<span class="literal">a</span> -q<span class="escape">` </span>
+</code></pre><p>通过容器创建镜像</p>
+<pre><code>docker <span class="operator"><span class="keyword">commit</span> -<span class="keyword">m</span> <span class="string">"Added json gem"</span> -a <span class="string">"Docker Newbee"</span> <span class="number">0</span>b26 ouruser/sinatra:v2</span>
+</code></pre><p>-m “” 修改备注<br>-a “” 作者信息<br>0b26  容器的id<br>ouruser/sinatra:v2  仓库名：tag</p>
+<p>导出镜像</p>
+<pre><code><span class="tag">docker</span> <span class="tag">save</span> <span class="tag">-o</span> <span class="tag">ubuntu_14</span><span class="class">.04</span><span class="class">.tar</span> <span class="rule"><span class="attribute">ubuntu</span>:<span class="value"><span class="number">14.04</span></span></span>
+</code></pre><p>导入镜像</p>
+<pre><code><span class="tag">docker</span> <span class="tag">load</span> &lt; <span class="tag">ubuntu_14</span><span class="class">.04</span><span class="class">.tar</span>
+</code></pre></span>
+        
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <header class="post-header">
+
+      
+      
+        <h1 class="post-title" itemprop="name headline">
+          
+          
+            
               <a class="post-title-link" href="/2015/06/15/Linux-centos-make-rpm/" itemprop="url">
                 Centos 6 制作 rpm 包
               </a>
@@ -1015,157 +1121,11 @@ b=<span class="literal">a</span>-b<span class="comment">;</span>
 
 
     
-      
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      
-      
-        <h1 class="post-title" itemprop="name headline">
-          
-          
-            
-              <a class="post-title-link" href="/2015/02/05/c-quick-sort/" itemprop="url">
-                C 语言快速排序算法
-              </a>
-            
-          
-        </h1>
-      
-
-      <div class="post-meta">
-        <span class="post-time">
-          发表于
-          <time itemprop="dateCreated" datetime="2015-02-05T23:30:26+08:00" content="2015-02-05">
-            2015-02-05
-          </time>
-        </span>
-
-        
-
-        
-          
-            <span class="post-comments-count">
-              &nbsp; | &nbsp;
-              <a href="/2015/02/05/c-quick-sort/#comments" itemprop="discussionUrl">
-                <span class="post-comments-count ds-thread-count" data-thread-key="2015/02/05/c-quick-sort/" itemprop="commentsCount"></span>
-              </a>
-            </span>
-          
-        
-      </div>
-    </header>
-
-    <div class="post-body">
-
-      
-      
-
-      
-        
-          <span itemprop="articleBody"><p>快速排序法的c语言实现，下面的代码包含了正序与逆序的实现，<br>代码如下:</p>
-<pre><code><span class="preprocessor">#<span class="keyword">include</span> <span class="string">&lt;stdio.h&gt;</span></span>
-<span class="function"><span class="keyword">int</span> <span class="title">print_array</span><span class="params">(<span class="keyword">int</span> <span class="built_in">array</span>[])</span></span>{
-    <span class="keyword">int</span> i;    
-    <span class="keyword">for</span>(i = <span class="number">0</span>; i &lt; <span class="number">10</span>; i++){
-        <span class="built_in">printf</span>(<span class="string">"%4d"</span>, <span class="built_in">array</span>[i]);
-    }
-    <span class="keyword">return</span> <span class="number">0</span>;
-}
-
-<span class="function"><span class="keyword">int</span> <span class="title">quick_sort</span><span class="params">(<span class="keyword">int</span> s[], <span class="keyword">int</span> left, <span class="keyword">int</span> right)</span></span>{
-    <span class="keyword">if</span>(left &lt; right) {
-        <span class="keyword">int</span> i = left;
-        <span class="keyword">int</span> j = right;
-        <span class="keyword">int</span> x = s[left];
-
-        <span class="keyword">while</span>(i &lt; j) {
-            <span class="keyword">while</span>(i &lt; j &amp;&amp; s[j] &gt;= x) 
-                j--;
-            <span class="keyword">if</span>(i &lt; j) {
-                s[i] = s[j];
-                i++;
-            }
-            <span class="keyword">while</span>(i &lt; j &amp;&amp; s[i] &lt; x) 
-                i++;
-            <span class="keyword">if</span>(i &lt; j) {
-                s[j] = s[i];
-                j--;
-            }
-        }
-        s[i] = x;
-        quick_sort(s, left, i - <span class="number">1</span>);
-        quick_sort(s, i + <span class="number">1</span>, right);
-    }
-    <span class="keyword">return</span> <span class="number">0</span>;
-}
-
-<span class="function"><span class="keyword">int</span> <span class="title">quick_sort_reverse</span><span class="params">(<span class="keyword">int</span> s[], <span class="keyword">int</span> left, <span class="keyword">int</span> right)</span></span>{
-    <span class="keyword">if</span>(left &lt; right) {
-        <span class="keyword">int</span> i = left;
-        <span class="keyword">int</span> j = right;
-        <span class="keyword">int</span> x = s[left];
-
-        <span class="keyword">while</span>(i &lt; j) {
-            <span class="keyword">while</span>(i &lt; j &amp;&amp; s[j] &lt;= x) 
-                j--;
-            <span class="keyword">if</span>(i &lt; j) {
-                s[i] = s[j];
-                i++;
-            }
-            <span class="keyword">while</span>(i &lt; j &amp;&amp; s[i] &gt; x) 
-                i++;
-            <span class="keyword">if</span>(i &lt; j) {
-                s[j] = s[i];
-                j--;
-            }
-        }
-        s[i] = x;
-        quick_sort_reverse(s, left, i - <span class="number">1</span>);
-        quick_sort_reverse(s, i + <span class="number">1</span>, right);
-    }
-    <span class="keyword">return</span> <span class="number">0</span>;
-}
-
-
-<span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span> </span>{
-    <span class="keyword">int</span> <span class="built_in">array</span>[<span class="number">10</span>] = {<span class="number">49</span>, <span class="number">38</span>, <span class="number">65</span>, <span class="number">97</span>, <span class="number">48</span>, <span class="number">13</span>, <span class="number">27</span>, <span class="number">11</span>, <span class="number">56</span>, <span class="number">45</span>};
-    <span class="keyword">int</span> maxlen = <span class="keyword">sizeof</span>(<span class="built_in">array</span>)/<span class="keyword">sizeof</span>(<span class="keyword">int</span>);
-
-    print_array(<span class="built_in">array</span>);
-    <span class="built_in">printf</span>(<span class="string">"\n"</span>);
-    quick_sort(<span class="built_in">array</span>, <span class="number">0</span>, maxlen - <span class="number">1</span>);
-    print_array(<span class="built_in">array</span>);
-    <span class="built_in">printf</span>(<span class="string">"\n"</span>);
-    quick_sort_reverse(<span class="built_in">array</span>, <span class="number">0</span>, maxlen - <span class="number">1</span>);
-    print_array(<span class="built_in">array</span>);
-    <span class="keyword">return</span> <span class="number">0</span>;
-}
-</code></pre></span>
-        
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
   </section>
 
   
   <nav class="pagination">
-    <a class="extend prev" rel="prev" href="/">&laquo;</a><a class="page-number" href="/">1</a><span class="page-number current">2</span><a class="page-number" href="/page/3/">3</a><span class="space">&hellip;</span><a class="page-number" href="/page/5/">5</a><a class="extend next" rel="next" href="/page/3/">&raquo;</a>
+    <a class="extend prev" rel="prev" href="/">&laquo;</a><a class="page-number" href="/">1</a><span class="page-number current">2</span><a class="page-number" href="/page/3/">3</a><span class="space">&hellip;</span><a class="page-number" href="/page/6/">6</a><a class="extend next" rel="next" href="/page/3/">&raquo;</a>
   </nav>
 
  </div>
@@ -1199,7 +1159,7 @@ b=<span class="literal">a</span>-b<span class="comment">;</span>
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/archives">
-              <span class="site-state-item-count">50</span>
+              <span class="site-state-item-count">51</span>
               <span class="site-state-item-name">日志</span>
             </a>
           </div>
@@ -1213,7 +1173,7 @@ b=<span class="literal">a</span>-b<span class="comment">;</span>
 
           <div class="site-state-item site-state-tags">
             <a href="/tags">
-              <span class="site-state-item-count">81</span>
+              <span class="site-state-item-count">83</span>
               <span class="site-state-item-name">标签</span>
               </a>
           </div>

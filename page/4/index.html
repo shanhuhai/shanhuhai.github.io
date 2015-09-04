@@ -166,6 +166,89 @@
           
           
             
+              <a class="post-title-link" href="/2014/12/25/linux-edit-PS1/" itemprop="url">
+                linux 修改提示符并显示当前路径
+              </a>
+            
+          
+        </h1>
+      
+
+      <div class="post-meta">
+        <span class="post-time">
+          发表于
+          <time itemprop="dateCreated" datetime="2014-12-25T10:37:43+08:00" content="2014-12-25">
+            2014-12-25
+          </time>
+        </span>
+
+        
+
+        
+          
+            <span class="post-comments-count">
+              &nbsp; | &nbsp;
+              <a href="/2014/12/25/linux-edit-PS1/#comments" itemprop="discussionUrl">
+                <span class="post-comments-count ds-thread-count" data-thread-key="2014/12/25/linux-edit-PS1/" itemprop="commentsCount"></span>
+              </a>
+            </span>
+          
+        
+      </div>
+    </header>
+
+    <div class="post-body">
+
+      
+      
+
+      
+        
+          <span itemprop="articleBody"><p>环境: centos<br>修改 linux 下的提示符 ，须通过修改变量 PS1 来实现，在你的终端下执行</p>
+<pre><code>PS1='<span class="special">[</span><span class="command">\u</span>@<span class="command">\h</span> <span class="command">\w</span> <span class="command">\A</span> <span class="special">#</span><span class="command">\#</span><span class="special">]</span><span class="command">\$</span>'
+</code></pre><p>这样提示符马上就变了，字符串中各个字符的含义如下：</p>
+<pre><code><span class="string">\H</span> ：完整的主机名称。例如：我的机器名称为：fc4.linux，则这个名称就是fc4.linux
+<span class="string">\h</span> ：仅取主机的第一个名字，如上例，则为fc4，.linux则被省略
+<span class="string">\t</span> ：显示时间为<span class="number">24</span>小时格式，如：HH：MM：SS
+<span class="string">\T</span> ：显示时间为<span class="number">12</span>小时格式
+<span class="string">\A</span> ：显示时间为<span class="number">24</span>小时格式：HH：MM
+<span class="string">\u</span> ：当前用户的账号名称
+<span class="string">\v</span> ：BASH的版本信息
+<span class="string">\w</span> ：完整的工作目录名称。家目录会以 ~代替
+<span class="string">\W</span> ：利用basename取得工作目录名称，所以只会列出最后一个目录
+<span class="string">\#</span> ：下达的第几个命令
+<span class="string">\$</span> ：提示字符，如果是root时，提示符为：<span class="comment"># ，普通用户则为：$</span>
+</code></pre><p>如果要让它每次开机就生效，把上面的代码放到 ~/.bash_profile 中就行了</p>
+</span>
+        
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <header class="post-header">
+
+      
+      
+        <h1 class="post-title" itemprop="name headline">
+          
+          
+            
               <a class="post-title-link" href="/2014/12/24/awk-samples/" itemprop="url">
                 awk使用实例
               </a>
@@ -876,95 +959,11 @@ branch=$(git branch | grep <span class="variable">$1</span>)
 
 
     
-      
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      
-      
-        <h1 class="post-title" itemprop="name headline">
-          
-          
-            
-              <a class="post-title-link" href="/2014/12/10/php-python-shell-stdin/" itemprop="url">
-                php/pyhon/shell 获取 stdin 输入
-              </a>
-            
-          
-        </h1>
-      
-
-      <div class="post-meta">
-        <span class="post-time">
-          发表于
-          <time itemprop="dateCreated" datetime="2014-12-10T13:23:40+08:00" content="2014-12-10">
-            2014-12-10
-          </time>
-        </span>
-
-        
-
-        
-          
-            <span class="post-comments-count">
-              &nbsp; | &nbsp;
-              <a href="/2014/12/10/php-python-shell-stdin/#comments" itemprop="discussionUrl">
-                <span class="post-comments-count ds-thread-count" data-thread-key="2014/12/10/php-python-shell-stdin/" itemprop="commentsCount"></span>
-              </a>
-            </span>
-          
-        
-      </div>
-    </header>
-
-    <div class="post-body">
-
-      
-      
-
-      
-        
-          <span itemprop="articleBody"><p>##php 获取 stdin<br>创建 stdin.php 文件，输入下面内容：</p>
-<pre><code><span class="shebang">#!/usr/bin/php</span>
-&lt;?php
-<span class="keyword">while</span>($f = fgets(STDIN)){
-    echo <span class="string">"line: $f"</span>;
-}
-</code></pre><p>在命令行下运行</p>
-<pre><code>cat <span class="built_in">stdin</span>.php | ./<span class="built_in">stdin</span>.php
-</code></pre><p>##shell 获取 stdin</p>
-<pre><code><span class="shebang">#!/bin/bash</span>
-<span class="built_in">read</span> line
-<span class="built_in">echo</span> <span class="variable">$line</span>
-</code></pre><p>##python 获取 stdin</p>
-<pre><code><span class="shebang">#!/usr/bin/python</span>
-<span class="keyword">import</span> sys
-print sys.stdin.readline()
-</code></pre></span>
-        
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
   </section>
 
   
   <nav class="pagination">
-    <a class="extend prev" rel="prev" href="/page/3/">&laquo;</a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/3/">3</a><span class="page-number current">4</span><a class="page-number" href="/page/5/">5</a><a class="extend next" rel="next" href="/page/5/">&raquo;</a>
+    <a class="extend prev" rel="prev" href="/page/3/">&laquo;</a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/3/">3</a><span class="page-number current">4</span><a class="page-number" href="/page/5/">5</a><a class="page-number" href="/page/6/">6</a><a class="extend next" rel="next" href="/page/5/">&raquo;</a>
   </nav>
 
  </div>
@@ -998,7 +997,7 @@ print sys.stdin.readline()
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/archives">
-              <span class="site-state-item-count">50</span>
+              <span class="site-state-item-count">51</span>
               <span class="site-state-item-name">日志</span>
             </a>
           </div>
@@ -1012,7 +1011,7 @@ print sys.stdin.readline()
 
           <div class="site-state-item site-state-tags">
             <a href="/tags">
-              <span class="site-state-item-count">81</span>
+              <span class="site-state-item-count">83</span>
               <span class="site-state-item-name">标签</span>
               </a>
           </div>
