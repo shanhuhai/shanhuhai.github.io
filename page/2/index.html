@@ -166,6 +166,84 @@
           
           
             
+              <a class="post-title-link" href="/2015/06/18/Linux-tee/" itemprop="url">
+                tee命令使用实例
+              </a>
+            
+          
+        </h1>
+      
+
+      <div class="post-meta">
+        <span class="post-time">
+          发表于
+          <time itemprop="dateCreated" datetime="2015-06-18T09:15:40+08:00" content="2015-06-18">
+            2015-06-18
+          </time>
+        </span>
+
+        
+
+        
+          
+            <span class="post-comments-count">
+              &nbsp; | &nbsp;
+              <a href="/2015/06/18/Linux-tee/#comments" itemprop="discussionUrl">
+                <span class="post-comments-count ds-thread-count" data-thread-key="2015/06/18/Linux-tee/" itemprop="commentsCount"></span>
+              </a>
+            </span>
+          
+        
+      </div>
+    </header>
+
+    <div class="post-body">
+
+      
+      
+
+      
+        
+          <span itemprop="articleBody"><p>tee 命令用于当我们重定向时既输出到文件又输出到屏幕,tee 命令可以重定向输出到多个文件</p>
+<pre><code>seq <span class="number">5</span> &gt;<span class="number">1.</span>txt 
+cat <span class="number">1.</span>txt 
+cat <span class="number">1.</span>txt &gt;<span class="number">2.</span>txt 
+cat <span class="number">1.</span>txt | tee <span class="number">3.</span>txt <span class="preprocessor">#将 <span class="number">1.</span>txt 的内容输出到屏幕且写入到 <span class="number">3.</span>txt 中</span>
+cat <span class="number">1.</span>txt | tee -a <span class="number">3.</span>txt  <span class="preprocessor"># 将 <span class="number">1.</span>txt 的内容追加到 <span class="number">3.</span>txt 中</span>
+</code></pre><p>使用命令重复输出字符串</p>
+<pre><code><span class="built_in">echo</span> <span class="number">12345</span> | tee 
+<span class="built_in">echo</span> <span class="number">12345</span> | tee -
+<span class="built_in">echo</span> <span class="number">12345</span> | tee - - <span class="comment">#输出三次</span>
+</code></pre></span>
+        
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <header class="post-header">
+
+      
+      
+        <h1 class="post-title" itemprop="name headline">
+          
+          
+            
               <a class="post-title-link" href="/2015/06/17/docker-essentials/" itemprop="url">
                 docker 使用精要
               </a>
@@ -1052,75 +1130,6 @@ b=<span class="literal">a</span>-b<span class="comment">;</span>
 
 
     
-      
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      
-      
-        <h1 class="post-title" itemprop="name headline">
-          
-          
-            
-              <a class="post-title-link" href="/2015/02/09/no-pain-no-gain/" itemprop="url">
-                No pain no gain
-              </a>
-            
-          
-        </h1>
-      
-
-      <div class="post-meta">
-        <span class="post-time">
-          发表于
-          <time itemprop="dateCreated" datetime="2015-02-09T21:41:17+08:00" content="2015-02-09">
-            2015-02-09
-          </time>
-        </span>
-
-        
-
-        
-          
-            <span class="post-comments-count">
-              &nbsp; | &nbsp;
-              <a href="/2015/02/09/no-pain-no-gain/#comments" itemprop="discussionUrl">
-                <span class="post-comments-count ds-thread-count" data-thread-key="2015/02/09/no-pain-no-gain/" itemprop="commentsCount"></span>
-              </a>
-            </span>
-          
-        
-      </div>
-    </header>
-
-    <div class="post-body">
-
-      
-      
-
-      
-        
-          <span itemprop="articleBody"><p>no pain no gain<br>我们有各种各样想 gain 的东西，这些东西驱使我们承受 pain<br>想要有多大的成就就要经历多大的艰难，<br>要有多大的赞美就要经得住多大的诋毁.</p>
-</span>
-        
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
   </section>
 
   
@@ -1159,7 +1168,7 @@ b=<span class="literal">a</span>-b<span class="comment">;</span>
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/archives">
-              <span class="site-state-item-count">51</span>
+              <span class="site-state-item-count">52</span>
               <span class="site-state-item-name">日志</span>
             </a>
           </div>

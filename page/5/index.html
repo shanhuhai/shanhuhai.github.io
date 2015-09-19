@@ -166,6 +166,81 @@
           
           
             
+              <a class="post-title-link" href="/2014/12/10/check-branch-exists-by-shell/" itemprop="url">
+                使用 shell 来检查 git 分支是否存在
+              </a>
+            
+          
+        </h1>
+      
+
+      <div class="post-meta">
+        <span class="post-time">
+          发表于
+          <time itemprop="dateCreated" datetime="2014-12-10T13:27:04+08:00" content="2014-12-10">
+            2014-12-10
+          </time>
+        </span>
+
+        
+
+        
+          
+            <span class="post-comments-count">
+              &nbsp; | &nbsp;
+              <a href="/2014/12/10/check-branch-exists-by-shell/#comments" itemprop="discussionUrl">
+                <span class="post-comments-count ds-thread-count" data-thread-key="2014/12/10/check-branch-exists-by-shell/" itemprop="commentsCount"></span>
+              </a>
+            </span>
+          
+        
+      </div>
+    </header>
+
+    <div class="post-body">
+
+      
+      
+
+      
+        
+          <span itemprop="articleBody"><pre><code><span class="shebang">#!/bin/bash</span>
+branch=$(git branch | grep <span class="variable">$1</span>)
+<span class="keyword">if</span> [ -n <span class="string">"<span class="variable">$branch</span>"</span> ]; <span class="keyword">then</span>
+    <span class="built_in">echo</span> <span class="string">"exits"</span>
+<span class="keyword">else</span>
+    <span class="built_in">echo</span> <span class="string">"not exist"</span>
+<span class="keyword">fi</span>
+</code></pre></span>
+        
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <header class="post-header">
+
+      
+      
+        <h1 class="post-title" itemprop="name headline">
+          
+          
+            
               <a class="post-title-link" href="/2014/12/10/php-python-shell-stdin/" itemprop="url">
                 php/pyhon/shell 获取 stdin 输入
               </a>
@@ -882,10 +957,9 @@ secrets <span class="keyword">file</span> = /etc/rsyncd.pwd</span>
 
       
         
-          <span itemprop="articleBody"><p>##导语<br>如今的软件行业面向的终端越来越多，传统的 PC，现在正大火的移动端，还有正在逐步互联网化的电视、冰箱、可穿戴设备等，为了让公司的软件能兼容不同的终端，前端的同学们正在面临越来越多的挑战。</p>
+          <span itemprop="articleBody"><h2 id="导语">导语</h2><p>如今的软件行业面向的终端越来越多，传统的 PC，现在正大火的移动端，还有正在逐步互联网化的电视、冰箱、可穿戴设备等，为了让公司的软件能兼容不同的终端，前端的同学们正在面临越来越多的挑战。</p>
 <p>为了适配不同的设备，同学们不得不把一图片做好几个版本，其实这个事可以让运维来干，那就是在 nginx 上加一个模块,将要生成的图片的参数传入url来自动生成想要的图片，虽然可能不是那么完美，但是对于前端要求不太高的公司来说，还是省了不少事，下面就是配置方法。</p>
-<p>##部署</p>
-<h3 id="环境要求">环境要求</h3><p>操作系统: Centos 6.2<br>nginx: &gt; 0.7.54</p>
+<h2 id="部署">部署</h2><h3 id="环境要求">环境要求</h3><p>操作系统: Centos 6.2<br>nginx: &gt; 0.7.54</p>
 <h3 id="安装方法">安装方法</h3><p>首先在服务器上要安装 gd-devel 包:</p>
 <pre><code>yum -y <span class="keyword">install</span> gd-devel
 </code></pre><p>在你原来的编译命令后加上 –with-http_image_filter_module 例如:</p>
@@ -1002,84 +1076,6 @@ secrets <span class="keyword">file</span> = /etc/rsyncd.pwd</span>
 
 
     
-      
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      
-      
-        <h1 class="post-title" itemprop="name headline">
-          
-          
-            
-              <a class="post-title-link" href="/2014/11/04/first-bowser-dedicated-to-developers/" itemprop="url">
-                第一款致力于开发者的浏览器
-              </a>
-            
-          
-        </h1>
-      
-
-      <div class="post-meta">
-        <span class="post-time">
-          发表于
-          <time itemprop="dateCreated" datetime="2014-11-04T10:50:10+08:00" content="2014-11-04">
-            2014-11-04
-          </time>
-        </span>
-
-        
-
-        
-          
-            <span class="post-comments-count">
-              &nbsp; | &nbsp;
-              <a href="/2014/11/04/first-bowser-dedicated-to-developers/#comments" itemprop="discussionUrl">
-                <span class="post-comments-count ds-thread-count" data-thread-key="2014/11/04/first-bowser-dedicated-to-developers/" itemprop="commentsCount"></span>
-              </a>
-            </span>
-          
-        
-      </div>
-    </header>
-
-    <div class="post-body">
-
-      
-      
-
-      
-        
-          <span itemprop="articleBody"><p>在 Mozilla 我们知道开发者是 web 的基石，这就是为什么我们积极的推动标准，并且开发牛x的工具来使创建优美的网页内容和应用变的更加的容易.</p>
-<p>当我们做 web 开发时，开发者往往会使用一大堆的不同工具，但是它们经常在一起不能很好的工作. 这意味着你最终得在不同的工具，平台和浏览器之间切换，这样会减慢你的开发速度，并且让你效率很低。</p>
-<p>因此我们决定释放我们的开发者工具组到整个浏览器中看看它是怎样让我们的生活变的更容易的。<br>(So we decided to unleash our developer tools team on the entire browser to see how we could make your lives easier.）</p>
-<p>现在我们让我们来先睹为快这款针对开发者定制的浏览器：<br>(We’re now ready to give you a sneak peek of the first browser dedicated you as a developer:)</p>
-<p>我们把开发者的利益放在首要位置重新设计了浏览器。<br>(We’ve redesigned the browser by looking at it through a completely new filter to put developers’ interests first.)</p>
-<p>它是开发者为开发者构建的所以你可以调试整个网络，它允许你更容易的创建很好的 web 体验，它也整合了一些新的工具像 <a href="https://hacks.mozilla.org/2014/06/webide-lands-in-nightly/" target="_blank" rel="external">WebIDE</a> 和 <a href="https://hacks.mozilla.org/2014/09/firefox-tools-adapter" target="_blank" rel="external">Firefox Tools Adapter</a>.</p>
-<p>不久我们会给你带来包含更多功能做为一个开发者开发独立的 web 应得的工具包.<br>(Soon, we’re going to bring you more, a lot more, in a package that you deserve as a builder for an independent Web.)</p>
-<p>请分享这个关键词（<a href="https://twitter.com/search?q=%23fx10&amp;src=typd" target="_blank" rel="external">#Fx10</a>）或者注册 <a href="https://hacks.mozilla.org/newsletter/" target="_blank" rel="external">Hacks newsletter here</a>,这样在浏览器发布后会第一时间邮件通知你。<br>(Get ready to spread the word (#Fx10) or sign up for our Hacks newsletter here to be emailed as soon as the browser is available.)</p>
-<p>我们已经迫不及待的要把它分享给你在 11 月 10 号<br>(We can’t wait to share it with you on November 10th.)</p>
-<p><em>原文地址: <a href="https://blog.mozilla.org/blog/2014/11/03/the-first-browser-dedicated-to-developers-is-coming-2/" target="_blank" rel="external">https://blog.mozilla.org/blog/2014/11/03/the-first-browser-dedicated-to-developers-is-coming-2/</a></em></p>
-</span>
-        
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
   </section>
 
   
@@ -1118,7 +1114,7 @@ secrets <span class="keyword">file</span> = /etc/rsyncd.pwd</span>
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/archives">
-              <span class="site-state-item-count">51</span>
+              <span class="site-state-item-count">52</span>
               <span class="site-state-item-name">日志</span>
             </a>
           </div>

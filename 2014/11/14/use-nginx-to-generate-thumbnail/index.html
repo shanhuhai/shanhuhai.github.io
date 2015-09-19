@@ -37,19 +37,19 @@
   <link rel="shorticon icon" type="image/x-icon" href="/favicon.ico?v=0.4.5.1" />
 
 
-<meta name="description" content="##导语如今的软件行业面向的终端越来越多，传统的 PC，现在正大火的移动端，还有正在逐步互联网化的电视、冰箱、可穿戴设备等，为了让公司的软件能兼容不同的终端，前端的同学们正在面临越来越多的挑战。
-为了适配不同的设备，同学们不得不把一图片做好几个版本，其实这个事可以让运维来干，那就是在 nginx 上加一个模块,将要生成的图片的参数传入url来自动生成想要的图片，虽然可能不是那么完美，但是对于前端要">
+<meta name="description" content="导语如今的软件行业面向的终端越来越多，传统的 PC，现在正大火的移动端，还有正在逐步互联网化的电视、冰箱、可穿戴设备等，为了让公司的软件能兼容不同的终端，前端的同学们正在面临越来越多的挑战。
+为了适配不同的设备，同学们不得不把一图片做好几个版本，其实这个事可以让运维来干，那就是在 nginx 上加一个模块,将要生成的图片的参数传入url来自动生成想要的图片，虽然可能不是那么完美，但是对于前端要求不">
 <meta property="og:type" content="article">
 <meta property="og:title" content="利用 nginx 自动生成缩略图">
 <meta property="og:url" content="http://www.dahouduan.com/2014/11/14/use-nginx-to-generate-thumbnail/index.html">
 <meta property="og:site_name" content="大后端">
-<meta property="og:description" content="##导语如今的软件行业面向的终端越来越多，传统的 PC，现在正大火的移动端，还有正在逐步互联网化的电视、冰箱、可穿戴设备等，为了让公司的软件能兼容不同的终端，前端的同学们正在面临越来越多的挑战。
-为了适配不同的设备，同学们不得不把一图片做好几个版本，其实这个事可以让运维来干，那就是在 nginx 上加一个模块,将要生成的图片的参数传入url来自动生成想要的图片，虽然可能不是那么完美，但是对于前端要">
-<meta property="og:updated_time" content="2014-11-21T10:55:59.000Z">
+<meta property="og:description" content="导语如今的软件行业面向的终端越来越多，传统的 PC，现在正大火的移动端，还有正在逐步互联网化的电视、冰箱、可穿戴设备等，为了让公司的软件能兼容不同的终端，前端的同学们正在面临越来越多的挑战。
+为了适配不同的设备，同学们不得不把一图片做好几个版本，其实这个事可以让运维来干，那就是在 nginx 上加一个模块,将要生成的图片的参数传入url来自动生成想要的图片，虽然可能不是那么完美，但是对于前端要求不">
+<meta property="og:updated_time" content="2015-09-04T05:06:54.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="利用 nginx 自动生成缩略图">
-<meta name="twitter:description" content="##导语如今的软件行业面向的终端越来越多，传统的 PC，现在正大火的移动端，还有正在逐步互联网化的电视、冰箱、可穿戴设备等，为了让公司的软件能兼容不同的终端，前端的同学们正在面临越来越多的挑战。
-为了适配不同的设备，同学们不得不把一图片做好几个版本，其实这个事可以让运维来干，那就是在 nginx 上加一个模块,将要生成的图片的参数传入url来自动生成想要的图片，虽然可能不是那么完美，但是对于前端要">
+<meta name="twitter:description" content="导语如今的软件行业面向的终端越来越多，传统的 PC，现在正大火的移动端，还有正在逐步互联网化的电视、冰箱、可穿戴设备等，为了让公司的软件能兼容不同的终端，前端的同学们正在面临越来越多的挑战。
+为了适配不同的设备，同学们不得不把一图片做好几个版本，其实这个事可以让运维来干，那就是在 nginx 上加一个模块,将要生成的图片的参数传入url来自动生成想要的图片，虽然可能不是那么完美，但是对于前端要求不">
 
 
 <script type="text/javascript" id="hexo.configuration">
@@ -203,10 +203,9 @@
       
 
       
-        <span itemprop="articleBody"><p>##导语<br>如今的软件行业面向的终端越来越多，传统的 PC，现在正大火的移动端，还有正在逐步互联网化的电视、冰箱、可穿戴设备等，为了让公司的软件能兼容不同的终端，前端的同学们正在面临越来越多的挑战。</p>
+        <span itemprop="articleBody"><h2 id="导语">导语</h2><p>如今的软件行业面向的终端越来越多，传统的 PC，现在正大火的移动端，还有正在逐步互联网化的电视、冰箱、可穿戴设备等，为了让公司的软件能兼容不同的终端，前端的同学们正在面临越来越多的挑战。</p>
 <p>为了适配不同的设备，同学们不得不把一图片做好几个版本，其实这个事可以让运维来干，那就是在 nginx 上加一个模块,将要生成的图片的参数传入url来自动生成想要的图片，虽然可能不是那么完美，但是对于前端要求不太高的公司来说，还是省了不少事，下面就是配置方法。</p>
-<p>##部署</p>
-<h3 id="环境要求">环境要求</h3><p>操作系统: Centos 6.2<br>nginx: &gt; 0.7.54</p>
+<h2 id="部署">部署</h2><h3 id="环境要求">环境要求</h3><p>操作系统: Centos 6.2<br>nginx: &gt; 0.7.54</p>
 <h3 id="安装方法">安装方法</h3><p>首先在服务器上要安装 gd-devel 包:</p>
 <pre><code>yum -y <span class="keyword">install</span> gd-devel
 </code></pre><p>在你原来的编译命令后加上 –with-http_image_filter_module 例如:</p>
@@ -332,7 +331,7 @@
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/archives">
-              <span class="site-state-item-count">51</span>
+              <span class="site-state-item-count">52</span>
               <span class="site-state-item-name">日志</span>
             </a>
           </div>
@@ -380,7 +379,7 @@
           <div class="post-toc">
             
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#环境要求"><span class="nav-number">1.</span> <span class="nav-text">环境要求</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#安装方法"><span class="nav-number">2.</span> <span class="nav-text">安装方法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#配置方法"><span class="nav-number">3.</span> <span class="nav-text">配置方法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#使用方法"><span class="nav-number">4.</span> <span class="nav-text">使用方法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#延伸"><span class="nav-number">5.</span> <span class="nav-text">延伸</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#导语"><span class="nav-number">1.</span> <span class="nav-text">导语</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#部署"><span class="nav-number">2.</span> <span class="nav-text">部署</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#环境要求"><span class="nav-number">2.1.</span> <span class="nav-text">环境要求</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#安装方法"><span class="nav-number">2.2.</span> <span class="nav-text">安装方法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#配置方法"><span class="nav-number">2.3.</span> <span class="nav-text">配置方法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#使用方法"><span class="nav-number">2.4.</span> <span class="nav-text">使用方法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#延伸"><span class="nav-number">2.5.</span> <span class="nav-text">延伸</span></a></li></ol></li></ol></div>
             
           </div>
           <div class="post-toc-indicator-bottom post-toc-indicator"></div>

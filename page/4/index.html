@@ -166,6 +166,76 @@
           
           
             
+              <a class="post-title-link" href="/2014/12/25/centos-yum-install-nodejs-npm/" itemprop="url">
+                centos用 yum 方式安装 nodejs 和 npm
+              </a>
+            
+          
+        </h1>
+      
+
+      <div class="post-meta">
+        <span class="post-time">
+          发表于
+          <time itemprop="dateCreated" datetime="2014-12-25T10:53:07+08:00" content="2014-12-25">
+            2014-12-25
+          </time>
+        </span>
+
+        
+
+        
+          
+            <span class="post-comments-count">
+              &nbsp; | &nbsp;
+              <a href="/2014/12/25/centos-yum-install-nodejs-npm/#comments" itemprop="discussionUrl">
+                <span class="post-comments-count ds-thread-count" data-thread-key="2014/12/25/centos-yum-install-nodejs-npm/" itemprop="commentsCount"></span>
+              </a>
+            </span>
+          
+        
+      </div>
+    </header>
+
+    <div class="post-body">
+
+      
+      
+
+      
+        
+          <span itemprop="articleBody"><p>要通过 yum 来安装 nodejs 和 npm 需要先给 yum 添加 epel 源，<br>添加方法在 <a href="http://www.dahouduan.com/2014/12/25/centos-yum-add-epel-remi/">centos 添加epel和remi源</a> 中<br>安装完成后,执行</p>
+<pre><code>yum -y <span class="operator"><span class="keyword">install</span> nodejs npm <span class="comment">--enablerepo=epel</span></span>
+</code></pre></span>
+        
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <header class="post-header">
+
+      
+      
+        <h1 class="post-title" itemprop="name headline">
+          
+          
+            
               <a class="post-title-link" href="/2014/12/25/linux-edit-PS1/" itemprop="url">
                 linux 修改提示符并显示当前路径
               </a>
@@ -884,81 +954,6 @@ repos_name=$(get_repos_name <span class="variable">$line</span>)
 
 
     
-      
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      
-      
-        <h1 class="post-title" itemprop="name headline">
-          
-          
-            
-              <a class="post-title-link" href="/2014/12/10/check-branch-exists-by-shell/" itemprop="url">
-                使用 shell 来检查 git 分支是否存在
-              </a>
-            
-          
-        </h1>
-      
-
-      <div class="post-meta">
-        <span class="post-time">
-          发表于
-          <time itemprop="dateCreated" datetime="2014-12-10T13:27:04+08:00" content="2014-12-10">
-            2014-12-10
-          </time>
-        </span>
-
-        
-
-        
-          
-            <span class="post-comments-count">
-              &nbsp; | &nbsp;
-              <a href="/2014/12/10/check-branch-exists-by-shell/#comments" itemprop="discussionUrl">
-                <span class="post-comments-count ds-thread-count" data-thread-key="2014/12/10/check-branch-exists-by-shell/" itemprop="commentsCount"></span>
-              </a>
-            </span>
-          
-        
-      </div>
-    </header>
-
-    <div class="post-body">
-
-      
-      
-
-      
-        
-          <span itemprop="articleBody"><pre><code><span class="shebang">#!/bin/bash</span>
-branch=$(git branch | grep <span class="variable">$1</span>)
-<span class="keyword">if</span> [ -n <span class="string">"<span class="variable">$branch</span>"</span> ]; <span class="keyword">then</span>
-    <span class="built_in">echo</span> <span class="string">"exits"</span>
-<span class="keyword">else</span>
-    <span class="built_in">echo</span> <span class="string">"not exist"</span>
-<span class="keyword">fi</span>
-</code></pre></span>
-        
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
   </section>
 
   
@@ -997,7 +992,7 @@ branch=$(git branch | grep <span class="variable">$1</span>)
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/archives">
-              <span class="site-state-item-count">51</span>
+              <span class="site-state-item-count">52</span>
               <span class="site-state-item-name">日志</span>
             </a>
           </div>
