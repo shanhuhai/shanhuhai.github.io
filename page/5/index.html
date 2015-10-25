@@ -166,6 +166,87 @@
           
           
             
+              <a class="post-title-link" href="/2014/12/11/shell-get-filename-by-path/" itemprop="url">
+                shell 根据文件路径获取文件名的函数
+              </a>
+            
+          
+        </h1>
+      
+
+      <div class="post-meta">
+        <span class="post-time">
+          发表于
+          <time itemprop="dateCreated" datetime="2014-12-11T10:21:57+08:00" content="2014-12-11">
+            2014-12-11
+          </time>
+        </span>
+
+        
+
+        
+          
+            <span class="post-comments-count">
+              &nbsp; | &nbsp;
+              <a href="/2014/12/11/shell-get-filename-by-path/#comments" itemprop="discussionUrl">
+                <span class="post-comments-count ds-thread-count" data-thread-key="2014/12/11/shell-get-filename-by-path/" itemprop="commentsCount"></span>
+              </a>
+            </span>
+          
+        
+      </div>
+    </header>
+
+    <div class="post-body">
+
+      
+      
+
+      
+        
+          <span itemprop="articleBody"><pre><code><span class="shebang">#!/bin/bash</span>
+<span class="keyword">function</span> get_repos_name
+{
+     line=<span class="variable">$1</span>
+     arr=(<span class="variable">${line//\// }</span>)
+     line=<span class="variable">${arr[1]}</span>
+     arr=(<span class="variable">${line//./ }</span>)
+     <span class="built_in">echo</span> <span class="variable">${arr[0]}</span>
+
+}
+line=<span class="string">"/repos/xxx.git"</span>
+repos_name=$(get_repos_name <span class="variable">$line</span>)
+<span class="built_in">echo</span> <span class="variable">$repos_name</span>
+</code></pre></span>
+        
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <header class="post-header">
+
+      
+      
+        <h1 class="post-title" itemprop="name headline">
+          
+          
+            
               <a class="post-title-link" href="/2014/12/10/check-branch-exists-by-shell/" itemprop="url">
                 使用 shell 来检查 git 分支是否存在
               </a>
@@ -1007,75 +1088,6 @@ secrets <span class="keyword">file</span> = /etc/rsyncd.pwd</span>
 
 
     
-      
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      
-      
-        <h1 class="post-title" itemprop="name headline">
-          
-          
-            
-              <a class="post-title-link" href="/2014/11/14/Linux-batch-replacement-of-file-content/" itemprop="url">
-                Linux 批量替换文件内容
-              </a>
-            
-          
-        </h1>
-      
-
-      <div class="post-meta">
-        <span class="post-time">
-          发表于
-          <time itemprop="dateCreated" datetime="2014-11-14T15:02:28+08:00" content="2014-11-14">
-            2014-11-14
-          </time>
-        </span>
-
-        
-
-        
-          
-            <span class="post-comments-count">
-              &nbsp; | &nbsp;
-              <a href="/2014/11/14/Linux-batch-replacement-of-file-content/#comments" itemprop="discussionUrl">
-                <span class="post-comments-count ds-thread-count" data-thread-key="2014/11/14/Linux-batch-replacement-of-file-content/" itemprop="commentsCount"></span>
-              </a>
-            </span>
-          
-        
-      </div>
-    </header>
-
-    <div class="post-body">
-
-      
-      
-
-      
-        
-          <span itemprop="articleBody"><pre><code>sed -<span class="tag">i</span> <span class="string">"s/原字符串/新字符串/g"</span> $( grep 原字符串 -rl 目标目录 )
-</code></pre></span>
-        
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
   </section>
 
   
@@ -1114,7 +1126,7 @@ secrets <span class="keyword">file</span> = /etc/rsyncd.pwd</span>
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/archives">
-              <span class="site-state-item-count">52</span>
+              <span class="site-state-item-count">53</span>
               <span class="site-state-item-name">日志</span>
             </a>
           </div>
@@ -1128,7 +1140,7 @@ secrets <span class="keyword">file</span> = /etc/rsyncd.pwd</span>
 
           <div class="site-state-item site-state-tags">
             <a href="/tags">
-              <span class="site-state-item-count">83</span>
+              <span class="site-state-item-count">86</span>
               <span class="site-state-item-name">标签</span>
               </a>
           </div>

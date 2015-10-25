@@ -166,6 +166,84 @@
           
           
             
+              <a class="post-title-link" href="/2014/12/25/centos-yum-add-epel-remi/" itemprop="url">
+                centos 添加 epel 和 remi 源
+              </a>
+            
+          
+        </h1>
+      
+
+      <div class="post-meta">
+        <span class="post-time">
+          发表于
+          <time itemprop="dateCreated" datetime="2014-12-25T10:59:45+08:00" content="2014-12-25">
+            2014-12-25
+          </time>
+        </span>
+
+        
+
+        
+          
+            <span class="post-comments-count">
+              &nbsp; | &nbsp;
+              <a href="/2014/12/25/centos-yum-add-epel-remi/#comments" itemprop="discussionUrl">
+                <span class="post-comments-count ds-thread-count" data-thread-key="2014/12/25/centos-yum-add-epel-remi/" itemprop="commentsCount"></span>
+              </a>
+            </span>
+          
+        
+      </div>
+    </header>
+
+    <div class="post-body">
+
+      
+      
+
+      
+        
+          <span itemprop="articleBody"><p>##添加 epel 源</p>
+<p> 64位:</p>
+<pre><code>rpm -ivh <span class="symbol">http:</span>/<span class="regexp">/download.fedoraproject.org/pub</span><span class="regexp">/epel/</span><span class="number">6</span>/x86_64/epel-release-<span class="number">6</span>-<span class="number">8</span>.noarch.rpm
+</code></pre><p>32位:</p>
+<pre><code>rpm -ivh <span class="symbol">http:</span>/<span class="regexp">/download.fedoraproject.org/pub</span><span class="regexp">/epel/</span><span class="number">6</span>/i386/epel-release-<span class="number">6</span>-<span class="number">8</span>.noarch.rpm
+</code></pre><p>导入 key:</p>
+<pre><code>rpm --<span class="keyword">import</span> <span class="regexp">/etc/</span>pki<span class="regexp">/rpm-gpg/</span>RPM-GPG-KEY-EPEL-<span class="number">6</span>
+</code></pre><p>##添加 remi 源</p>
+<pre><code>rpm -ivh <span class="string">http:</span><span class="comment">//rpms.famillecollet.com/enterprise/remi-release-6.rpm</span>
+rpm --<span class="keyword">import</span> <span class="regexp">/etc/</span>pki<span class="regexp">/rpm-gpg/</span>RPM-GPG-KEY-remi
+</code></pre></span>
+        
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <header class="post-header">
+
+      
+      
+        <h1 class="post-title" itemprop="name headline">
+          
+          
+            
               <a class="post-title-link" href="/2014/12/25/centos-yum-install-nodejs-npm/" itemprop="url">
                 centos用 yum 方式安装 nodejs 和 npm
               </a>
@@ -873,87 +951,6 @@ group = www
 
 
     
-      
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      
-      
-        <h1 class="post-title" itemprop="name headline">
-          
-          
-            
-              <a class="post-title-link" href="/2014/12/11/shell-get-filename-by-path/" itemprop="url">
-                shell 根据文件路径获取文件名的函数
-              </a>
-            
-          
-        </h1>
-      
-
-      <div class="post-meta">
-        <span class="post-time">
-          发表于
-          <time itemprop="dateCreated" datetime="2014-12-11T10:21:57+08:00" content="2014-12-11">
-            2014-12-11
-          </time>
-        </span>
-
-        
-
-        
-          
-            <span class="post-comments-count">
-              &nbsp; | &nbsp;
-              <a href="/2014/12/11/shell-get-filename-by-path/#comments" itemprop="discussionUrl">
-                <span class="post-comments-count ds-thread-count" data-thread-key="2014/12/11/shell-get-filename-by-path/" itemprop="commentsCount"></span>
-              </a>
-            </span>
-          
-        
-      </div>
-    </header>
-
-    <div class="post-body">
-
-      
-      
-
-      
-        
-          <span itemprop="articleBody"><pre><code><span class="shebang">#!/bin/bash</span>
-<span class="keyword">function</span> get_repos_name
-{
-     line=<span class="variable">$1</span>
-     arr=(<span class="variable">${line//\// }</span>)
-     line=<span class="variable">${arr[1]}</span>
-     arr=(<span class="variable">${line//./ }</span>)
-     <span class="built_in">echo</span> <span class="variable">${arr[0]}</span>
-
-}
-line=<span class="string">"/repos/xxx.git"</span>
-repos_name=$(get_repos_name <span class="variable">$line</span>)
-<span class="built_in">echo</span> <span class="variable">$repos_name</span>
-</code></pre></span>
-        
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
   </section>
 
   
@@ -992,7 +989,7 @@ repos_name=$(get_repos_name <span class="variable">$line</span>)
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/archives">
-              <span class="site-state-item-count">52</span>
+              <span class="site-state-item-count">53</span>
               <span class="site-state-item-name">日志</span>
             </a>
           </div>
@@ -1006,7 +1003,7 @@ repos_name=$(get_repos_name <span class="variable">$line</span>)
 
           <div class="site-state-item site-state-tags">
             <a href="/tags">
-              <span class="site-state-item-count">83</span>
+              <span class="site-state-item-count">86</span>
               <span class="site-state-item-name">标签</span>
               </a>
           </div>
