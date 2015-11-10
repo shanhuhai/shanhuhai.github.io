@@ -166,6 +166,105 @@
           
           
             
+              <a class="post-title-link" href="/2014/11/14/use-nginx-to-generate-thumbnail/" itemprop="url">
+                利用 nginx 自动生成缩略图
+              </a>
+            
+          
+        </h1>
+      
+
+      <div class="post-meta">
+        <span class="post-time">
+          发表于
+          <time itemprop="dateCreated" datetime="2014-11-14T16:35:17+08:00" content="2014-11-14">
+            2014-11-14
+          </time>
+        </span>
+
+        
+
+        
+          
+            <span class="post-comments-count">
+              &nbsp; | &nbsp;
+              <a href="/2014/11/14/use-nginx-to-generate-thumbnail/#comments" itemprop="discussionUrl">
+                <span class="post-comments-count ds-thread-count" data-thread-key="2014/11/14/use-nginx-to-generate-thumbnail/" itemprop="commentsCount"></span>
+              </a>
+            </span>
+          
+        
+      </div>
+    </header>
+
+    <div class="post-body">
+
+      
+      
+
+      
+        
+          <span itemprop="articleBody"><h2 id="导语">导语</h2><p>如今的软件行业面向的终端越来越多，传统的 PC，现在正大火的移动端，还有正在逐步互联网化的电视、冰箱、可穿戴设备等，为了让公司的软件能兼容不同的终端，前端的同学们正在面临越来越多的挑战。</p>
+<p>为了适配不同的设备，同学们不得不把一图片做好几个版本，其实这个事可以让运维来干，那就是在 nginx 上加一个模块,将要生成的图片的参数传入url来自动生成想要的图片，虽然可能不是那么完美，但是对于前端要求不太高的公司来说，还是省了不少事，下面就是配置方法。</p>
+<h2 id="部署">部署</h2><h3 id="环境要求">环境要求</h3><p>操作系统: Centos 6.2<br>nginx: &gt; 0.7.54</p>
+<h3 id="安装方法">安装方法</h3><p>首先在服务器上要安装 gd-devel 包:</p>
+<pre><code>yum -y <span class="keyword">install</span> gd-devel
+</code></pre><p>在你原来的编译命令后加上 –with-http_image_filter_module 例如:</p>
+<pre><code><span class="string">.</span><span class="comment">/configure</span> <span class="literal">-</span><span class="literal">-</span><span class="comment">user=www</span> <span class="literal">-</span><span class="literal">-</span><span class="comment">group=www</span> <span class="literal">-</span><span class="literal">-</span><span class="comment">prefix=/usr/local/nginx</span> <span class="literal">-</span><span class="literal">-</span><span class="comment">with</span><span class="literal">-</span><span class="comment">http_stub_status_module</span> <span class="literal">-</span><span class="literal">-</span><span class="comment">without</span><span class="literal">-</span><span class="comment">http</span><span class="literal">-</span><span class="comment">cache</span> <span class="literal">-</span><span class="literal">-</span><span class="comment">with</span><span class="literal">-</span><span class="comment">http_ssl_module</span> <span class="literal">-</span><span class="literal">-</span><span class="comment">with</span><span class="literal">-</span><span class="comment">http_image_filter_module</span>
+</code></pre><p>然后重新编译安装，然后重启 niginx 就可以了，运行:</p>
+<pre><code>sbin/nginx -V
+</code></pre><p>查看返回的结果中有了 –with-http_image_filter_module 表明安装成功了。</p>
+<h3 id="配置方法">配置方法</h3><p>这里给出一个简单的例子来，演示使用方法：<br>在你的域名的配置文件中添加</p>
+<pre><code>location ~* /(.+)\.(jpg|gif|png)!(\d+)<span class="number">_</span>(\d+)$ {
+        set <span class="variable">$h</span> <span class="variable">$3</span>;
+        set <span class="variable">$w</span> <span class="variable">$4</span>;
+        if (<span class="variable">$h</span> = <span class="string">"0"</span>) {
+            rewrite /(.+)<span class="number">_</span>(\d+)<span class="number">_</span>(\d+)\.(jpg|gif|png)$ /<span class="variable">$1</span>.<span class="variable">$2</span> last;
+        }
+        if (<span class="variable">$w</span> = <span class="string">"0"</span>) {
+            rewrite /(.+)<span class="number">_</span>(\d+)<span class="number">_</span>(\d+)\.(jpg|gif|png)$ /<span class="variable">$1</span>.<span class="variable">$2</span> last;
+        }
+
+        #根据给定的长宽生成缩略图
+        image_filter resize <span class="variable">$h</span> <span class="variable">$w</span>;
+        #原图最大<span class="number">2</span>M，要裁剪的图片超过<span class="number">2</span>M返回<span class="number">415</span>错误，需要调节参数image_filter_buffer
+        image_filter_buffer <span class="number">2</span>M;
+
+        try_files /<span class="variable">$1</span>.<span class="variable">$2</span>  /notfound.jpg ;
+}
+</code></pre><p>通过 sbin/nginx -s reload  重载你的nginx配置</p>
+<h3 id="使用方法">使用方法</h3><p>通过在图片地址后加 <code>!缩略图宽_缩略图高</code>，就可以访问到你想要的任意尺寸的缩略图了<br>例如图片地址为：<code>http://xxx.cn/image/20141014/543cc6ff93d55.jpg</code><br>修改为：<code>http://xxx.cn/image/20141014/543cc6ff93d55.jpg!100_200</code><br>将会返回 100*200 的缩略图</p>
+<h3 id="延伸">延伸</h3><p>利用 nginx 的 image_filter 模块不仅仅能生成缩略图，你可以通过修改配置来实现其他的功能，比如图片旋转、图片裁剪、图片透明化等等，Nb 的功能是靠勤劳的双手创造的<br>关于 image_filter 的更多 参见：<br><a href="http://nginx.org/cn/docs/http/ngx_http_image_filter_module.html" target="_blank" rel="external">http://nginx.org/cn/docs/http/ngx_http_image_filter_module.html</a></p>
+</span>
+        
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <header class="post-header">
+
+      
+      
+        <h1 class="post-title" itemprop="name headline">
+          
+          
+            
               <a class="post-title-link" href="/2014/11/14/Linux-batch-replacement-of-file-content/" itemprop="url">
                 Linux 批量替换文件内容
               </a>
@@ -413,7 +512,7 @@
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/archives">
-              <span class="site-state-item-count">53</span>
+              <span class="site-state-item-count">54</span>
               <span class="site-state-item-name">日志</span>
             </a>
           </div>
@@ -427,7 +526,7 @@
 
           <div class="site-state-item site-state-tags">
             <a href="/tags">
-              <span class="site-state-item-count">86</span>
+              <span class="site-state-item-count">88</span>
               <span class="site-state-item-name">标签</span>
               </a>
           </div>

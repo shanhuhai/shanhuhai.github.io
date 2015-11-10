@@ -166,6 +166,110 @@
           
           
             
+              <a class="post-title-link" href="/2015/01/07/linux-diff/" itemprop="url">
+                linux下用diff来对比文件差异
+              </a>
+            
+          
+        </h1>
+      
+
+      <div class="post-meta">
+        <span class="post-time">
+          发表于
+          <time itemprop="dateCreated" datetime="2015-01-07T15:31:26+08:00" content="2015-01-07">
+            2015-01-07
+          </time>
+        </span>
+
+        
+
+        
+          
+            <span class="post-comments-count">
+              &nbsp; | &nbsp;
+              <a href="/2015/01/07/linux-diff/#comments" itemprop="discussionUrl">
+                <span class="post-comments-count ds-thread-count" data-thread-key="2015/01/07/linux-diff/" itemprop="commentsCount"></span>
+              </a>
+            </span>
+          
+        
+      </div>
+    </header>
+
+    <div class="post-body">
+
+      
+      
+
+      
+        
+          <span itemprop="articleBody"><p>##对比文本文件 file1.txt 和 file2.txt 的差异并忽略空白字符</p>
+<p>file1.txt:</p>
+<pre><code>We become what we think <span class="keyword">about</span>.
+If you cannot do great things, do small things <span class="keyword">in</span> a great way.
+Logic will <span class="keyword">get</span> you <span class="keyword">from</span> A <span class="keyword">to</span> B. Imagination will take you everywhere.
+There's a way <span class="keyword">to</span> do <span class="keyword">it</span> better – find <span class="keyword">it</span>.
+
+Life isn’t <span class="keyword">about</span> getting <span class="keyword">and</span> having, <span class="keyword">it</span>’s <span class="keyword">about</span> giving <span class="keyword">and</span> being.
+I attribute <span class="keyword">my</span> success <span class="keyword">to</span> this – I never gave <span class="keyword">or</span> took any excuse.
+</code></pre><p>file2.txt:</p>
+<pre><code>We become what we think about.
+If you cannot <span class="operator"><span class="keyword">do</span> great things, <span class="keyword">do</span> small things <span class="keyword">in</span> a great way.<span class="comment">--Napoleon Hill, Motivational Writer</span>
+Logic will <span class="keyword">get</span> you <span class="keyword">from</span> A <span class="keyword">to</span> B. Imagination will take you everywhere.
+Life isn’<span class="keyword">t</span> about getting <span class="keyword">and</span> <span class="keyword">having</span>, it’s about giving <span class="keyword">and</span> being.
+What <span class="keyword">is</span> <span class="keyword">not</span> started today <span class="keyword">is</span> <span class="keyword">never</span> finished tomorrow.
+You aspire <span class="keyword">to</span> <span class="keyword">do</span> great things? <span class="keyword">Begin</span> <span class="keyword">with</span> <span class="keyword">little</span> ones
+<span class="keyword">I</span> <span class="keyword">attribute</span> my <span class="keyword">success</span> <span class="keyword">to</span> this – <span class="keyword">I</span> <span class="keyword">never</span> gave <span class="keyword">or</span> took <span class="keyword">any</span> excuse.</span>
+</code></pre><p>执行命令：</p>
+<pre><code>diff file1<span class="class">.txt</span> file2<span class="class">.txt</span> -w
+</code></pre><p>这个 -w 参数很有用，比如在 file1.txt 文件中空格是<code>\n</code> 而在 file2.txt 中换行符是 <code>\r\n</code> ,由于各种操作系统使用的换行符不一样，所以这样的情况还是经常见到的，当对比时如果没有 -w 参数，几乎整个文件完全不一样了，那样对比就没意义了，所以每次对比都记得加上 -w</p>
+<p>对比结果:</p>
+<pre><code><span class="number">2</span>c2
+&lt; <span class="keyword">If</span> you cannot <span class="keyword">do</span> great things, <span class="keyword">do</span> small things <span class="keyword">in</span> a great way.
+---
+&gt; <span class="keyword">If</span> you cannot <span class="keyword">do</span> great things, <span class="keyword">do</span> small things <span class="keyword">in</span> a great way.--Napoleon Hill, Motivational Writer
+<span class="number">4</span>,<span class="number">5</span>d3
+&lt; There<span class="comment">'s a way to do it better – find it.</span>
+&lt; 
+<span class="number">6</span>a5,<span class="number">6</span>
+&gt; What <span class="keyword">is</span> <span class="keyword">not</span> started today <span class="keyword">is</span> never finished tomorrow.
+&gt; You aspire <span class="keyword">to</span> <span class="keyword">do</span> great things? Begin <span class="keyword">with</span> little ones
+</code></pre><p>说明下：<br><code>2c2</code> 表示 第二行有改变<br><code>&lt; xxx</code> 表示左边的内容<br><code>---</code> 左右两边的分割线<br><code>&gt; yyyy</code> 表示右边的内容<br>接下来<br><code>4,5d3</code> 表示左边的4-5行在右边是没有的，或者说被删除了，d(delete)，表示删除<br>接下来<br><code>6a5,6</code> 表示右边的5-6行在左边是没有的，或者说是添加的，a(add)，表示添加</p>
+<h2 id="列模式对比两个文本文件">列模式对比两个文本文件</h2><p>命令 </p>
+<pre><code>diff file1<span class="class">.txt</span> file2<span class="class">.txt</span> -w -y -W <span class="number">50</span>
+</code></pre><p>这样可以更直观的看到两边的不同<br><code>|</code> 表示有改变<br><code>&lt;</code> 左边有的<br><code>&gt;</code> 右边有的</p>
+<p>执行下试试</p>
+</span>
+        
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <header class="post-header">
+
+      
+      
+        <h1 class="post-title" itemprop="name headline">
+          
+          
+            
               <a class="post-title-link" href="/2014/12/25/centos-yum-add-epel-remi/" itemprop="url">
                 centos 添加 epel 和 remi 源
               </a>
@@ -873,84 +977,6 @@ group = www
 
 
     
-      
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      
-      
-        <h1 class="post-title" itemprop="name headline">
-          
-          
-            
-              <a class="post-title-link" href="/2014/12/11/python-string-format/" itemprop="url">
-                python 格式化输出字符串
-              </a>
-            
-          
-        </h1>
-      
-
-      <div class="post-meta">
-        <span class="post-time">
-          发表于
-          <time itemprop="dateCreated" datetime="2014-12-11T10:27:31+08:00" content="2014-12-11">
-            2014-12-11
-          </time>
-        </span>
-
-        
-
-        
-          
-            <span class="post-comments-count">
-              &nbsp; | &nbsp;
-              <a href="/2014/12/11/python-string-format/#comments" itemprop="discussionUrl">
-                <span class="post-comments-count ds-thread-count" data-thread-key="2014/12/11/python-string-format/" itemprop="commentsCount"></span>
-              </a>
-            </span>
-          
-        
-      </div>
-    </header>
-
-    <div class="post-body">
-
-      
-      
-
-      
-        
-          <span itemprop="articleBody"><p>格式化输出浮点数</p>
-<pre><code><span class="keyword">print</span> <span class="string">"The result is <span class="variable">%6</span>.2f"</span> % <span class="number">2.123</span>
-</code></pre><p>上面代码, 6 代表输出共占 6 个字符,2 表示小数部分取两位,这与 C 语言 printf 中的格式化规则是一致的</p>
-<p>补 0 :</p>
-<pre><code>print <span class="string">"The result is %06.2f"</span> % <span class="number">10</span>/<span class="number">3.0</span>
-</code></pre><p>在 python 中格式化输出串与 C 语言一致</p>
-<p>python 还可以用 tuple (元组) 和 dict (字典) 来格式化输出<br>使用 tuple 来格式化输出:</p>
-<pre><code><span class="keyword">print</span> <span class="string">"The site's domain is <span class="variable">%s</span>,it is a <span class="variable">%s</span>"</span> % (<span class="string">"dahouduan.com"</span>, <span class="string">"blog"</span>)
-</code></pre><p>使用 dict 来格式化输出:</p>
-<pre><code><span class="built_in">print</span> <span class="string">"Welcome %(name)s login  %(site)s  "</span> % {<span class="string">"name"</span>:<span class="string">"shanhuhai"</span>,<span class="string">"site"</span>:<span class="string">"dahouduan.com"</span>}
-</code></pre></span>
-        
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
   </section>
 
   
@@ -989,7 +1015,7 @@ group = www
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/archives">
-              <span class="site-state-item-count">53</span>
+              <span class="site-state-item-count">54</span>
               <span class="site-state-item-name">日志</span>
             </a>
           </div>
@@ -1003,7 +1029,7 @@ group = www
 
           <div class="site-state-item site-state-tags">
             <a href="/tags">
-              <span class="site-state-item-count">86</span>
+              <span class="site-state-item-count">88</span>
               <span class="site-state-item-name">标签</span>
               </a>
           </div>
