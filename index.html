@@ -209,16 +209,12 @@
 <h2 id="术语和名词">术语和名词</h2><p>MapReduce jobs<br>topologies topology 由用户编写的Storm集群中的业务处理逻辑<br>deamon 守护进程<br>worker process 工作进程<br>stream 流 指Storm中的数据流<br>tuple 元组 指stream中的最小单元数据<br>primitive 基件  指storm topology 的组成部分，比如 bolt 和 spout<br>task 任务</p>
 <h2 id="Storm_集群里的各种组件">Storm 集群里的各种组件</h2><p>从表面上看一个 Storm 集群 与 一个 Hadoop 集群相似，然而在 Hadoop 上运行 “MapReduce jobs”, 在 Storm 上运行 “topologies”, 但是 “jobs” 和 “topologies” 是非常不同的– 一个关键的不同是 MapReduce job 最终会结束，而一个 topology 是永远在等待消息并处理（直到你杀掉它）。</p>
 <p>一个 Storm 集群中有两种节点(node)：主节点和工作节点，主节点运行一个叫 “Nimbus” 的守护进程（daemon）跟 Hadoop 的  “任务跟踪器”（Jobtracker）类似。Nimbus 负责向集群中分发代码， 向各机器分配任务，以及监测故障。</p>
-<ul>
-<li>这里的节点是指Storm集群中不同角色的服务器节点 *</li>
-</ul>
+<p><strong> 这里的节点是指Storm集群中不同角色的服务器节点 </strong></p>
 <p>每一个工作节点运行一个名叫 “Supervisor” 的守护进程。Supervisor 监听 Nimbus 指派到这个这台机器的任务，根据 Numbus 的指派信息来停启工作进程(worker process) ，每一个 worker process 执行一个topology的子集，一个运行中的topology由跨越多个主机的多个 worker process 组成。</p>
 <img src="/2015/11/10/storm-tutorial/storm-cluster.png" alt="[Storm集群示意图]" title="[Storm集群示意图]">
 <p>在 Nimbus 和 Supervisors 之间的所有协调调度通过一个 <a href="http://zookeeper.apache.org/" target="_blank" rel="external">Zookeeper</a> 集群来完成。另外，Nimbus 守护进程和 Supervisor 守护进程都是快速失败 （fail-fast）和无状态的；所有的状态保存在 Zookeeper 或者本地磁盘中。这意味着你可以 <code>kill -9</code> Nimbus 或者 Supervisors 他们会自动恢复，就像什么都没发生过一样。这种设计让 Storm 集群变的不可思议的稳定。</p>
 <h2 id="Topologies">Topologies</h2><p>在Strom上做实时计算， 你需要创建 “Topology”，一个 topology 是一个计算过程的描述，一个 topology 中的每一个节点包含处理逻辑，节点之间的连接表明了数据在节点之间是如何传递的。</p>
-<ul>
-<li>这里的节点是指 topology 中计算过程的每一个步骤 *</li>
-</ul>
+<p><strong> 这里的节点是指 topology 中计算过程的每一个步骤 </strong></p>
 <p>运行一个 是很简单的。首先，你将你所有的代码和依赖都打包到一个单独的jar包中，然后运行像下面这样的命令：</p>
 <pre><code>storm jar all-my-<span class="tag">code</span><span class="class">.jar</span> backtype<span class="class">.storm</span><span class="class">.MyTopology</span> arg1 arg2
 </code></pre><p>这样会传递<code>arg1</code>和 <code>arg2</code>参数给<code>backtype.storm.MyTopology</code>类，这个类的 <code>main</code> 方法定义topology 并将它提交到 Nimbus。<code>Strom jar</code> 部分负责连接 Nimbus 并上传jar包.</p>
@@ -230,11 +226,9 @@
 <p>所有的 spout 和 bolt 被打包到了一个 “topology” 中 ，topology 是你提交给 Storm 集群来执行的计算过程的最高抽象，一个 topology 类似一个流转换的图表，它现显示了哪些 bolt 是绑定(subscribe)哪些 stream 上的 。当一个 spout 或者 bolt 发射出一个 tuple 到 stream 中，它会发送 tuple 到所有绑定了这个 stream 的 bolt 中。</p>
 <img src="/2015/11/10/storm-tutorial/topology.png" alt="[spout和bolt的关系图]" title="[spout和bolt的关系图]">
 <p>topology 中节点之间的连接表明了 tuple 是如何在他们之间传递的。例如如果在 spout A 和 bolt B 之间有一个连接，从 spout A 到 bolt C 之间有一个连接，从 boltB 到 boltC 有一个连接，tuple 会发到 bolt B 和 bolt C 中， 所有 bolt B 的输出 tuple 也会流到 bolt C 中</p>
-<ul>
-<li>这里的节点是指 topology 中的 spout 或者 bolt *<br>topology中的每一个节点都是并行执行的。在你的topology中，你可以指定每个节点的并行数量n，然后 Storm会启动 n 个线程在集群中运行</li>
-</ul>
+<p><strong> 这里的节点是指 topology 中的 spout 或者 bolt </strong><br>topology中的每一个节点都是并行执行的。在你的topology中，你可以指定每个节点的并行数量n，然后 Storm会启动 n 个线程在集群中运行</p>
 <p>一个 topology 是永远运行的，直到你杀掉它，Storm 会自动重新分配失败的任务。另外，Storm 保证没有数据丢失， 即使主机挂掉消息丢失。</p>
-<p>##数据模型<br>Storm 使用 tuple 做数据模型，一个 tuple 是被命名过的值列表，一个 tuple 中的字段可以是任何类型的对象。它是开箱即用的，Storm 支持所有的简单数据类型，如字符串，字节数组作为 tuple 的字段值。如果要使用另一种类型的对象，你只需要为这个类型实现一个 <a href="http://storm.apache.org/documentation/Serialization.html" target="_blank" rel="external">serializer</a></p>
+<h2 id="数据模型">数据模型</h2><p>Storm 使用 tuple 做数据模型，一个 tuple 是被命名过的值列表，一个 tuple 中的字段可以是任何类型的对象。它是开箱即用的，Storm 支持所有的简单数据类型，如字符串，字节数组作为 tuple 的字段值。如果要使用另一种类型的对象，你只需要为这个类型实现一个 <a href="http://storm.apache.org/documentation/Serialization.html" target="_blank" rel="external">serializer</a></p>
 <p>topology 中的每一个节点都应该为它要发射的元组声明输出字段， 例如， 下面这个bolt声明了它发射字段为 “double” 和 “triple” 字段的元组：</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">DoubleAndTripleBolt</span> <span class="keyword">extends</span> <span class="title">BaseRichBolt</span> </span>&#123;</span><br><span class="line">    <span class="keyword">private</span> OutputCollectorBase _collector;</span><br><span class="line"></span><br><span class="line">    <span class="annotation">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">prepare</span><span class="params">(Map conf, TopologyContext context, OutputCollectorBase collector)</span> </span>&#123;</span><br><span class="line">        _collector = collector;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="annotation">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">execute</span><span class="params">(Tuple input)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">int</span> val = input.getInteger(<span class="number">0</span>);        </span><br><span class="line">        _collector.emit(input, <span class="keyword">new</span> Values(val*<span class="number">2</span>, val*<span class="number">3</span>));</span><br><span class="line">        _collector.ack(input);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="annotation">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">declareOutputFields</span><span class="params">(OutputFieldsDeclarer declarer)</span> </span>&#123;</span><br><span class="line">        declarer.declare(<span class="keyword">new</span> Fields(<span class="string">"double"</span>, <span class="string">"triple"</span>));</span><br><span class="line">    &#125;    </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <p><code>declareOutputFields</code> 方法声明了输出字段为<code>[&quot;double&quot;, &quot;triple&quot;]</code>,<br>这个 bolt 类的其他部分将在下面的章节中讲解。</p>
@@ -245,9 +239,7 @@
 <p>传入的 Spout 对象实现了 <a href="http://storm.apache.org/javadoc/apidocs/backtype/storm/topology/IRichSpout.html" target="_blank" rel="external">IRichSpout</a> 接口并包含业务逻辑</p>
 <p>传入的 Bolt 对象实现了 <a href="http://storm.apache.org/javadoc/apidocs/backtype/storm/topology/IRichBolt.html" target="_blank" rel="external">IRichBolt</a>   接口并包含业务逻辑</p>
 <p>最后一个参数，你想要这个节点的并行数量是几，这个参数是可选的，它表明有多少线程应该在集群中运行该 组件 ，如果你忽略了它，Storm 会给这个节点只分配一个线程</p>
-<ul>
-<li>这里的组件是指被实例化后的节点，即 spout 或者 bolt *</li>
-</ul>
+<p><strong> 这里的组件是指被实例化后的节点，即 spout 或者 bolt </strong></p>
 <p><code>setBolt</code> 返回一个 <a href="http://storm.apache.org/javadoc/apidocs/backtype/storm/topology/InputDeclarer.html" target="_blank" rel="external">InputDeclarer</a> 对象用来给 bolt 定义输入。这 “exclaim1”组件 声明了它要想读入所有 “words” 组件的发射的打乱分组过的所有 tuple.</p>
 <p>“exclaim2” 组件声明了它要读入所有 “exclaim1” 发射的打乱分组过的 tuple，”打乱分组”（shuffile group）意味着 tuple 必须从输入中随机分发到 bolt 的任务中。有许多在组件之间将数据分组的方法，打乱只是其中一种。接下来的一些小节会解释到它。</p>
 <p>如果你希望 “exclaim2” 组件，既读取 “words” 又读取 “exclaim1” 发射的 tuple ， 你可以像如下这样实现 “excliam2” ：</p>
@@ -279,9 +271,7 @@
 <li>TOPOLOGY_DEBUG （通过 setDebug 设置）,当被设为 true 时，storm 将记录元件发射的每个消息，在本地模式测试topology时这是很有用的，但是在线上模式运行时，你更愿意将它关闭</li>
 </ol>
 <h2 id="流分组_Stream_groupings">流分组 Stream groupings</h2><p>流分组让 topology 知道在组件之间如何发送 tuple，记住 spouts 和 bolts 是被当成很多 tasks 并行运行在整个集群中的，如果你想看看 topology 是如何在 task 层级运行的，就像下图这样</p>
-<ul>
-<li>这里的task 就是setBolt和 setSpout 中产生的工作线程，如果设置了数量，就是线程组或者任务组即 set of tasks *</li>
-</ul>
+<p><strong> 这里的task 就是setBolt和 setSpout 中产生的工作线程，如果设置了数量，就是线程组或者任务组即 set of tasks </strong></p>
 <p>当一个运行 Bolt A 的 task 发射了一个 tuple 到 Bolt B，那么它应该发射到哪个 task（当然是运行Bolt B 的task） 呢？ </p>
 <p>流分组 （Stream grouping）答了这个问题，它告诉 Storm 如何在 set of task（任务组）之间发送 tuple，在我们深入不同种类的流分组以前，让我们看看 <a href="http://github.com/apache/storm/blob/master/examples/storm-starter" target="_blank" rel="external">storm-start</a> 里的另一个 topology ，<a href="https://github.com/apache/storm/blob/master/examples/storm-starter/src/jvm/storm/starter/WordCountTopology.java" target="_blank" rel="external">WordCountTopology</a>从一个 spout 中读取句子并且从 <code>WordCountBolt</code> 中获取某个单词出现的次数：</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">TopologyBuilder builder = <span class="keyword">new</span> TopologyBuilder();</span><br><span class="line"></span><br><span class="line">builder.setSpout(<span class="string">"sentences"</span>, <span class="keyword">new</span> RandomSentenceSpout(), <span class="number">5</span>);        </span><br><span class="line">builder.setBolt(<span class="string">"split"</span>, <span class="keyword">new</span> SplitSentence(), <span class="number">8</span>)</span><br><span class="line">        .shuffleGrouping(<span class="string">"sentences"</span>);</span><br><span class="line">builder.setBolt(<span class="string">"count"</span>, <span class="keyword">new</span> WordCount(), <span class="number">12</span>)</span><br><span class="line">        .fieldsGrouping(<span class="string">"split"</span>, <span class="keyword">new</span> Fields(<span class="string">"word"</span>));</span><br></pre></td></tr></table></figure>
