@@ -166,6 +166,83 @@
           
           
             
+              <a class="post-title-link" href="/2014/12/12/Linux-centos-acpid-shutdown/" itemprop="url">
+                Centos 使用 acpid 来实现按一次电源键就正常关机
+              </a>
+            
+          
+        </h1>
+      
+
+      <div class="post-meta">
+        <span class="post-time">
+          发表于
+          <time itemprop="dateCreated" datetime="2014-12-12T10:36:00+08:00" content="2014-12-12">
+            2014-12-12
+          </time>
+        </span>
+
+        
+
+        
+          
+            <span class="post-comments-count">
+              &nbsp; | &nbsp;
+              <a href="/2014/12/12/Linux-centos-acpid-shutdown/#comments" itemprop="discussionUrl">
+                <span class="post-comments-count ds-thread-count" data-thread-key="2014/12/12/Linux-centos-acpid-shutdown/" itemprop="commentsCount"></span>
+              </a>
+            </span>
+          
+        
+      </div>
+    </header>
+
+    <div class="post-body">
+
+      
+      
+
+      
+        
+          <span itemprop="articleBody"><p>##导语<br>如果你的办公室里有一台装 linux 的本地服务器，这台机器一般是通过 ssh 登录上去的，<br>你只插了电源后网线，这时候关机就是个麻烦事，总不能每次都长按电源键非正常关机吧，<br>于是有了下面的解决方法，通过 acpid 来实现</p>
+<p>##环境<br>操作系统   : CentOS release 6.3 (Final)<br><a href="http://www.dahouduan.com/2014/12/12/linux-show-os-version/">如何查看操作系统版本？</a><br>Linux 内核: Linux local-test 2.6.32-279.el6.x86_64 #1 SMP Fri Jun 22 12:19:21 UTC 2012 x86_64 x86_64 x86_64 GNU/Linux<br><a href="http://www.dahouduan.com/2014/12/12/linux-show-kernel-version/">如何查看内核版本？</a></p>
+<p>##解决方法<br>执行下面命令</p>
+<pre><code>yum -y <span class="keyword">install</span> acpid
+</code></pre><p>等装完了,让 acpid 服务成为开机启动项</p>
+<pre><code>chkconfig acpid <span class="function_start"><span class="keyword">on</span></span>
+</code></pre><p>然后启动它</p>
+<pre><code>/etc/init.d/acpid <span class="built_in">start</span>
+</code></pre><p>这时候按一下你主机的电源键，看过几秒会不会正常关机</p>
+</span>
+        
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <header class="post-header">
+
+      
+      
+        <h1 class="post-title" itemprop="name headline">
+          
+          
+            
               <a class="post-title-link" href="/2014/12/11/python-string-format/" itemprop="url">
                 python 格式化输出字符串
               </a>
@@ -969,104 +1046,6 @@ chmod <span class="number">600</span> /etc/init.d/php-fpm
 
 
     
-      
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      
-      
-        <h1 class="post-title" itemprop="name headline">
-          
-          
-            
-              <a class="post-title-link" href="/2014/11/19/rsync-daemon/" itemprop="url">
-                利用 rsync 在服务器间同步目录
-              </a>
-            
-          
-        </h1>
-      
-
-      <div class="post-meta">
-        <span class="post-time">
-          发表于
-          <time itemprop="dateCreated" datetime="2014-11-19T18:15:30+08:00" content="2014-11-19">
-            2014-11-19
-          </time>
-        </span>
-
-        
-
-        
-          
-            <span class="post-comments-count">
-              &nbsp; | &nbsp;
-              <a href="/2014/11/19/rsync-daemon/#comments" itemprop="discussionUrl">
-                <span class="post-comments-count ds-thread-count" data-thread-key="2014/11/19/rsync-daemon/" itemprop="commentsCount"></span>
-              </a>
-            </span>
-          
-        
-      </div>
-    </header>
-
-    <div class="post-body">
-
-      
-      
-
-      
-        
-          <span itemprop="articleBody"><p>##场景<br>服务器 A 192.168.1.1<br>服务器 B 192.168.1.2<br>要将 A 服务器的 /data/logs 目录同步到 B 服务器的 /home/logs 下</p>
-<p>##执行环境<br>操作系统： centos 6.2</p>
-<p>##配置<br>我们将使用 rsync 的 daemon 方式来完成任务<br>登录到 A 服务器,执行 <code>vim /etc/rsyncd.conf</code><br>添加</p>
-<pre><code>uid = root
-gid = root
-max connections = 4
-pid file = /var/run/rsyncd.pid
-<span class="operator"><span class="keyword">lock</span> <span class="keyword">file</span> = /<span class="keyword">var</span>/run/rsync.<span class="keyword">lock</span>
-<span class="keyword">log</span> <span class="keyword">file</span> = /<span class="keyword">var</span>/<span class="keyword">log</span>/rsyncd.<span class="keyword">log</span>
-
-[<span class="keyword">logs</span>]
-<span class="keyword">path</span> = /<span class="keyword">data</span>/<span class="keyword">logs</span>
-<span class="keyword">ignore</span> <span class="keyword">errors</span>
-<span class="keyword">read</span> <span class="keyword">only</span> = <span class="literal">true</span>
-<span class="keyword">list</span> = <span class="literal">true</span>
-auth <span class="keyword">users</span> = <span class="keyword">backup</span>
-secrets <span class="keyword">file</span> = /etc/rsyncd.pwd</span>
-</code></pre><p>保存文件，执行<code>vim /etc/rsyncd.pwd</code> ，添加</p>
-<pre><code><span class="label">backup:</span>dahouduan.com
-</code></pre><p>保存退出，执行 <code>chmod 600 /etc/rsyncd.pwd</code><br>启动 rsync 服务 执行 <code>rsync --daemon</code><br>登录 B 服务器 ，执行 <code>vim /etc/rsyncd.pwd</code>  ，添加</p>
-<pre><code><span class="tag">dahouduan</span><span class="class">.com</span>
-</code></pre><p>保存退出，执行 <code>chmod 600 /etc/rsyncd.pwd</code><br>好了，配置已经完成了，现在 A 服务器为服务端 B 服务器为客户端，现在就可以在 B 服务器上执行同步操作了</p>
-<h2 id="配置说明">配置说明</h2><p>uid = root     #设置执行rsync的本地用户<br>gid = root     #设置执行rsync的本地组<br>max connections = 4     #最大同时连接数<br>pid file = /var/run/rsyncd.pid     #指定rsync服务进程的pid file<br>lock file = /var/run/rsync.lock     #指定rsync服务端锁定文件log file = /var/log/rsyncd.log     #指定rsync的log输出路径</p>
-<p>[logs]     #模块设定，可设置多个模块<br>path = /data/logs     #同步文件的真实路径<br>ignore errors<br>read only = true     #是否只读<br>list = true<br>auth users = backup  #身份验证用户。这不是系统用户，而是rsync服务自定的<br>secrets file = /etc/rsyncd.pwd     #当前模块的密码文件</p>
-<h2 id="开始同步">开始同步</h2><p>登录 B 服务器，执行</p>
-<pre><code>rsync -avzP --password-file=/etc/rsyncd.pwd backup@<span class="number">192.168</span><span class="number">.1</span><span class="number">.1</span>::logs  /home/logs
-</code></pre><p>so easy！</p>
-<h2 id="注意">注意</h2><p>1.如果 /home/下 logs 目录不存在将会创建，如果已经存在了， 会将 A 机器上的 /data/logs 目录下的内容同步到 B 机器上的 /home/logs/ 下<br>2.假如 A 机器上有一个文件 /home/logs/1.txt , 在第二次执行同步时没有修改，则不会同步<br>3.假如 B 机器上有一个文件 /home/logs/2.txt , A 上没有，同步时不会被删除<br>4.如果 B 机器上有一个文件 /home/logs/1.txt 被修改了，同步时会被 A 上对应的文件覆盖</p>
-<h2 id="扩展">扩展</h2><p>如果要同步别的目录，只需要修改 A 服务器上的 <code>/etc/rsyncd.conf</code> 将 logs 部分修改或者复制一份，改成你想同步的目录就可以了，</p>
-<h2 id="One_more_thing">One more thing</h2><p>下面是 rsync 的语法说明：<br>rsync [-avrlptgoD] [-e ssh] [user@host:/dir] [/local/path]<br>-v ：观察模式，可以列出更多的信息；<br>-q ：与 -v  相反，安静模式，输出的信息比较少；<br>-r ：递归复制！可以针对『目录』来处理！很重要！<br>-u ：仅更新 (update)，不会覆盖目标的新档案；<br>-l ：复制连结文件的属性，而非连结的目标源文件内容；<br>-p ：复制时，连同属性 (permission) 也保存不变！<br>-g ：保存源文件的拥有群组；<br>-o ：保存源文件的拥有人；<br>-D ：保存源文件的装置属性 (device)<br>-t ：保存源文件的时间参数；<br>-I ：忽略更新时间 (mtime) 的属性，档案比对上会比较快速；<br>-z ：加上压缩的参数！<br>-e ：使用的信道协议，例如使用 ssh 通道，则 -e ssh<br>-a ：相当于 -rlptgoD ，所以这个 -a 是最常用的参数了！</p>
-</span>
-        
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
   </section>
 
   
@@ -1105,7 +1084,7 @@ secrets <span class="keyword">file</span> = /etc/rsyncd.pwd</span>
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/archives">
-              <span class="site-state-item-count">54</span>
+              <span class="site-state-item-count">55</span>
               <span class="site-state-item-name">日志</span>
             </a>
           </div>

@@ -166,6 +166,76 @@
           
           
             
+              <a class="post-title-link" href="/2015/01/07/linux-find/" itemprop="url">
+                linux下find使用实例
+              </a>
+            
+          
+        </h1>
+      
+
+      <div class="post-meta">
+        <span class="post-time">
+          发表于
+          <time itemprop="dateCreated" datetime="2015-01-07T22:17:21+08:00" content="2015-01-07">
+            2015-01-07
+          </time>
+        </span>
+
+        
+
+        
+          
+            <span class="post-comments-count">
+              &nbsp; | &nbsp;
+              <a href="/2015/01/07/linux-find/#comments" itemprop="discussionUrl">
+                <span class="post-comments-count ds-thread-count" data-thread-key="2015/01/07/linux-find/" itemprop="commentsCount"></span>
+              </a>
+            </span>
+          
+        
+      </div>
+    </header>
+
+    <div class="post-body">
+
+      
+      
+
+      
+        
+          <span itemprop="articleBody"><h2 id="删除当前目录下的所有名称为_runtime-php_的文件">删除当前目录下的所有名称为 runtime.php 的文件</h2><pre><code>find ./ -name runtime.php | xargs <span class="keyword">rm</span> -<span class="literal">f</span>
+</code></pre><h2 id="删除前目录下所有名为_Cache_的目录">删除前目录下所有名为 Cache 的目录</h2><pre><code>find ./ -name <span class="string">"Cache"</span> -<span class="keyword">type</span> <span class="keyword">d</span> | xagrs <span class="keyword">rm</span> -rf 
+</code></pre></span>
+        
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <header class="post-header">
+
+      
+      
+        <h1 class="post-title" itemprop="name headline">
+          
+          
+            
               <a class="post-title-link" href="/2015/01/07/linux-diff/" itemprop="url">
                 linux下用diff来对比文件差异
               </a>
@@ -900,83 +970,6 @@ group = www
 
 
     
-      
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      
-      
-        <h1 class="post-title" itemprop="name headline">
-          
-          
-            
-              <a class="post-title-link" href="/2014/12/12/Linux-centos-acpid-shutdown/" itemprop="url">
-                Centos 使用 acpid 来实现按一次电源键就正常关机
-              </a>
-            
-          
-        </h1>
-      
-
-      <div class="post-meta">
-        <span class="post-time">
-          发表于
-          <time itemprop="dateCreated" datetime="2014-12-12T10:36:00+08:00" content="2014-12-12">
-            2014-12-12
-          </time>
-        </span>
-
-        
-
-        
-          
-            <span class="post-comments-count">
-              &nbsp; | &nbsp;
-              <a href="/2014/12/12/Linux-centos-acpid-shutdown/#comments" itemprop="discussionUrl">
-                <span class="post-comments-count ds-thread-count" data-thread-key="2014/12/12/Linux-centos-acpid-shutdown/" itemprop="commentsCount"></span>
-              </a>
-            </span>
-          
-        
-      </div>
-    </header>
-
-    <div class="post-body">
-
-      
-      
-
-      
-        
-          <span itemprop="articleBody"><p>##导语<br>如果你的办公室里有一台装 linux 的本地服务器，这台机器一般是通过 ssh 登录上去的，<br>你只插了电源后网线，这时候关机就是个麻烦事，总不能每次都长按电源键非正常关机吧，<br>于是有了下面的解决方法，通过 acpid 来实现</p>
-<p>##环境<br>操作系统   : CentOS release 6.3 (Final)<br><a href="http://www.dahouduan.com/2014/12/12/linux-show-os-version/">如何查看操作系统版本？</a><br>Linux 内核: Linux local-test 2.6.32-279.el6.x86_64 #1 SMP Fri Jun 22 12:19:21 UTC 2012 x86_64 x86_64 x86_64 GNU/Linux<br><a href="http://www.dahouduan.com/2014/12/12/linux-show-kernel-version/">如何查看内核版本？</a></p>
-<p>##解决方法<br>执行下面命令</p>
-<pre><code>yum -y <span class="keyword">install</span> acpid
-</code></pre><p>等装完了,让 acpid 服务成为开机启动项</p>
-<pre><code>chkconfig acpid <span class="function_start"><span class="keyword">on</span></span>
-</code></pre><p>然后启动它</p>
-<pre><code>/etc/init.d/acpid <span class="built_in">start</span>
-</code></pre><p>这时候按一下你主机的电源键，看过几秒会不会正常关机</p>
-</span>
-        
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
   </section>
 
   
@@ -1015,7 +1008,7 @@ group = www
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/archives">
-              <span class="site-state-item-count">54</span>
+              <span class="site-state-item-count">55</span>
               <span class="site-state-item-name">日志</span>
             </a>
           </div>

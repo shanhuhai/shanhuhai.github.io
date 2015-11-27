@@ -28,7 +28,7 @@
 
 
 
-  <meta name="keywords" content="随笔," />
+  <meta name="keywords" content="git," />
 
 
 
@@ -37,25 +37,25 @@
   <link rel="shorticon icon" type="image/x-icon" href="/favicon.ico?v=0.4.5.1" />
 
 
-<meta name="description" content="如何舒适的做一件事情？你有没有经常的正在开心的做一件事情的时候，被某些自身的或者外界的事情所干扰，进而影响了你的心情，以至于没办法再开心的继续，或者忍着不适继续。
-生活应该舒适。
-然而实中我们总是被各种各样的事务所困扰看书的时候，突然感觉口渴了，手边却没有水，但是要喝水得自己去倒，甚至还没有现成的开水可以喝，这样比较懒一点的朋友（比如我）就会选择惹着渴继续看下去。。
-当你正在行行云流水得写代码的时">
+<meta name="description" content="当我刚开始学 git 的时候，我一直都不明白为什么要有 git add 这个命令，感觉 git 提交好麻烦我需要
+123git add xxx.mdgit commit -m &quot;add xxx&quot;git push origin master
+才能把一个文件提交到远端， 我怀念起了我之前一直用的 svn ,想想一个 svn commit就都搞定了，git 为什么这么麻烦？
+用的多用的久了，我才发现了">
 <meta property="og:type" content="article">
-<meta property="og:title" content="如何舒适的做一件事情">
-<meta property="og:url" content="http://www.dahouduan.com/2015/01/23/how-to-do-something-in-comfort/index.html">
+<meta property="og:title" content="git add 的本质">
+<meta property="og:url" content="http://www.dahouduan.com/2015/11/27/git-add/index.html">
 <meta property="og:site_name" content="大后端">
-<meta property="og:description" content="如何舒适的做一件事情？你有没有经常的正在开心的做一件事情的时候，被某些自身的或者外界的事情所干扰，进而影响了你的心情，以至于没办法再开心的继续，或者忍着不适继续。
-生活应该舒适。
-然而实中我们总是被各种各样的事务所困扰看书的时候，突然感觉口渴了，手边却没有水，但是要喝水得自己去倒，甚至还没有现成的开水可以喝，这样比较懒一点的朋友（比如我）就会选择惹着渴继续看下去。。
-当你正在行行云流水得写代码的时">
-<meta property="og:updated_time" content="2015-01-23T09:15:39.000Z">
+<meta property="og:description" content="当我刚开始学 git 的时候，我一直都不明白为什么要有 git add 这个命令，感觉 git 提交好麻烦我需要
+123git add xxx.mdgit commit -m &quot;add xxx&quot;git push origin master
+才能把一个文件提交到远端， 我怀念起了我之前一直用的 svn ,想想一个 svn commit就都搞定了，git 为什么这么麻烦？
+用的多用的久了，我才发现了">
+<meta property="og:updated_time" content="2015-11-27T11:32:28.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="如何舒适的做一件事情">
-<meta name="twitter:description" content="如何舒适的做一件事情？你有没有经常的正在开心的做一件事情的时候，被某些自身的或者外界的事情所干扰，进而影响了你的心情，以至于没办法再开心的继续，或者忍着不适继续。
-生活应该舒适。
-然而实中我们总是被各种各样的事务所困扰看书的时候，突然感觉口渴了，手边却没有水，但是要喝水得自己去倒，甚至还没有现成的开水可以喝，这样比较懒一点的朋友（比如我）就会选择惹着渴继续看下去。。
-当你正在行行云流水得写代码的时">
+<meta name="twitter:title" content="git add 的本质">
+<meta name="twitter:description" content="当我刚开始学 git 的时候，我一直都不明白为什么要有 git add 这个命令，感觉 git 提交好麻烦我需要
+123git add xxx.mdgit commit -m &quot;add xxx&quot;git push origin master
+才能把一个文件提交到远端， 我怀念起了我之前一直用的 svn ,想想一个 svn commit就都搞定了，git 为什么这么麻烦？
+用的多用的久了，我才发现了">
 
 
 <script type="text/javascript" id="hexo.configuration">
@@ -65,7 +65,7 @@
   };
 </script>
 
-  <title> 如何舒适的做一件事情 | 大后端 </title>
+  <title> git add 的本质 | 大后端 </title>
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
@@ -174,7 +174,7 @@
           
           
             
-              如何舒适的做一件事情
+              git add 的本质
             
           
         </h1>
@@ -183,8 +183,8 @@
       <div class="post-meta">
         <span class="post-time">
           发表于
-          <time itemprop="dateCreated" datetime="2015-01-23T16:34:41+08:00" content="2015-01-23">
-            2015-01-23
+          <time itemprop="dateCreated" datetime="2015-11-27T19:03:44+08:00" content="2015-11-27">
+            2015-11-27
           </time>
         </span>
 
@@ -194,8 +194,8 @@
           
             <span class="post-comments-count">
               &nbsp; | &nbsp;
-              <a href="/2015/01/23/how-to-do-something-in-comfort/#comments" itemprop="discussionUrl">
-                <span class="post-comments-count ds-thread-count" data-thread-key="2015/01/23/how-to-do-something-in-comfort/" itemprop="commentsCount"></span>
+              <a href="/2015/11/27/git-add/#comments" itemprop="discussionUrl">
+                <span class="post-comments-count ds-thread-count" data-thread-key="2015/11/27/git-add/" itemprop="commentsCount"></span>
               </a>
             </span>
           
@@ -209,21 +209,23 @@
       
 
       
-        <span itemprop="articleBody"><p>如何舒适的做一件事情？<br>你有没有经常的正在开心的做一件事情的时候，被某些自身的或者外界的事情所干扰，进而影响了你的心情，以至于没办法再开心的继续，或者忍着不适继续。</p>
-<p>生活应该舒适。</p>
-<p>然而实中我们总是被各种各样的事务所困扰<br>看书的时候，突然感觉口渴了，手边却没有水，但是要喝水得自己去倒，甚至还没有现成的开水可以喝，这样比较懒一点的朋友（比如我）就会选择惹着渴继续看下去。。</p>
-<p>当你正在行行云流水得写代码的时候突然某人突然用 QQ 给你发了个弹窗，这是要闹哪样！！！</p>
-<p>当你早上要出门上班，突然发现手机找不到了，然后在床上，杂物里翻江倒海，一天的好心情分分钟就被耗光了</p>
-<p>生活需要舒适。</p>
-<p>然而生活中的不舒适真是太多了。</p>
-<p>当然了生活由一件又一件的小事组成。</p>
-<p>每个人喜欢做的事情是不一样的,但是有些事情是每个人必须做的,比如吃饭 睡觉 上wc</p>
-<p>生活中的事情有些看似很复杂，其实都很简单，每件复杂的事情都是由一件又一件的小事组成的，如果一把一件事情进行步骤分解，其实每一步该怎么做基本上傻瓜都知道的。</p>
-<p>所以如何舒适的做一件事情，就是你就需要把事情分解，然后把每个步骤都准备好，如果是很在意的事，你甚至可以做 PlanB</p>
-<p>比如我想舒的看书一小时，ok，我们把舒适的看书一小时分解下，看书是人与外界的交互。所以我们先分成人和外界两个部分</p>
-<p>人的方面首先分生理方面：首先要保证在这一个小时里，不能上 wc，所以看之前先去一趟，一小时很可能会口渴，所以手边备一大杯水吧。然后选个舒适的地方，沙发上？藤椅上？那里舒服去那里。一小时内眼睛会不会有不适，所以看书前不要看电视剧，看电脑什么的，这是最好。心里方面：要保持无欲无求的放空状态，把心里的心事先倒出来。</p>
-<p>然后看外界的方面，最好是独处一室，家里安静的时候，门关上，如果 mate 突然进来粘你就不好了，手机开飞行模式</p>
-<p>好了这样看来基本是无虞了，什么万一要是地震怎么办，，，，这个就只能听天由命了，总之你能控制的都控制到了，其他的只能看运气了。</p>
+        <span itemprop="articleBody"><p>当我刚开始学 git 的时候，我一直都不明白为什么要有 <code>git add</code> 这个命令，感觉 git 提交好麻烦<br>我需要</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">git add xxx.md</span><br><span class="line">git <span class="operator"><span class="keyword">commit</span> -<span class="keyword">m</span> <span class="string">"add xxx"</span></span><br><span class="line">git push origin <span class="keyword">master</span></span></span><br></pre></td></tr></table></figure>
+<p>才能把一个文件提交到远端， 我怀念起了我之前一直用的 svn ,想想一个 <code>svn commit</code>就都搞定了，git 为什么这么麻烦？</p>
+<p>用的多用的久了，我才发现了 git 的好处，说为什么 git 比 svn 好用，我的理解大概因为 git 把修改， 提交，协作，合并，都解耦到了一个个过程中,使得发生错误的情况很少，项目版本的可维护性很高。<br>当然，很多地方我还理解的不是很深，我现在只说下为什么要有 <code>git add</code> 这个命令。</p>
+<p><strong>git add 的本质是维护你下一次要提交的文件清单</strong>。</p>
+<p>举个例子：<br>比如你在开发一个功能，文件已经改了好多了，但是都没有提交，也没有<code>git add</code>，这时候老板让你紧急添加一个功能，为了实现这个功能, 你修改个了a,b,c三个文件，你可以把这三个文件 <code>git add</code> 进来，这样这三个文件就进了下次要提交的文件清单，等快要提交的时候，你发现有个c文件是不需要修改的，你可以 <code>git reset c</code>, 将 c 从清单从去掉，这时候 <code>git commit</code> 就会只提交 a，b 文件，你也不会担心提交了那些以前修改过的文件。</p>
+<p><code>git add</code> 关键是将修改添加到清单，而不是文件添加到清单<br>举个例子：</p>
+<p>假如一个已经在版本控制下的文件 <code>a.txt</code>，内容是</p>
+<pre><code><span class="title">Hello</span> world
+</code></pre><p>然后你又添加了一行</p>
+<pre><code><span class="title">Hello</span> world
+Hello china
+</code></pre><p>你可以然后执行 <code>git add a.txt</code> , 那么下一次 <code>git commit</code>这个改变就会被提交, 但是假如还没来得及 <code>git commit</code>，你又添加了一行</p>
+<pre><code><span class="title">Hello</span> world
+Hello china
+Hello beijing
+</code></pre><p>如果你没有再次 <code>git add a.txt</code>, 这次修改是不会被提交的</p>
 </span>
       
     </div>
@@ -232,7 +234,7 @@
       
         <div class="post-tags">
           
-            <a href="/tags/随笔/" rel="tag">#随笔</a>
+            <a href="/tags/git/" rel="tag">#git</a>
           
         </div>
       
@@ -241,13 +243,11 @@
         <div class="post-nav">
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2015/02/05/c-quick-sort/" rel="prev">C 语言快速排序算法</a>
-            
           </div>
 
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2015/01/21/linux-mu-lu-fu-gai/" rel="next">linux 目录覆盖命令</a>
+              <a href="/2015/11/10/storm-tutorial/" rel="next">Storm 入门教程</a>
             
           </div>
         </div>
@@ -272,8 +272,8 @@
         
           <div class="comments" id="comments">
             
-              <div class="ds-thread" data-thread-key="2015/01/23/how-to-do-something-in-comfort/"
-                   data-title="如何舒适的做一件事情" data-url="http://www.dahouduan.com/2015/01/23/how-to-do-something-in-comfort/">
+              <div class="ds-thread" data-thread-key="2015/11/27/git-add/"
+                   data-title="git add 的本质" data-url="http://www.dahouduan.com/2015/11/27/git-add/">
               </div>
             
           </div>
