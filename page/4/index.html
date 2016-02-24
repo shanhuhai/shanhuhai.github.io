@@ -166,6 +166,92 @@
           
           
             
+              <a class="post-title-link" href="/2015/01/14/mysql-clear-duplicate-data/" itemprop="url">
+                mysql 清除重复数据
+              </a>
+            
+          
+        </h1>
+      
+
+      <div class="post-meta">
+        <span class="post-time">
+          发表于
+          <time itemprop="dateCreated" datetime="2015-01-14T09:37:26+08:00" content="2015-01-14">
+            2015-01-14
+          </time>
+        </span>
+
+        
+
+        
+          
+            <span class="post-comments-count">
+              &nbsp; | &nbsp;
+              <a href="/2015/01/14/mysql-clear-duplicate-data/#comments" itemprop="discussionUrl">
+                <span class="post-comments-count ds-thread-count" data-thread-key="2015/01/14/mysql-clear-duplicate-data/" itemprop="commentsCount"></span>
+              </a>
+            </span>
+          
+        
+      </div>
+    </header>
+
+    <div class="post-body">
+
+      
+      
+
+      
+        
+          <span itemprop="articleBody"><p>假如有表 dup:</p>
+<pre><code><span class="operator"><span class="keyword">CREATE</span> <span class="keyword">TABLE</span> <span class="string">`dup`</span> (
+  <span class="string">`id`</span> <span class="built_in">int</span>(<span class="number">11</span>) <span class="keyword">unsigned</span> <span class="keyword">NOT</span> <span class="literal">NULL</span> AUTO_INCREMENT,
+  <span class="string">`username`</span> <span class="built_in">varchar</span>(<span class="number">255</span>) <span class="keyword">DEFAULT</span> <span class="literal">NULL</span>,
+   PRIMARY <span class="keyword">KEY</span> (<span class="string">`id`</span>)
+) ;</span>
+<span class="operator"><span class="keyword">INSERT</span> <span class="keyword">INTO</span> <span class="string">`dup`</span> <span class="keyword">VALUES</span> (<span class="string">'1'</span>, <span class="string">'nihao'</span>), (<span class="string">'2'</span>, <span class="string">'xxx'</span>), (<span class="string">'3'</span>, <span class="string">'xxx'</span>), (<span class="string">'4'</span>, <span class="string">'nihao'</span>), (<span class="string">'5'</span>, <span class="string">'nihao'</span>), (<span class="string">'6'</span>, <span class="string">'lele'</span>), (<span class="string">'7'</span>, <span class="string">'xx'</span>), (<span class="string">'8'</span>, <span class="string">'lele'</span>);</span>
+</code></pre><p>执行以上 sql 创建我们的实验表,其中 username 表是有重复数据的</p>
+<p>首先查询哪些数据有重复</p>
+<pre><code><span class="operator">select username,<span class="keyword">count</span>(*) <span class="keyword">as</span> <span class="keyword">count</span> <span class="keyword">from</span> dup <span class="keyword">group</span> <span class="keyword">by</span> username <span class="keyword">having</span> <span class="keyword">count</span>(username)&gt; <span class="number">1</span>;</span>
+</code></pre><p>查询一下这些重复数据的id</p>
+<pre><code>select <span class="keyword">distinct</span>( t1.id),t1.username <span class="keyword">from</span> dup t1,dup t2 where t1.id&lt;&gt;t2.id <span class="keyword">and</span> t1.username=t2.username;
+</code></pre><p><strong>下面就是去重复部分</strong></p>
+<p>这时候其实你可以把上面查到的 id 存到一个文件里，然后用delete语句批量删除，（当然要保留一个，别的 id 都 delete掉）<br>或者你可以用下面语句,</p>
+<pre><code><span class="operator"><span class="keyword">create</span> <span class="keyword">temporary</span> <span class="keyword">table</span> tmp_dup select * <span class="keyword">from</span> dup <span class="keyword">group</span> <span class="keyword">by</span> username <span class="keyword">having</span> <span class="keyword">count</span>(username)&gt;=<span class="number">1</span>;</span>
+ <span class="operator"><span class="keyword">truncate</span> <span class="keyword">table</span> dup;</span>
+<span class="operator"><span class="keyword">insert</span> <span class="keyword">into</span> dup select * <span class="keyword">from</span> tmp_dup;</span>
+</code></pre><p>操作之前记得备份 dup 表。</p>
+</span>
+        
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <header class="post-header">
+
+      
+      
+        <h1 class="post-title" itemprop="name headline">
+          
+          
+            
               <a class="post-title-link" href="/2015/01/07/linux-find/" itemprop="url">
                 linux下find使用实例
               </a>
@@ -901,75 +987,6 @@ group = www
 
 
     
-      
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      
-      
-        <h1 class="post-title" itemprop="name headline">
-          
-          
-            
-              <a class="post-title-link" href="/2014/12/12/linux-show-os-version/" itemprop="url">
-                Linux 查看操作系统版本
-              </a>
-            
-          
-        </h1>
-      
-
-      <div class="post-meta">
-        <span class="post-time">
-          发表于
-          <time itemprop="dateCreated" datetime="2014-12-12T11:04:31+08:00" content="2014-12-12">
-            2014-12-12
-          </time>
-        </span>
-
-        
-
-        
-          
-            <span class="post-comments-count">
-              &nbsp; | &nbsp;
-              <a href="/2014/12/12/linux-show-os-version/#comments" itemprop="discussionUrl">
-                <span class="post-comments-count ds-thread-count" data-thread-key="2014/12/12/linux-show-os-version/" itemprop="commentsCount"></span>
-              </a>
-            </span>
-          
-        
-      </div>
-    </header>
-
-    <div class="post-body">
-
-      
-      
-
-      
-        
-          <span itemprop="articleBody"><pre><code>cat <span class="regexp">/etc/i</span>ssue
-</code></pre></span>
-        
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
   </section>
 
   
@@ -1008,7 +1025,7 @@ group = www
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/archives">
-              <span class="site-state-item-count">55</span>
+              <span class="site-state-item-count">56</span>
               <span class="site-state-item-name">日志</span>
             </a>
           </div>
@@ -1022,7 +1039,7 @@ group = www
 
           <div class="site-state-item site-state-tags">
             <a href="/tags">
-              <span class="site-state-item-count">88</span>
+              <span class="site-state-item-count">89</span>
               <span class="site-state-item-name">标签</span>
               </a>
           </div>
@@ -1062,7 +1079,7 @@ group = www
       <div class="footer-inner"> <div class="copyright" >
   
   &copy; &nbsp; 
-  <span itemprop="copyrightYear">2015</span>
+  <span itemprop="copyrightYear">2016</span>
   <span class="with-love">
     <i class="icon-next-heart"></i>
   </span>

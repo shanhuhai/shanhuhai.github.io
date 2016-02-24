@@ -166,6 +166,97 @@
           
           
             
+              <a class="post-title-link" href="/2015/05/05/cs-complement/" itemprop="url">
+                补数的由来
+              </a>
+            
+          
+        </h1>
+      
+
+      <div class="post-meta">
+        <span class="post-time">
+          发表于
+          <time itemprop="dateCreated" datetime="2015-05-05T22:12:57+08:00" content="2015-05-05">
+            2015-05-05
+          </time>
+        </span>
+
+        
+
+        
+          
+            <span class="post-comments-count">
+              &nbsp; | &nbsp;
+              <a href="/2015/05/05/cs-complement/#comments" itemprop="discussionUrl">
+                <span class="post-comments-count ds-thread-count" data-thread-key="2015/05/05/cs-complement/" itemprop="commentsCount"></span>
+              </a>
+            </span>
+          
+        
+      </div>
+    </header>
+
+    <div class="post-body">
+
+      
+      
+
+      
+        
+          <span itemprop="articleBody"><p>##什么是补数？<br>从一串 9 中减去一个数叫做对 9 求补数<br>比如 112 对 9 求补数</p>
+<pre><code><span class="number">999</span> - <span class="number">112</span> = <span class="number">887</span>
+</code></pre><p>所以 112 对 9 求补数的结果就是 887</p>
+<p>##补数是怎么来的?<br>当计算减法时为了避免借位，所以引出了补数这一概念<br>比如</p>
+<pre><code><span class="number">253</span> -<span class="number">176</span> 
+</code></pre><p>首先从最后一位算起，3-6 不够减所以从上一位 5 借 1，13-6 得 7<br>算第二位5被借走 1 位，变 4-7 又不够，向上一位 2 借 1， 14-7 得 7<br>算第三位 2 被借走 1 位， 1-1 得 0<br>所以最后结果为 77</p>
+<p>我们用了一个数学技巧来避免借位</p>
+<pre><code><span class="number">253</span> - <span class="number">176</span> = <span class="number">253</span> - <span class="number">176</span> + <span class="number">1000</span> - <span class="number">1000</span>
+<span class="number">253</span> - <span class="number">176</span> = <span class="number">253</span> - <span class="number">176</span> + <span class="number">999</span> + <span class="number">1</span> - <span class="number">1000</span>
+<span class="number">253</span> - <span class="number">176</span> = <span class="number">253</span> + (<span class="number">999</span> - <span class="number">176</span>) + <span class="number">1</span> - <span class="number">1000</span>
+<span class="number">253</span> - <span class="number">176</span> = <span class="number">253</span> + <span class="number">823</span> + <span class="number">1</span> - <span class="number">1000</span>
+<span class="number">253</span> - <span class="number">176</span> = <span class="number">1076</span> + <span class="number">1</span> - <span class="number">1000</span> = <span class="number">1077</span> - <span class="number">1000</span> = <span class="number">77</span>
+</code></pre><p>看到了吗？全程都没有借位。<br>假如是 176 - 253 呢，结果明显会是负数，为了避免借位，但是计算过程会稍微所差别</p>
+<pre><code><span class="number">176</span> - <span class="number">253</span> = <span class="number">176</span> - <span class="number">253</span> + <span class="number">999</span> - <span class="number">999</span>
+<span class="number">176</span> - <span class="number">253</span> = <span class="number">176</span> + (<span class="number">999</span> - <span class="number">253</span>) - <span class="number">999</span>
+<span class="number">176</span> - <span class="number">253</span> = <span class="number">176</span> + <span class="number">746</span> - <span class="number">999</span> 
+<span class="number">176</span> - <span class="number">253</span> = <span class="number">922</span> - <span class="number">999</span> = - (<span class="number">999</span> - <span class="number">922</span>) = -<span class="number">77</span>  
+</code></pre><p>引入补数的好处显而易见，它避免了我们通过借位来计算减法。<br>总结下就是<br><strong>如果a&gt;b a-b 等于 a+b的补码+1-1000<br>如果a&lt;b a-b 等于 -(a+b的补码-999)</strong></p>
+<p>当将补码引入二进制计算中时就发生了许多奇妙的现象，<br>我们将 253 - 176  转为 二进制</p>
+<p> 11111101-10110000</p>
+<p>二进制中补码是有一串 1 组成的，即 11111111<br>我们先求被减数 10110000 的补数</p>
+<p> 11111111<br>-10110000<br>=01001111</p>
+<p>看到么，二进制数的对1的补码即是简单的对每位取反即可，其他的计算方法都与十进制无异了。<br>（未完待续，明天再补）</p>
+</span>
+        
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <header class="post-header">
+
+      
+      
+        <h1 class="post-title" itemprop="name headline">
+          
+          
+            
               <a class="post-title-link" href="/2015/03/23/reprint-einstein-1/" itemprop="url">
                 爱因斯坦《自述》节选
               </a>
@@ -969,92 +1060,6 @@
 
 
     
-      
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      
-      
-        <h1 class="post-title" itemprop="name headline">
-          
-          
-            
-              <a class="post-title-link" href="/2015/01/14/mysql-clear-duplicate-data/" itemprop="url">
-                mysql 清除重复数据
-              </a>
-            
-          
-        </h1>
-      
-
-      <div class="post-meta">
-        <span class="post-time">
-          发表于
-          <time itemprop="dateCreated" datetime="2015-01-14T09:37:26+08:00" content="2015-01-14">
-            2015-01-14
-          </time>
-        </span>
-
-        
-
-        
-          
-            <span class="post-comments-count">
-              &nbsp; | &nbsp;
-              <a href="/2015/01/14/mysql-clear-duplicate-data/#comments" itemprop="discussionUrl">
-                <span class="post-comments-count ds-thread-count" data-thread-key="2015/01/14/mysql-clear-duplicate-data/" itemprop="commentsCount"></span>
-              </a>
-            </span>
-          
-        
-      </div>
-    </header>
-
-    <div class="post-body">
-
-      
-      
-
-      
-        
-          <span itemprop="articleBody"><p>假如有表 dup:</p>
-<pre><code><span class="operator"><span class="keyword">CREATE</span> <span class="keyword">TABLE</span> <span class="string">`dup`</span> (
-  <span class="string">`id`</span> <span class="built_in">int</span>(<span class="number">11</span>) <span class="keyword">unsigned</span> <span class="keyword">NOT</span> <span class="literal">NULL</span> AUTO_INCREMENT,
-  <span class="string">`username`</span> <span class="built_in">varchar</span>(<span class="number">255</span>) <span class="keyword">DEFAULT</span> <span class="literal">NULL</span>,
-   PRIMARY <span class="keyword">KEY</span> (<span class="string">`id`</span>)
-) ;</span>
-<span class="operator"><span class="keyword">INSERT</span> <span class="keyword">INTO</span> <span class="string">`dup`</span> <span class="keyword">VALUES</span> (<span class="string">'1'</span>, <span class="string">'nihao'</span>), (<span class="string">'2'</span>, <span class="string">'xxx'</span>), (<span class="string">'3'</span>, <span class="string">'xxx'</span>), (<span class="string">'4'</span>, <span class="string">'nihao'</span>), (<span class="string">'5'</span>, <span class="string">'nihao'</span>), (<span class="string">'6'</span>, <span class="string">'lele'</span>), (<span class="string">'7'</span>, <span class="string">'xx'</span>), (<span class="string">'8'</span>, <span class="string">'lele'</span>);</span>
-</code></pre><p>执行以上 sql 创建我们的实验表,其中 username 表是有重复数据的</p>
-<p>首先查询哪些数据有重复</p>
-<pre><code><span class="operator">select username,<span class="keyword">count</span>(*) <span class="keyword">as</span> <span class="keyword">count</span> <span class="keyword">from</span> dup <span class="keyword">group</span> <span class="keyword">by</span> username <span class="keyword">having</span> <span class="keyword">count</span>(username)&gt; <span class="number">1</span>;</span>
-</code></pre><p>查询一下这些重复数据的id</p>
-<pre><code>select <span class="keyword">distinct</span>( t1.id),t1.username <span class="keyword">from</span> dup t1,dup t2 where t1.id&lt;&gt;t2.id <span class="keyword">and</span> t1.username=t2.username;
-</code></pre><p><strong>下面就是去重复部分</strong></p>
-<p>这时候其实你可以把上面查到的 id 存到一个文件里，然后用delete语句批量删除，（当然要保留一个，别的 id 都 delete掉）<br>或者你可以用下面语句,</p>
-<pre><code><span class="operator"><span class="keyword">create</span> <span class="keyword">temporary</span> <span class="keyword">table</span> tmp_dup select * <span class="keyword">from</span> dup <span class="keyword">group</span> <span class="keyword">by</span> username <span class="keyword">having</span> <span class="keyword">count</span>(username)&gt;=<span class="number">1</span>;</span>
- <span class="operator"><span class="keyword">truncate</span> <span class="keyword">table</span> dup;</span>
-<span class="operator"><span class="keyword">insert</span> <span class="keyword">into</span> dup select * <span class="keyword">from</span> tmp_dup;</span>
-</code></pre><p>操作之前记得备份 dup 表。</p>
-</span>
-        
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
   </section>
 
   
@@ -1093,7 +1098,7 @@
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/archives">
-              <span class="site-state-item-count">55</span>
+              <span class="site-state-item-count">56</span>
               <span class="site-state-item-name">日志</span>
             </a>
           </div>
@@ -1107,7 +1112,7 @@
 
           <div class="site-state-item site-state-tags">
             <a href="/tags">
-              <span class="site-state-item-count">88</span>
+              <span class="site-state-item-count">89</span>
               <span class="site-state-item-name">标签</span>
               </a>
           </div>
@@ -1147,7 +1152,7 @@
       <div class="footer-inner"> <div class="copyright" >
   
   &copy; &nbsp; 
-  <span itemprop="copyrightYear">2015</span>
+  <span itemprop="copyrightYear">2016</span>
   <span class="with-love">
     <i class="icon-next-heart"></i>
   </span>

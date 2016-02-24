@@ -166,6 +166,144 @@
           
           
             
+              <a class="post-title-link" href="/2014/11/21/install-php-5-5-19/" itemprop="url">
+                编译安装 php-5.5.19
+              </a>
+            
+          
+        </h1>
+      
+
+      <div class="post-meta">
+        <span class="post-time">
+          发表于
+          <time itemprop="dateCreated" datetime="2014-11-21T18:50:18+08:00" content="2014-11-21">
+            2014-11-21
+          </time>
+        </span>
+
+        
+
+        
+          
+            <span class="post-comments-count">
+              &nbsp; | &nbsp;
+              <a href="/2014/11/21/install-php-5-5-19/#comments" itemprop="discussionUrl">
+                <span class="post-comments-count ds-thread-count" data-thread-key="2014/11/21/install-php-5-5-19/" itemprop="commentsCount"></span>
+              </a>
+            </span>
+          
+        
+      </div>
+    </header>
+
+    <div class="post-body">
+
+      
+      
+
+      
+        
+          <span itemprop="articleBody"><p>##导语<br>大家编译安装 php 的时候经常会遇到各种各样的问题，<strong>大部分时候是 php 的依赖库没有预先装好，如果依赖库装好了，你基本已经成功一大半了</strong>，另外如果要启动 php-fpm 的话，最好创建 www 的用户组和用户，然后用 www 来启动 php-fpm ，一般 nginx 也会使用 www 用户来启动，并且让 www 的用户没有 shell 的执行权限，这样即使被黑客侵入了你的网站，也不能轻易就拿到你的 root 权限，比较安全点。<br>下面就开始编译之旅，下面的命令都在 shell 下运行。</p>
+<h2 id="环境">环境</h2><p>操作系统： centos 6.5<br>php版本： php-5.5.19 (5.6也可以)</p>
+<h2 id="创建用户">创建用户</h2><p>既然这个 www 用户如此重要 ，那就先创建 www 用户吧。</p>
+<pre><code>groupadd www
+useradd -<span class="keyword">g</span> www -s /sbin/nologin -<span class="keyword">M</span> www
+</code></pre><h2 id="安装依赖">安装依赖</h2><pre><code><span class="label">yum</span> -y install gcc <span class="keyword">bison </span><span class="keyword">bison-devel </span>zlib-devel libmcrypt-devel mcrypt mhash-devel openssl-devel libxml2-devel libcurl-devel <span class="keyword">bzip2-devel </span>readline-devel libedit-devel gd-devel pcre-devel
+</code></pre><p>好吧，只要执行了这条命令，后面就会少了很多烦恼</p>
+<h2 id="编译安装">编译安装</h2><pre><code>cd ~
+mkdir download &amp;&amp; cd download
+wget http:<span class="comment">//jp1.php.net/get/php-5.5.19.tar.gz/from/this/mirror</span>
+tar xvzf php-<span class="number">5.5</span><span class="number">.19</span>.tar.gz
+cd php-<span class="number">5.5</span><span class="number">.19</span>
+</code></pre><p>开始编译</p>
+<pre><code>./configure \
+-<span class="ruby">-prefix=<span class="regexp">/usr/local</span><span class="regexp">/php \
+</span></span>-<span class="ruby"><span class="regexp">-with-config-file-path=/usr</span><span class="regexp">/local/php</span><span class="regexp">/etc \
+</span></span>-<span class="ruby"><span class="regexp">-enable-inline-optimization \
+</span></span>-<span class="ruby"><span class="regexp">-disable-debug \
+</span></span>-<span class="ruby"><span class="regexp">-disable-rpath \
+</span></span>-<span class="ruby"><span class="regexp">-enable-shared \
+</span></span>-<span class="ruby"><span class="regexp">-enable-opcache \
+</span></span>-<span class="ruby"><span class="regexp">-enable-fpm \
+</span></span>-<span class="ruby"><span class="regexp">-with-fpm-user=www \
+</span></span>-<span class="ruby"><span class="regexp">-with-fpm-group=www \
+</span></span>-<span class="ruby"><span class="regexp">-with-mysql=mysqlnd \
+</span></span>-<span class="ruby"><span class="regexp">-with-mysqli=mysqlnd \
+</span></span>-<span class="ruby"><span class="regexp">-with-pdo-mysql=mysqlnd \
+</span></span>-<span class="ruby"><span class="regexp">-with-gettext \
+</span></span>-<span class="ruby"><span class="regexp">-enable-mbstring \
+</span></span>-<span class="ruby"><span class="regexp">-with-iconv \
+</span></span>-<span class="ruby"><span class="regexp">-with-mcrypt \
+</span></span>-<span class="ruby"><span class="regexp">-with-mhash \
+</span></span>-<span class="ruby"><span class="regexp">-with-openssl \
+</span></span>-<span class="ruby"><span class="regexp">-enable-bcmath \
+</span></span>-<span class="ruby"><span class="regexp">-enable-soap \
+</span></span>-<span class="ruby"><span class="regexp">-with-libxml-dir \
+</span></span>-<span class="ruby"><span class="regexp">-enable-pcntl \
+</span></span>-<span class="ruby"><span class="regexp">-enable-shmop \
+</span></span>-<span class="ruby"><span class="regexp">-enable-sysvmsg \
+</span></span>-<span class="ruby"><span class="regexp">-enable-sysvsem \
+</span></span>-<span class="ruby"><span class="regexp">-enable-sysvshm \
+</span></span>-<span class="ruby"><span class="regexp">-enable-sockets \
+</span></span>-<span class="ruby"><span class="regexp">-with-curl \
+</span></span>-<span class="ruby"><span class="regexp">-with-zlib \
+</span></span>-<span class="ruby"><span class="regexp">-enable-zip \
+</span></span>-<span class="ruby"><span class="regexp">-with-bz2 \
+</span></span>-<span class="ruby"><span class="regexp">-with-readline \
+</span></span>-<span class="ruby"><span class="regexp">-with-gd \
+</span></span>-<span class="ruby"><span class="regexp">-disable-fileinfo</span></span>
+</code></pre><p>嗯，一条过。( 有问题？ 在下面留言吧 )<br>继续：</p>
+<pre><code><span class="built_in">make</span> &amp;&amp; <span class="built_in">make</span> install
+</code></pre><p>装完了<br>再做一些配置的工作：</p>
+<pre><code>cp php<span class="class">.ini-development</span> /usr/local/php/etc/php<span class="class">.ini</span>
+cp /usr/local/php/etc/php-fpm<span class="class">.conf</span><span class="class">.default</span> /usr/local/php/etc/php-fpm<span class="class">.conf</span>
+cp sapi/fpm/init<span class="class">.d</span><span class="class">.php-fpm</span> /etc/init.d/php-fpm
+chmod <span class="number">600</span> /etc/init.d/php-fpm
+</code></pre><p>启动：<br>    /etc/init.d/php-fpm start</p>
+<p>完工。要装别的扩展就自己折腾吧，很简单，我已经装到手软了。</p>
+<h2 id="PS">PS</h2><p><strong>为什么没装 php 5.6？</strong><br>装了，测试了几天，发现 phpredis 这个扩展会有内存泄露的问题 比如下面的代码</p>
+<pre><code> <span class="variable">$redis</span>-&gt;hMset(<span class="string">'key'</span>, <span class="keyword">array</span>(
+        <span class="string">'order_id'</span> =&gt; <span class="string">'190470'</span>,
+        <span class="string">'restaurant_id'</span> =&gt; <span class="string">'317'</span>,
+        <span class="string">'sequence'</span> =&gt; <span class="string">'353'</span>,
+        <span class="string">'user_id'</span> =&gt; <span class="keyword">NULL</span>,
+        <span class="string">'create_time'</span> =&gt; <span class="string">'2014-11-20 14:04:49'</span>,
+        <span class="string">'amount'</span> =&gt; <span class="string">'24.00'</span>
+    )
+);
+</code></pre><p>具体看 <a href="https://github.com/nicolasff/phpredis/issues/524" target="_blank" rel="external">https://github.com/nicolasff/phpredis/issues/524</a></p>
+<p><strong>在哪里下载 php 安装包?</strong><br>php 官网<br><a href="http://php.net/get/php-5.5.19.tar.gz/from/a/mirror" target="_blank" rel="external">http://php.net/get/php-5.5.19.tar.gz/from/a/mirror</a><br>日本的镜像最快了。。尼玛</p>
+</span>
+        
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <header class="post-header">
+
+      
+      
+        <h1 class="post-title" itemprop="name headline">
+          
+          
+            
               <a class="post-title-link" href="/2014/11/19/rsync-daemon/" itemprop="url">
                 利用 rsync 在服务器间同步目录
               </a>
@@ -610,7 +748,7 @@ secrets <span class="keyword">file</span> = /etc/rsyncd.pwd</span>
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/archives">
-              <span class="site-state-item-count">55</span>
+              <span class="site-state-item-count">56</span>
               <span class="site-state-item-name">日志</span>
             </a>
           </div>
@@ -624,7 +762,7 @@ secrets <span class="keyword">file</span> = /etc/rsyncd.pwd</span>
 
           <div class="site-state-item site-state-tags">
             <a href="/tags">
-              <span class="site-state-item-count">88</span>
+              <span class="site-state-item-count">89</span>
               <span class="site-state-item-name">标签</span>
               </a>
           </div>
@@ -664,7 +802,7 @@ secrets <span class="keyword">file</span> = /etc/rsyncd.pwd</span>
       <div class="footer-inner"> <div class="copyright" >
   
   &copy; &nbsp; 
-  <span itemprop="copyrightYear">2015</span>
+  <span itemprop="copyrightYear">2016</span>
   <span class="with-love">
     <i class="icon-next-heart"></i>
   </span>

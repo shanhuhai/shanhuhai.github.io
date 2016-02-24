@@ -166,6 +166,155 @@
           
           
             
+              <a class="post-title-link" href="/2016/02/24/Tutorial-zookeeper-kafka-storm-cluster/" itemprop="url">
+                zookeeper kafka storm 集群安装与使用
+              </a>
+            
+          
+        </h1>
+      
+
+      <div class="post-meta">
+        <span class="post-time">
+          发表于
+          <time itemprop="dateCreated" datetime="2016-02-24T16:47:34+08:00" content="2016-02-24">
+            2016-02-24
+          </time>
+        </span>
+
+        
+
+        
+          
+            <span class="post-comments-count">
+              &nbsp; | &nbsp;
+              <a href="/2016/02/24/Tutorial-zookeeper-kafka-storm-cluster/#comments" itemprop="discussionUrl">
+                <span class="post-comments-count ds-thread-count" data-thread-key="2016/02/24/Tutorial-zookeeper-kafka-storm-cluster/" itemprop="commentsCount"></span>
+              </a>
+            </span>
+          
+        
+      </div>
+    </header>
+
+    <div class="post-body">
+
+      
+      
+
+      
+        
+          <span itemprop="articleBody"><h2 id="环境">环境</h2><p>一共三台测试机</p>
+<ul>
+<li>操作系统: centos7 ; hostname: c1 ; ip: 192.168.33.21</li>
+<li>操作系统: centos7 ; hostname: c2 ; ip: 192.168.33.22</li>
+<li>操作系统: centos7 ; hostname: c3 ; ip: 192.168.33.23</li>
+</ul>
+<h2 id="zookeeper">zookeeper</h2><h3 id="安装">安装</h3><figure class="highlight stata"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">cd</span> ~</span><br><span class="line"><span class="keyword">mkdir</span> -p download &amp;&amp; <span class="keyword">cd</span> download</span><br><span class="line">wget -c http:<span class="comment">//www.eu.apache.org/dist/zookeeper/zookeeper-3.4.6/zookeeper-3.4.6.tar.gz</span></span><br><span class="line"></span><br><span class="line">tar xvzf zookeeper-3.4.6.tar.gz</span><br><span class="line"><span class="keyword">mkdir</span> -p /usr/<span class="keyword">local</span>/server</span><br><span class="line">cp -r zookeeper-3.4.6 /usr/<span class="keyword">local</span>/server/zookeeper</span><br><span class="line"></span><br><span class="line"><span class="keyword">cd</span> /usr/<span class="keyword">local</span>/server/zookeeper/<span class="keyword">conf</span></span><br><span class="line">touch zoo.cfg</span><br></pre></td></tr></table></figure>
+<p>打开 <code>zoo.cfg</code></p>
+<p>添加 </p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">tickTime=<span class="number">2000</span></span><br><span class="line">dataDir=/data/zookeeper</span><br><span class="line">clientPort=<span class="number">2181</span></span><br><span class="line">initLimit=<span class="number">5</span></span><br><span class="line">syncLimit=<span class="number">2</span></span><br><span class="line">server<span class="number">.1</span>=c1:<span class="number">2888</span>:<span class="number">3888</span></span><br><span class="line">server<span class="number">.2</span>=c2:<span class="number">2888</span>:<span class="number">3888</span></span><br><span class="line">server<span class="number">.3</span>=c3:<span class="number">2888</span>:<span class="number">3888</span></span><br></pre></td></tr></table></figure>
+<p>打开 <code>/etc/hosts</code><br>添加<br><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="number">192.168</span><span class="number">.33</span><span class="number">.20</span> c1</span><br><span class="line"><span class="number">192.168</span><span class="number">.33</span><span class="number">.21</span> c2</span><br><span class="line"><span class="number">192.168</span><span class="number">.33</span><span class="number">.22</span> c3</span><br></pre></td></tr></table></figure></p>
+<p>创建数据目录<br><code>mkdir -p /data/zookeeper</code></p>
+<p>创建myid文件， id 与 zoo.cfg 中的序号对应<br><code>echo 1 &gt; /data/zookeeper/my.id</code></p>
+<h3 id="常用命令">常用命令</h3><p>启动</p>
+<pre><code><span class="regexp">/usr/</span>local<span class="regexp">/server/</span>zookeeper<span class="regexp">/bin/</span>zkServer.sh start 
+</code></pre><p>重启</p>
+<pre><code><span class="regexp">/usr/</span>local<span class="regexp">/server/</span>zookeeper<span class="regexp">/bin/</span>zkServer.sh restart
+</code></pre><p>关闭</p>
+<pre><code><span class="regexp">/usr/</span>local<span class="regexp">/server/</span>zookeeper<span class="regexp">/bin/</span>zkServer.sh stop
+</code></pre><p>在其中一台用客户端连接</p>
+<pre><code><span class="regexp">/usr/</span>local<span class="regexp">/server/</span>zookeeper<span class="regexp">/bin/</span>zkCli.sh -server <span class="string">c1:</span><span class="number">2181</span>
+</code></pre><p>查看状态</p>
+<pre><code><span class="regexp">/usr/</span>local<span class="regexp">/server/</span>zookeeper<span class="regexp">/bin/</span>zkServer.sh status
+</code></pre><h3 id="测试">测试</h3><p>在 c1 上连接 c1 上的 zookeeper </p>
+<pre><code><span class="regexp">/usr/</span>local<span class="regexp">/server/</span>zookeeper<span class="regexp">/bin/</span>zkCli.sh -server <span class="string">c1:</span><span class="number">2181</span>
+</code></pre><p>添加一个根节点目录</p>
+<pre><code><span class="operator"><span class="keyword">create</span> /<span class="keyword">project</span>  xxxx</span>
+</code></pre><p>在 c2 上连接 c2 上的 zookeeper</p>
+<pre><code><span class="regexp">/usr/</span>local<span class="regexp">/server/</span>zookeeper<span class="regexp">/bin/</span>zkCli.sh -server <span class="string">c2:</span><span class="number">2181</span>
+</code></pre><p>执行</p>
+<pre><code><span class="keyword">get</span> /project
+</code></pre><p>看是否能得到数据,如果有 zookeeper 集群就完成了</p>
+<h3 id="备注">备注</h3><ul>
+<li>注意要关闭防火墙</li>
+</ul>
+<h2 id="kafka">kafka</h2><p>Producer在发布消息到某个Partition时，先通过Zookeeper找到该Partition的Leader，然后无论该Topic的Replication Factor为多少（也即该Partition有多少个Replica），Producer只将该消息发送到该Partition的Leader。Leader会将该消息写入其本地Log。每个Follower都从Leader pull数据。这种方式上，Follower存储的数据顺序与Leader保持一致。Follower在收到该消息并写入其Log后，向Leader发送ACK。一旦Leader收到了ISR中的所有Replica的ACK，该消息就被认为已经commit了，Leader将增加HW并且向Producer发送ACK。<br>为了提高性能，每个Follower在接收到数据后就立马向Leader发送ACK，而非等到数据写入Log中。因此，对于已经commit的消息，Kafka只能保证它被存于多个Replica的内存中，而不能保证它们被持久化到磁盘中，也就不能完全保证异常发生后该条消息一定能被Consumer消费。但考虑到这种场景非常少见，可以认为这种方式在性能和数据持久化上做了一个比较好的平衡。在将来的版本中，Kafka会考虑提供更高的持久性。<br>Consumer读消息也是从Leader读取，只有被commit过的消息（offset低于HW的消息）才会暴露给Consumer。</p>
+<p>Leader会跟踪与其保持同步的Replica列表，该列表称为ISR（即in-sync Replica）</p>
+<h3 id="安装-1">安装</h3><figure class="highlight groovy"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">cd ~/download</span><br><span class="line">wget -c <span class="string">http:</span><span class="comment">//ftp.jaist.ac.jp/pub/apache/kafka/0.8.2.2/kafka_2.10-0.8.2.2.tgz</span></span><br><span class="line">cp -r kafka_2<span class="number">.10</span>-<span class="number">0.8</span><span class="number">.2</span><span class="number">.2</span> <span class="regexp">/usr/</span>local<span class="regexp">/server/</span>kafka</span><br><span class="line"></span><br><span class="line">cd <span class="regexp">/usr/</span>local<span class="regexp">/server/</span>kafka/conf</span><br><span class="line">mkdir -p <span class="regexp">/data/</span>storm</span><br></pre></td></tr></table></figure>
+<p>在 c1 上<br>打开 <code>server.properties</code>，<br>修改以下项<br><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">borker=<span class="number">1</span> </span><br><span class="line">host.name=c1</span><br><span class="line">zookeeper.connect=c1:<span class="number">2181</span>,c2:<span class="number">2181</span>,c3:<span class="number">2181</span></span><br></pre></td></tr></table></figure></p>
+<p>c2 上</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">borker=<span class="number">2</span> </span><br><span class="line">host.name=c2</span><br><span class="line">zookeeper.connect=c1:<span class="number">2181</span>,c2:<span class="number">2181</span>,c3:<span class="number">2181</span></span><br></pre></td></tr></table></figure>
+<p>c3 上</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">borker=<span class="number">3</span> </span><br><span class="line">host.name=c3</span><br><span class="line">zookeeper.connect=c1:<span class="number">2181</span>,c2:<span class="number">2181</span>,c3:<span class="number">2181</span></span><br></pre></td></tr></table></figure>
+<p>保存</p>
+<h3 id="常用命令-1">常用命令</h3><p>启动</p>
+<pre><code><span class="regexp">/usr/</span>local<span class="regexp">/server/</span>kafka<span class="regexp">/bin/</span>kafka-server-start.sh -daemon <span class="regexp">/usr/</span>local<span class="regexp">/server/</span>kafka<span class="regexp">/config/</span>server.properties   
+</code></pre><p>关闭</p>
+<pre><code><span class="regexp">/usr/</span>local<span class="regexp">/server/</span>kafka<span class="regexp">/bin/</span>kafka-server-stop.sh
+</code></pre><p>创建 topic</p>
+<pre><code><span class="comment">/usr/local/server/kafka/bin/kafka</span><span class="literal">-</span><span class="comment">topics</span><span class="string">.</span><span class="comment">sh</span> <span class="literal">-</span><span class="literal">-</span><span class="comment">create</span> <span class="literal">-</span><span class="literal">-</span><span class="comment">topic</span> <span class="comment">log</span> <span class="literal">-</span><span class="literal">-</span><span class="comment">partitions</span> <span class="comment">3</span> <span class="literal">-</span><span class="literal">-</span><span class="comment">zookeeper</span> <span class="comment">c1:2181/kafka</span> <span class="literal">-</span><span class="literal">-</span><span class="comment">replication</span><span class="literal">-</span><span class="comment">factor</span> <span class="comment">1</span>
+</code></pre><p>列出 topic</p>
+<pre><code><span class="regexp">/usr/</span>local<span class="regexp">/server/</span>kafka<span class="regexp">/bin/</span>kafka-topics.sh --list --zookeeper <span class="string">c1:</span><span class="number">2181</span>/kafka
+</code></pre><p>列出 topic 详细信息</p>
+<pre><code><span class="regexp">/usr/</span>local<span class="regexp">/server/</span>kafka<span class="regexp">/bin/</span>kafka-topics.sh --describe --zookeeper <span class="string">c1:</span><span class="number">2181</span>/kafka    
+</code></pre><p>生产数据</p>
+<pre><code><span class="regexp">/usr/</span>local<span class="regexp">/server/</span>kafka<span class="regexp">/bin/</span>kafka-console-producer.sh --broker-list <span class="string">c1:</span><span class="number">9092</span> --topic topic1
+</code></pre><p>消费数据</p>
+<pre><code><span class="regexp">/usr/</span>local<span class="regexp">/server/</span>kafka<span class="regexp">/bin/</span>kafka-console-consumer.sh --zookeeper <span class="string">c2:</span><span class="number">2181</span> --topic topic1
+</code></pre><h3 id="测试-1">测试</h3><pre><code><span class="comment">/usr/local/server/kafka/bin/kafka</span><span class="literal">-</span><span class="comment">topics</span><span class="string">.</span><span class="comment">sh</span> <span class="literal">-</span><span class="literal">-</span><span class="comment">create</span> <span class="literal">-</span><span class="literal">-</span><span class="comment">topic</span> <span class="comment">test1</span> <span class="literal">-</span><span class="literal">-</span><span class="comment">partitions</span> <span class="comment">1</span> <span class="literal">-</span><span class="literal">-</span><span class="comment">zookeeper</span> <span class="comment">c1:2181</span> <span class="literal">-</span><span class="literal">-</span><span class="comment">replication</span><span class="literal">-</span><span class="comment">factor</span> <span class="comment">1</span>
+<span class="comment">/usr/local/server/kafka/bin/kafka</span><span class="literal">-</span><span class="comment">topics</span><span class="string">.</span><span class="comment">sh</span> <span class="literal">-</span><span class="literal">-</span><span class="comment">create</span> <span class="literal">-</span><span class="literal">-</span><span class="comment">topic</span> <span class="comment">test2</span> <span class="literal">-</span><span class="literal">-</span><span class="comment">partitions</span> <span class="comment">3</span> <span class="literal">-</span><span class="literal">-</span><span class="comment">zookeeper</span> <span class="comment">c1:2181</span> <span class="literal">-</span><span class="literal">-</span><span class="comment">replication</span><span class="literal">-</span><span class="comment">factor</span> <span class="comment">1</span>
+<span class="comment">/usr/local/server/kafka/bin/kafka</span><span class="literal">-</span><span class="comment">topics</span><span class="string">.</span><span class="comment">sh</span> <span class="literal">-</span><span class="literal">-</span><span class="comment">create</span> <span class="literal">-</span><span class="literal">-</span><span class="comment">topic</span> <span class="comment">test3</span> <span class="literal">-</span><span class="literal">-</span><span class="comment">partitions</span> <span class="comment">1</span> <span class="literal">-</span><span class="literal">-</span><span class="comment">zookeeper</span> <span class="comment">c1:2181</span> <span class="literal">-</span><span class="literal">-</span><span class="comment">replication</span><span class="literal">-</span><span class="comment">factor</span> <span class="comment">3</span>
+
+<span class="comment">/usr/local/server/kafka/bin/kafka</span><span class="literal">-</span><span class="comment">topics</span><span class="string">.</span><span class="comment">sh</span> <span class="literal">-</span><span class="literal">-</span><span class="comment">create</span> <span class="literal">-</span><span class="literal">-</span><span class="comment">topic</span> <span class="comment">test4</span> <span class="literal">-</span><span class="literal">-</span><span class="comment">partitions</span> <span class="comment">3</span> <span class="literal">-</span><span class="literal">-</span><span class="comment">zookeeper</span> <span class="comment">c1:2181</span> <span class="literal">-</span><span class="literal">-</span><span class="comment">replication</span><span class="literal">-</span><span class="comment">factor</span> <span class="comment">3</span>
+</code></pre><h3 id="删除topic">删除topic</h3><p>登录 zookeeper，删除 <code>/kafka/brokers/topics/topic1</code> <code>/kafka/config/topics/test1</code><br>删除 kafka 日志目录 <code>/tmp/kafka-logs</code> 下对应的 topic 分区文件</p>
+<h2 id="storm">storm</h2><h3 id="安装-2">安装</h3><figure class="highlight groovy"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">cd ~/download</span><br><span class="line">wget -c <span class="string">http:</span><span class="comment">//ftp.jaist.ac.jp/pub/apache/storm/apache-storm-0.9.6/apache-storm-0.9.6.tar.gz</span></span><br><span class="line">tar xvzf apache-storm-<span class="number">0.9</span><span class="number">.6</span>.tar.gz</span><br><span class="line"></span><br><span class="line">cp -r apache-storm-<span class="number">0.9</span><span class="number">.6</span> <span class="regexp">/usr/</span>local<span class="regexp">/server/</span>storm</span><br><span class="line">cd <span class="regexp">/usr/</span>local<span class="regexp">/server/</span>storm/conf</span><br><span class="line"></span><br><span class="line">mkdir -p <span class="regexp">/data/</span>storm</span><br></pre></td></tr></table></figure>
+<p>我们把 c1 做为 nimbus，c2 c3 做为 supervisord，所以配置如下</p>
+<p>打开 <code>storm.yaml</code> 修改 <code>storm.zookeeper.servers</code> 为<br><figure class="highlight haml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">storm.zookeeper.servers:</span><br><span class="line">    -<span class="ruby"> <span class="string">"c1"</span></span><br><span class="line"></span>    -<span class="ruby"> <span class="string">"c2"</span></span><br><span class="line"></span>    -<span class="ruby"> <span class="string">"c3"</span></span></span><br></pre></td></tr></table></figure></p>
+<p>修改 <code>nimbus.host</code> 为</p>
+<figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">nimbus<span class="class">.host</span>: <span class="string">"c1"</span></span><br></pre></td></tr></table></figure>
+<p>添加  <code>storm.local.dir=/data/storm</code><br>保存</p>
+<h3 id="常用命令-2">常用命令</h3><p>启动 nimbus （c1 上） </p>
+<pre><code>nohup <span class="regexp">/usr/</span>local<span class="regexp">/server/</span>storm<span class="regexp">/bin/</span>storm nimbus &gt;<span class="regexp">/dev/</span><span class="keyword">null</span> <span class="number">2</span>&gt;&amp;<span class="number">1</span> &amp;
+</code></pre><p>启动 Supervisor (c2,c3 上)</p>
+<pre><code>nohup <span class="regexp">/usr/</span>local<span class="regexp">/server/</span>storm<span class="regexp">/bin/</span>storm supervisor &gt;<span class="regexp">/dev/</span><span class="keyword">null</span> <span class="number">2</span>&gt;&amp;<span class="number">1</span> &amp;
+</code></pre><p>启动 storm ui (c1 上)</p>
+<pre><code>nohup <span class="regexp">/usr/</span>local<span class="regexp">/server/</span>storm<span class="regexp">/bin/</span>storm ui &gt;<span class="regexp">/dev/</span><span class="keyword">null</span> <span class="number">2</span>&gt;&amp;<span class="number">1</span> &amp;
+</code></pre><p>访问 storm ui 可以通过 <a href="http://c1:8080/" target="_blank" rel="external">http://c1:8080/</a></p>
+<p>关闭 storm</p>
+<pre><code>kill -<span class="number">9</span> `ps aux | <span class="keyword">grep</span> storm | <span class="keyword">grep</span> -v <span class="keyword">grep</span> | awk <span class="string">'{print $2}'</span>` &gt; <span class="regexp">/dev/</span><span class="keyword">null</span> <span class="number">2</span>&gt;&amp;<span class="number">1</span> &amp;
+</code></pre><p>提交 topology</p>
+<pre><code>./storm jar  ~/Workdir/workspace/storm-demo/target/demo-<span class="number">1.0</span>-SNAPSHOT<span class="class">.jar</span> storm_demo<span class="class">.demo</span><span class="class">.App</span> pro -c nimbus.host=c1
+</code></pre></span>
+        
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <header class="post-header">
+
+      
+      
+        <h1 class="post-title" itemprop="name headline">
+          
+          
+            
               <a class="post-title-link" href="/2015/11/27/git-add/" itemprop="url">
                 git add 的本质
               </a>
@@ -933,97 +1082,6 @@ yum -y install php-fpm --downloadonly --downloaddir=/yum/<span class="keyword">l
 
 
     
-      
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      
-      
-        <h1 class="post-title" itemprop="name headline">
-          
-          
-            
-              <a class="post-title-link" href="/2015/06/19/Linux-sed-usages/" itemprop="url">
-                linux 下 sed 用例
-              </a>
-            
-          
-        </h1>
-      
-
-      <div class="post-meta">
-        <span class="post-time">
-          发表于
-          <time itemprop="dateCreated" datetime="2015-06-19T18:31:02+08:00" content="2015-06-19">
-            2015-06-19
-          </time>
-        </span>
-
-        
-
-        
-          
-            <span class="post-comments-count">
-              &nbsp; | &nbsp;
-              <a href="/2015/06/19/Linux-sed-usages/#comments" itemprop="discussionUrl">
-                <span class="post-comments-count ds-thread-count" data-thread-key="2015/06/19/Linux-sed-usages/" itemprop="commentsCount"></span>
-              </a>
-            </span>
-          
-        
-      </div>
-    </header>
-
-    <div class="post-body">
-
-      
-      
-
-      
-        
-          <span itemprop="articleBody"><p>创建测试文件  </p>
-<pre><code>cat &gt; <span class="tag">a</span><span class="class">.txt</span> &lt;&lt; END
-docker
-nl
-sed
-gearman
-nlp
-lua
-rpm
-END
-</code></pre><p>删除3到5行</p>
-<pre><code>nl <span class="operator">a</span>.txt  | sed <span class="string">'3,5d'</span>
-</code></pre><p>替换3到5行</p>
-<pre><code>nl <span class="operator">a</span>.txt | sed <span class="string">'3,5c lua'</span>
-</code></pre><p>在第2行加上 “drink tea”</p>
-<pre><code>nl <span class="literal">a</span>.txt | sed '<span class="number">2</span><span class="literal">a</span> drink tea'
-</code></pre><p>在第2行前面插入 “drink tea”</p>
-<pre><code>nl <span class="operator">a</span>.txt | sed <span class="string">'2i drink tea'</span>
-</code></pre><p>在文件中搜索 nl,并打印</p>
-<pre><code><span class="keyword">nl</span> a.txt | sed -<span class="keyword">n</span> '/<span class="keyword">nl</span>/p'
-</code></pre><p>在文件忠搜索 nl ，并删除</p>
-<pre><code><span class="keyword">nl</span> a.txt | sed  '/<span class="keyword">nl</span>/<span class="keyword">d</span>'
-</code></pre><p>在文件中搜索包含 a 的行，并将 a 替换为 x，并打印出来<br>nl a.txt | sed -n ‘/a/{s/a/x/;p}’</p>
-</span>
-        
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
   </section>
 
   
@@ -1062,7 +1120,7 @@ END
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/archives">
-              <span class="site-state-item-count">55</span>
+              <span class="site-state-item-count">56</span>
               <span class="site-state-item-name">日志</span>
             </a>
           </div>
@@ -1076,7 +1134,7 @@ END
 
           <div class="site-state-item site-state-tags">
             <a href="/tags">
-              <span class="site-state-item-count">88</span>
+              <span class="site-state-item-count">89</span>
               <span class="site-state-item-name">标签</span>
               </a>
           </div>
@@ -1116,7 +1174,7 @@ END
       <div class="footer-inner"> <div class="copyright" >
   
   &copy; &nbsp; 
-  <span itemprop="copyrightYear">2015</span>
+  <span itemprop="copyrightYear">2016</span>
   <span class="with-love">
     <i class="icon-next-heart"></i>
   </span>
