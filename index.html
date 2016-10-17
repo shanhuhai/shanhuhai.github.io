@@ -166,6 +166,121 @@
           
           
             
+              <a class="post-title-link" href="/2016/10/17/bigdata-filebeat-elasticsearch-kibana-elk/" itemprop="url">
+                bigdata-filebeat-elasticsearch-kibana-elk
+              </a>
+            
+          
+        </h1>
+      
+
+      <div class="post-meta">
+        <span class="post-time">
+          发表于
+          <time itemprop="dateCreated" datetime="2016-10-17T11:53:06+08:00" content="2016-10-17">
+            2016-10-17
+          </time>
+        </span>
+
+        
+
+        
+          
+            <span class="post-comments-count">
+              &nbsp; | &nbsp;
+              <a href="/2016/10/17/bigdata-filebeat-elasticsearch-kibana-elk/#comments" itemprop="discussionUrl">
+                <span class="post-comments-count ds-thread-count" data-thread-key="2016/10/17/bigdata-filebeat-elasticsearch-kibana-elk/" itemprop="commentsCount"></span>
+              </a>
+            </span>
+          
+        
+      </div>
+    </header>
+
+    <div class="post-body">
+
+      
+      
+
+      
+        
+          <span itemprop="articleBody"><h1 id="Filebeat_+_Elasitcsearch_+_Kibana_搭建日志收集系统">Filebeat + Elasitcsearch + Kibana 搭建日志收集系统</h1><p><img src="media/14764103978219/14764370554119.jpg" alt="">￼</p>
+<img src="/2016/10/17/bigdata-filebeat-elasticsearch-kibana-elk/14764370554119.jpg" alt="[kibana后台]" title="[kibana后台]">
+<h2 id="1-为什么需要日志收集">1.为什么需要日志收集</h2><p>当我们的网站规模大到一定程度时我们的服务分散在不同的主机上，当网站发生异常时我们通常通过这些服务的日志来排查系统故障，由于主机众多日志分散在不同的主机上，导致我们分析日志效率太低，日志收集系统可以实现将所有不同主机的上的日志汇聚到一个系统中，方便我们查看，分析。</p>
+<h2 id="2-开源软件选型">2.开源软件选型</h2><p>市面上有各种日志收集系统，通过多个开瑞软件整合来完成日志收集分析，大概包括si个部分：<br><code>收集 -&gt; 分析 -&gt; 存储 -&gt; 后台</code><br>做收集的有Apache的 Flume， Facebook的 Scribe，Elasic 的 Firebeat，Logstash<br>做分析，Logstash可以，别的暂时没有研究，还用不到<br>做存储的有 Elasticsearch，Hdfs（Hadoop , Storm） 等<br>做后台的有 kibana，grafana</p>
+<p>用Hdfs的这种基本是做日志的大数据分析的，比较重，不太适合我们，Eliastic 有一套完整的日志方案就是<br>通常说的 Elk(Elasticsearch + Logstash + kibana)，   Logstash比较大，一般用他来做日志的分析格式化（二次处理），日志收集用 Firebeat， Flume也不错，不过需要装java环境，Friebeat 用go写的，对环境每依赖可以直接运行，而且很轻量大概 3M 多，这对部署实施时很有利。</p>
+<p>Eliasticsearch 搜索的高效就不用说了，存时序数据也经常用它，对这个本身也有过一定了解</p>
+<p>Kibana 用来做日志查看分析，跟Elasticsearch 配合起来使用，可以通过从es里搜索出来的数据做可视化展示，Dashboard数据监控面板</p>
+<p>所以最后选择通过 Filebeat + Elasitcsearch + Kibana 来实现我们的日志收集系统（Logstash 可选）</p>
+<p>目前Kibana稳定版在 4.4 ，但是要依赖 Elasticsearch 2 以上，<br>以前用过 Elasticsearch 1.7 的，所以选了 Elasticsearch 1.7 + Kibana 4.1</p>
+<h2 id="3-安装部署">3.安装部署</h2><p>centos 6.x 环境下</p>
+<h3 id="3-1_在日志所在服务器上安装Filebeat">3.1 在日志所在服务器上安装Filebeat</h3><figure class="highlight groovy"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo rpm --<span class="keyword">import</span> <span class="string">https:</span><span class="comment">//packages.elastic.co/GPG-KEY-elasticsearch</span></span><br></pre></td></tr></table></figure>
+<p>将以下内容</p>
+<figure class="highlight ini"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="title">[beats]</span></span><br><span class="line"><span class="setting">name=<span class="value">Elastic Beats Repository</span></span></span><br><span class="line"><span class="setting">baseurl=<span class="value">https://packages.elastic.co/beats/yum/el/<span class="variable">$basearch</span></span></span></span><br><span class="line"><span class="setting">enabled=<span class="value"><span class="number">1</span></span></span></span><br><span class="line"><span class="setting">gpgkey=<span class="value">https://packages.elastic.co/GPG-KEY-elasticsearch</span></span></span><br><span class="line"><span class="setting">gpgcheck=<span class="value"><span class="number">1</span></span></span></span><br></pre></td></tr></table></figure>
+<p>保存为 <code>/etc/yum.repos.d/beat.repo</code> 文件</p>
+<p>开始安装</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">yum -y <span class="operator"><span class="keyword">install</span> filebeat</span><br><span class="line">chkconfig <span class="comment">--add filebeat</span></span></span><br></pre></td></tr></table></figure>
+<p>启动命令</p>
+<figure class="highlight dos"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">/etc/init.d/filebeat <span class="built_in">start</span></span><br></pre></td></tr></table></figure>
+<h3 id="3-2_在日志服务器安装_Elasticsearch">3.2 在日志服务器安装 Elasticsearch</h3><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">mkdir -p ~/download &amp;&amp; cd ~/download</span><br><span class="line">wget -c https:<span class="comment">//download.elastic.co/elasticsearch/elasticsearch/elasticsearch-1.7.2.zip</span></span><br><span class="line">unzip elasticsearch-<span class="number">1.7</span><span class="number">.2</span>.zip </span><br><span class="line">mv elasticsearch-<span class="number">1.7</span><span class="number">.2</span> /usr/local/elasticsearch</span><br></pre></td></tr></table></figure>
+<p>启动命令</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">cd</span> /usr/<span class="built_in">local</span>/elasticsearch/bin</span><br><span class="line">./elasticsearch <span class="operator">-d</span></span><br></pre></td></tr></table></figure>
+<h3 id="3-3_在日志服务器安装_Kibana">3.3 在日志服务器安装 Kibana</h3><figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">rpm --import https:<span class="comment">//packages.elastic.co/GPG-KEY-elasticsearch</span></span><br><span class="line">cat &gt; /etc/yum<span class="class">.repos</span><span class="class">.d</span>/kibana<span class="class">.repo</span>  </span><br><span class="line"></span><br><span class="line">[kibana-<span class="number">4.1</span>]</span><br><span class="line">name=Kibana repository <span class="keyword">for</span> <span class="number">4.1</span><span class="class">.x</span> packages</span><br><span class="line">baseurl=http:<span class="comment">//packages.elastic.co/kibana/4.1/centos</span></span><br><span class="line">gpgcheck=<span class="number">1</span></span><br><span class="line">gpgkey=http:<span class="comment">//packages.elastic.co/GPG-KEY-elasticsearch</span></span><br><span class="line">enabled=<span class="number">1</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">yum install kibana</span><br><span class="line">chkconfig --add kibana</span><br></pre></td></tr></table></figure>
+<p>启动命令</p>
+<figure class="highlight dos"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">/etc/init.d/kibana <span class="built_in">start</span></span><br></pre></td></tr></table></figure>
+<h2 id="4-使用方法">4.使用方法</h2><p>假如我们有一台 web 服务器， 上面跑了nginx + php-fpm，我们要收集php-fpm的 错误日志和慢日志</p>
+<h3 id="4-1配置_filebeat">4.1配置 filebeat</h3><figure class="highlight less"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="attribute">filebeat</span>:</span><br><span class="line">  <span class="attribute">prospectors</span>:</span><br><span class="line">    -</span><br><span class="line">      <span class="attribute">document_type</span>: <span class="string">"php-fpm"</span></span><br><span class="line">      <span class="attribute">paths</span>:</span><br><span class="line">        - /var/log/php/php-fpm.log</span><br><span class="line">    -</span><br><span class="line">      <span class="attribute">document_type</span>: <span class="string">"php-fpm.slow"</span></span><br><span class="line">      <span class="attribute">paths</span>:</span><br><span class="line">        - /var/log/php/slow.log</span><br><span class="line">      <span class="attribute">multiline</span>:</span><br><span class="line">          <span class="attribute">pattern</span>: <span class="string">'^[[:space:]]'</span></span><br><span class="line">          <span class="attribute">negate</span>: true</span><br><span class="line">          <span class="attribute">match</span>: after</span><br><span class="line"><span class="attribute">output</span>:</span><br><span class="line">  <span class="attribute">elasticsearch</span>:</span><br><span class="line">    <span class="attribute">hosts</span>: [<span class="string">"192.168.1.88:9200"</span>]</span><br><span class="line"><span class="attribute">shipper</span>:</span><br><span class="line">  <span class="attribute">tags</span>: [<span class="string">"web"</span>]</span><br></pre></td></tr></table></figure>
+<p>上面的配置表示从 <code>/var/log/server/php/php-fpm.log</code>, <code>/var/log/server/php/cloud.slow.log</code> 这两个位置收集日志，<br>其中由于 slow 日志存在多行的做为一条记录的情况，filebeat 通过三个配置来将多行转为一行, <code>pattern</code>, <code>negate</code>, <code>match</code>, 上面的配置表示，如果不是以空白开头的行将被拼接到上一行的后面，<br>pattern 遵循golang的正则语法</p>
+<p><code>output</code> 指令中指定将日志输出到 <code>elasticsearch</code>,并添加了服务所在ip 和端口，可以添加多台，还能支持负均衡</p>
+<p><code>shipper</code> 中可以指定一些tag，方便后面在 kibana 中筛选数据</p>
+<p>好了，重启filebeat就可以了， <code>/etc/init.d/filebeat restart</code></p>
+<h3 id="4-2_配置Elasticsearch">4.2 配置Elasticsearch</h3><p>确保 Elasticsearch 已经启动</p>
+<h3 id="4-3_配置kibana">4.3 配置kibana</h3><p>安装 filebeat 的示例仪表盘等</p>
+<figure class="highlight stata"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">mkdir</span> -p ~/download &amp;&amp; <span class="keyword">cd</span> ~/download</span><br><span class="line">curl -<span class="keyword">L</span> -O http:<span class="comment">//download.elastic.co/beats/dashboards/beats-dashboards-1.3.1.zip</span></span><br><span class="line">unzip beats-dashboards-1.3.1.<span class="keyword">zip</span></span><br><span class="line"><span class="keyword">cd</span> beats-dashboards-1.3.1/</span><br><span class="line">./load.<span class="keyword">sh</span></span><br></pre></td></tr></table></figure>
+<p>默认情况下，脚本假设在127.0.0.1:9200上运行Elasticsearch。 使用-url选项指定其他位置。 例如：<code>./load.sh -url http://192.168.1.88:9200</code> 。</p>
+<p>kibana中需要配置 elasticsearch 的地址和端口，现在两个服务都是在同一台上，配置默认是 <code>localhost:9200</code>,所以也不用改</p>
+<h3 id="4-4_打开kibana">4.4 打开kibana</h3><p>kibana 启动后默认 端口是 5601 ， 从浏览器打开 <code>http://192.168.1.88:5601</code><br>kibana 会加载一个 5m的js ，所以要先耐心等待</p>
+<p>打开后界面是这样的</p>
+<img src="/2016/10/17/bigdata-filebeat-elasticsearch-kibana-elk/14764368818734.jpg" alt="[kibana后台2]" title="[kibana后台2]">
+<p>改成 filebeat-*<br><img src="/2016/10/17/bigdata-filebeat-elasticsearch-kibana-elk/14764369227720.jpg" alt="[kibana后台2]" title="[kibana后台2]"></p>
+<p>点 create ，然后点 Discover, 进来后如果日志中有数据，我们应该可以看到类似下面的界面</p>
+<img src="/2016/10/17/bigdata-filebeat-elasticsearch-kibana-elk/14764370554119.jpg" alt="[kibana后台2]" title="[kibana后台2]">
+<p>区域说明</p>
+<img src="/2016/10/17/bigdata-filebeat-elasticsearch-kibana-elk/14764374467022.jpg" alt="[kibana后台2]" title="[kibana后台2]">
+<p>点 <code>type</code> 可以看到我们在filebeat 中指定的日志名称  </p>
+<img src="/2016/10/17/bigdata-filebeat-elasticsearch-kibana-elk/14766732444502.jpg" alt="[kibana后台2]" title="[kibana后台2]">
+<p>还有更多功能自己发掘把。</p>
+<h2 id="4-5_参考资料">4.5 参考资料</h2><figure class="highlight vim"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">http<span class="variable">s:</span>//www.elastic.<span class="keyword">co</span>/guide/<span class="keyword">en</span>/beats/filebeat/current/filebeat-getting-started.html</span><br><span class="line">http<span class="variable">s:</span>//www.elastic.<span class="keyword">co</span>/guide/<span class="keyword">en</span>/kibana/current/getting-started.html</span><br><span class="line">http<span class="variable">s:</span>//www.elastic.<span class="keyword">co</span>/guide/<span class="keyword">en</span>/elasticsearch/guide/current/getting-started.html</span><br></pre></td></tr></table></figure>
+</span>
+        
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <header class="post-header">
+
+      
+      
+        <h1 class="post-title" itemprop="name headline">
+          
+          
+            
               <a class="post-title-link" href="/2016/02/24/Tutorial-zookeeper-kafka-storm-cluster/" itemprop="url">
                 zookeeper kafka storm 集群安装与使用
               </a>
@@ -991,97 +1106,6 @@ ExecStart=/usr/bin/docker -d -H fd:// <span class="variable">$other</span>_args
 
 
     
-      
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      
-      
-        <h1 class="post-title" itemprop="name headline">
-          
-          
-            
-              <a class="post-title-link" href="/2015/06/23/Linux-make-local-yum-repo/" itemprop="url">
-                Centos6 制作本地yum源
-              </a>
-            
-          
-        </h1>
-      
-
-      <div class="post-meta">
-        <span class="post-time">
-          发表于
-          <time itemprop="dateCreated" datetime="2015-06-23T00:48:51+08:00" content="2015-06-23">
-            2015-06-23
-          </time>
-        </span>
-
-        
-
-        
-          
-            <span class="post-comments-count">
-              &nbsp; | &nbsp;
-              <a href="/2015/06/23/Linux-make-local-yum-repo/#comments" itemprop="discussionUrl">
-                <span class="post-comments-count ds-thread-count" data-thread-key="2015/06/23/Linux-make-local-yum-repo/" itemprop="commentsCount"></span>
-              </a>
-            </span>
-          
-        
-      </div>
-    </header>
-
-    <div class="post-body">
-
-      
-      
-
-      
-        
-          <span itemprop="articleBody"><p>今天来介绍一个略吊的技能，在 centos6 上制作本地的 yum ，这样当你要给客户装软件的时候，就可以实现离线安装了。</p>
-<p>##下载rpm</p>
-<p>yum 实际就是一个 rpm 包管理器，我们要制作我们的 yum 源，也就是要下载一堆我们需要的 rpm 包，如何下载到我们需要的 rpm 包呢，我们用一个 yum 插件 yum-downloadonly , 它可以实现当我们通过远程源安装软件时，将依赖的 rpm 保存到一个指定目录而不安装。</p>
-<pre><code>yum <span class="keyword">install</span> yum-downloadonly -y  
-</code></pre><p>我们假设我们只需要安装软件 php-fpm，所以执行</p>
-<pre><code><span class="keyword">mkdir</span> -p /yum/<span class="keyword">local</span>
-yum -y install php-fpm --downloadonly --downloaddir=/yum/<span class="keyword">local</span>
-</code></pre><p>通过这个命令，我们将通过 yum 安装 php-fpm 要依赖的所有 rpm 都下载到了 /yum/local 目录中，下面我们就可以建立我们的本地源了</p>
-<p>##建立本地源</p>
-<p>建立本地源我们通过一个软件 createrepo, 让我们安装它</p>
-<pre><code>yum -y <span class="keyword">install</span> createrepo
-</code></pre><p>然后制作本地源</p>
-<pre><code>createrepo <span class="regexp">/yum/</span>
-</code></pre><p>就这么简单</p>
-<p>##配置本地源<br>到了最后的时刻了，让我们 cd 到 /etc/yum.repos.d/ 中 创建一个 repo 文件 ，内容为</p>
-<pre><code><span class="title">[Local]</span>
-<span class="setting">name=<span class="value">Local Yum</span></span>
-<span class="setting">baseurl=<span class="value">file:///yum/</span></span>
-<span class="setting">gpgcheck=<span class="value"><span class="number">0</span></span></span>
-<span class="setting">enabled=<span class="value"><span class="number">1</span></span></span>
-</code></pre><p>命名为 CentOS-Local.repo</p>
-<h2 id="测试">测试</h2><p>好了，我们可以试试了， 让我们用我们的本地源来安装 php-fpm ，看看它是多么的飞快</p>
-<pre><code><span class="comment">yum</span> <span class="comment">install</span> <span class="literal">-</span><span class="literal">-</span><span class="comment">disablerepo=\*</span> <span class="literal">-</span><span class="literal">-</span><span class="comment">enablerepo=Local</span> <span class="comment">php</span><span class="literal">-</span><span class="comment">fpm</span>
-</code></pre></span>
-        
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
   </section>
 
   
@@ -1120,7 +1144,7 @@ yum -y install php-fpm --downloadonly --downloaddir=/yum/<span class="keyword">l
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/archives">
-              <span class="site-state-item-count">56</span>
+              <span class="site-state-item-count">57</span>
               <span class="site-state-item-name">日志</span>
             </a>
           </div>

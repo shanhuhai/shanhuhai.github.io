@@ -166,6 +166,97 @@
           
           
             
+              <a class="post-title-link" href="/2015/06/23/Linux-make-local-yum-repo/" itemprop="url">
+                Centos6 制作本地yum源
+              </a>
+            
+          
+        </h1>
+      
+
+      <div class="post-meta">
+        <span class="post-time">
+          发表于
+          <time itemprop="dateCreated" datetime="2015-06-23T00:48:51+08:00" content="2015-06-23">
+            2015-06-23
+          </time>
+        </span>
+
+        
+
+        
+          
+            <span class="post-comments-count">
+              &nbsp; | &nbsp;
+              <a href="/2015/06/23/Linux-make-local-yum-repo/#comments" itemprop="discussionUrl">
+                <span class="post-comments-count ds-thread-count" data-thread-key="2015/06/23/Linux-make-local-yum-repo/" itemprop="commentsCount"></span>
+              </a>
+            </span>
+          
+        
+      </div>
+    </header>
+
+    <div class="post-body">
+
+      
+      
+
+      
+        
+          <span itemprop="articleBody"><p>今天来介绍一个略吊的技能，在 centos6 上制作本地的 yum ，这样当你要给客户装软件的时候，就可以实现离线安装了。</p>
+<p>##下载rpm</p>
+<p>yum 实际就是一个 rpm 包管理器，我们要制作我们的 yum 源，也就是要下载一堆我们需要的 rpm 包，如何下载到我们需要的 rpm 包呢，我们用一个 yum 插件 yum-downloadonly , 它可以实现当我们通过远程源安装软件时，将依赖的 rpm 保存到一个指定目录而不安装。</p>
+<pre><code>yum <span class="keyword">install</span> yum-downloadonly -y  
+</code></pre><p>我们假设我们只需要安装软件 php-fpm，所以执行</p>
+<pre><code><span class="keyword">mkdir</span> -p /yum/<span class="keyword">local</span>
+yum -y install php-fpm --downloadonly --downloaddir=/yum/<span class="keyword">local</span>
+</code></pre><p>通过这个命令，我们将通过 yum 安装 php-fpm 要依赖的所有 rpm 都下载到了 /yum/local 目录中，下面我们就可以建立我们的本地源了</p>
+<p>##建立本地源</p>
+<p>建立本地源我们通过一个软件 createrepo, 让我们安装它</p>
+<pre><code>yum -y <span class="keyword">install</span> createrepo
+</code></pre><p>然后制作本地源</p>
+<pre><code>createrepo <span class="regexp">/yum/</span>
+</code></pre><p>就这么简单</p>
+<p>##配置本地源<br>到了最后的时刻了，让我们 cd 到 /etc/yum.repos.d/ 中 创建一个 repo 文件 ，内容为</p>
+<pre><code><span class="title">[Local]</span>
+<span class="setting">name=<span class="value">Local Yum</span></span>
+<span class="setting">baseurl=<span class="value">file:///yum/</span></span>
+<span class="setting">gpgcheck=<span class="value"><span class="number">0</span></span></span>
+<span class="setting">enabled=<span class="value"><span class="number">1</span></span></span>
+</code></pre><p>命名为 CentOS-Local.repo</p>
+<h2 id="测试">测试</h2><p>好了，我们可以试试了， 让我们用我们的本地源来安装 php-fpm ，看看它是多么的飞快</p>
+<pre><code><span class="comment">yum</span> <span class="comment">install</span> <span class="literal">-</span><span class="literal">-</span><span class="comment">disablerepo=\*</span> <span class="literal">-</span><span class="literal">-</span><span class="comment">enablerepo=Local</span> <span class="comment">php</span><span class="literal">-</span><span class="comment">fpm</span>
+</code></pre></span>
+        
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <header class="post-header">
+
+      
+      
+        <h1 class="post-title" itemprop="name headline">
+          
+          
+            
               <a class="post-title-link" href="/2015/06/19/Linux-sed-usages/" itemprop="url">
                 linux 下 sed 用例
               </a>
@@ -1049,78 +1140,6 @@ b=<span class="literal">a</span>-b<span class="comment">;</span>
 
 
     
-      
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      
-      
-        <h1 class="post-title" itemprop="name headline">
-          
-          
-            
-              <a class="post-title-link" href="/2015/05/14/Git-Essentials/" itemprop="url">
-                Git 使用精要
-              </a>
-            
-          
-        </h1>
-      
-
-      <div class="post-meta">
-        <span class="post-time">
-          发表于
-          <time itemprop="dateCreated" datetime="2015-05-14T18:22:26+08:00" content="2015-05-14">
-            2015-05-14
-          </time>
-        </span>
-
-        
-
-        
-          
-            <span class="post-comments-count">
-              &nbsp; | &nbsp;
-              <a href="/2015/05/14/Git-Essentials/#comments" itemprop="discussionUrl">
-                <span class="post-comments-count ds-thread-count" data-thread-key="2015/05/14/Git-Essentials/" itemprop="commentsCount"></span>
-              </a>
-            </span>
-          
-        
-      </div>
-    </header>
-
-    <div class="post-body">
-
-      
-      
-
-      
-        
-          <span itemprop="articleBody"><h3 id="git_pull_origin_master">git pull origin master</h3><p><code>git pull origin master</code> 相当于 <code>git fetch origin &amp;&amp; git merge origin/master</code></p>
-<h3 id="合并分支">合并分支</h3><p>从另一个分支 dev 合并到当前分支 master 时，如果 master 分支下有一个文件 a.txt 已经修改过了，并且没有提交(commit)，且 a.txt 已经在版本库中，合并将失败，<br>你可以先还原文件 <code>git checkout a.txt</code>, 或者先 <code>git stash</code> 等合并完后 再 <code>git stash pop</code></p>
-<h3 id="覆盖远程版本">覆盖远程版本</h3><p>当你想重置你的提交历史，比如你想把本地和远程的版本库都还原到 2天前的版本<br>可以首先用 <code>git log</code> 找到两天前的版本id，如 a398<br>首先将当前版本库还原到两天前 <code>git reset --hard a398</code><br>然后强制推送到远端 <code>git push -f origin master</code></p>
-<h3 id="切换分支">切换分支</h3><p>当要切换分支 dev 时 如果目标分支 dev 有一个文件被修改，且是已经在版本库中的文件，则需要<code>git stash</code> 或者 <code>git checkout</code> 还原后才能切换</p>
-</span>
-        
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
   </section>
 
   
@@ -1159,7 +1178,7 @@ b=<span class="literal">a</span>-b<span class="comment">;</span>
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/archives">
-              <span class="site-state-item-count">56</span>
+              <span class="site-state-item-count">57</span>
               <span class="site-state-item-name">日志</span>
             </a>
           </div>

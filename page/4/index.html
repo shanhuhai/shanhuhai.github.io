@@ -166,6 +166,115 @@
           
           
             
+              <a class="post-title-link" href="/2015/01/15/redis-weibo-1/" itemprop="url">
+                redis 微博点赞的实现
+              </a>
+            
+          
+        </h1>
+      
+
+      <div class="post-meta">
+        <span class="post-time">
+          发表于
+          <time itemprop="dateCreated" datetime="2015-01-15T17:32:10+08:00" content="2015-01-15">
+            2015-01-15
+          </time>
+        </span>
+
+        
+
+        
+          
+            <span class="post-comments-count">
+              &nbsp; | &nbsp;
+              <a href="/2015/01/15/redis-weibo-1/#comments" itemprop="discussionUrl">
+                <span class="post-comments-count ds-thread-count" data-thread-key="2015/01/15/redis-weibo-1/" itemprop="commentsCount"></span>
+              </a>
+            </span>
+          
+        
+      </div>
+    </header>
+
+    <div class="post-body">
+
+      
+      
+
+      
+        
+          <span itemprop="articleBody"><p>今天学到了一个redis的应用场景，就跟大家来分享下。<br>微博上有个点赞的功能，每一条微博都能看到是哪些人点了赞<br>用redis来实现这个功能的话，有下面几种方案</p>
+<h3 id="只用hash来实现">只用hash来实现</h3><p>我先把代码写出来再解释吧：</p>
+<pre><code>&lt;?php
+
+<span class="variable">$id</span> = <span class="number">123456</span>;
+
+<span class="variable">$userKey</span> = <span class="variable">$id</span><span class="decorator">%100</span>;
+<span class="variable">$hashKey</span> = <span class="string">"w:"</span>.(<span class="variable">$id-</span><span class="variable">$id</span><span class="decorator">%100</span>)/<span class="number">100</span>;
+
+<span class="variable">$redis</span> = new Redis;
+<span class="variable">$redis-</span>&gt;connect(<span class="string">'127.0.0.1'</span>);
+
+<span class="variable">$redis-</span>&gt;hset(<span class="variable">$hashKey</span>, <span class="variable">$userKey</span>, <span class="string">"1,2,3,4"</span>);
+</code></pre><p>当点赞的用户少于50人时可以这种方式，当大于 50 人时需要用下面的方式</p>
+<h3 id="用_hash_加_set_的方式">用 hash 加 set 的方式</h3><p>hash 里存 set 的 key, 代码如下</p>
+<pre><code><span class="variable">$id</span> = <span class="number">123456</span>;
+
+<span class="variable">$userKey</span> = <span class="variable">$id</span><span class="decorator">%100</span>;
+<span class="variable">$hashKey</span> = <span class="string">"w:"</span>.(<span class="variable">$id-</span><span class="variable">$id</span><span class="decorator">%100</span>)/<span class="number">100</span>;
+<span class="variable">$setKey</span> = <span class="string">"u:"</span>.<span class="variable">$id</span>;
+
+<span class="variable">$redis</span> = new Redis;
+<span class="variable">$redis-</span>&gt;connect(<span class="string">'127.0.0.1'</span>);
+
+<span class="variable">$redis-</span>&gt;hset(<span class="variable">$hashKey</span>, <span class="variable">$userKey</span>, <span class="variable">$setKey</span>);
+
+<span class="variable">$redis-</span>&gt;sAdd(<span class="variable">$setKey</span>, <span class="string">"1"</span>);
+<span class="variable">$redis-</span>&gt;sAdd(<span class="variable">$setKey</span>, <span class="string">"2"</span>);
+<span class="variable">$redis-</span>&gt;sAdd(<span class="variable">$setKey</span>, <span class="string">"3"</span>);
+</code></pre><p>当然如果你要求点了赞的用户要按时间排序，这时候就要用到zset了</p>
+<h3 id="用zset_实现">用zset 实现</h3><p>代码如下：</p>
+<pre><code><span class="variable">$id</span> = <span class="number">123456</span>;
+
+<span class="variable">$zsetKey</span> = <span class="string">"zu:"</span>.<span class="variable">$id</span>;
+
+<span class="variable">$redis</span> = new Redis;
+<span class="variable">$redis-</span>&gt;connect(<span class="string">'127.0.0.1'</span>);
+
+<span class="variable">$redis-</span>&gt;zAdd(<span class="variable">$zsetKey</span>,microtime(<span class="literal">true</span>),<span class="string">"1"</span>); 
+<span class="variable">$redis-</span>&gt;zAdd(<span class="variable">$zsetKey</span>,microtime(<span class="literal">true</span>),<span class="string">"2"</span>); 
+<span class="variable">$redis-</span>&gt;zAdd(<span class="variable">$zsetKey</span>,microtime(<span class="literal">true</span>),<span class="string">"3"</span>); 
+</code></pre></span>
+        
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <header class="post-header">
+
+      
+      
+        <h1 class="post-title" itemprop="name headline">
+          
+          
+            
               <a class="post-title-link" href="/2015/01/14/mysql-clear-duplicate-data/" itemprop="url">
                 mysql 清除重复数据
               </a>
@@ -916,77 +1025,6 @@ group = www
 
 
     
-      
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      
-      
-        <h1 class="post-title" itemprop="name headline">
-          
-          
-            
-              <a class="post-title-link" href="/2014/12/12/linux-show-kernel-version/" itemprop="url">
-                Linux 查看内核版本操作系统位数
-              </a>
-            
-          
-        </h1>
-      
-
-      <div class="post-meta">
-        <span class="post-time">
-          发表于
-          <time itemprop="dateCreated" datetime="2014-12-12T11:04:55+08:00" content="2014-12-12">
-            2014-12-12
-          </time>
-        </span>
-
-        
-
-        
-          
-            <span class="post-comments-count">
-              &nbsp; | &nbsp;
-              <a href="/2014/12/12/linux-show-kernel-version/#comments" itemprop="discussionUrl">
-                <span class="post-comments-count ds-thread-count" data-thread-key="2014/12/12/linux-show-kernel-version/" itemprop="commentsCount"></span>
-              </a>
-            </span>
-          
-        
-      </div>
-    </header>
-
-    <div class="post-body">
-
-      
-      
-
-      
-        
-          <span itemprop="articleBody"><pre><code>uname -<span class="literal">a</span>
-</code></pre><p>返回 Linux a6aa314cd9c9 3.10.62-1.el6.elrepo.x86_64 #1 SMP Sun Dec 7 10:24:28 EST 2014 x86_64 x86_64 x86_64 GNU/Linux</p>
-<p>x86_64 字样表示系统版本为 64 位</p>
-</span>
-        
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
   </section>
 
   
@@ -1025,7 +1063,7 @@ group = www
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/archives">
-              <span class="site-state-item-count">56</span>
+              <span class="site-state-item-count">57</span>
               <span class="site-state-item-name">日志</span>
             </a>
           </div>
